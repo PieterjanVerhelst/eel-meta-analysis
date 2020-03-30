@@ -19,6 +19,9 @@ For this meta-analysis, data from 18 projects and 9 countries have been centrali
 * `/raw:`
 	+ `raw_detection_data.csv`: dataset containing the raw detection data
 	+ `eel_meta_data.csv`: dataset containing the meta-data on the tagged eels
+	+ `/stour:`
+		+ `stour_data.csv`: dataset containing the raw detection data from the River Stour, '2013_stour' project
+		+ `stour_eel_meta.csv`: dataset containing the eel meta-data from the River Stour, '2013_stour' project
 
 * `/interim:`
 
