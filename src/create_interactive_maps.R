@@ -9,8 +9,8 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 devtools::install_github("ropensci/rnaturalearthhires")
 library(rnaturalearthhires)
-library(rgeos)
 
+#library(rgeos)
 #library(leaflet)
 #library(htmltools)
 #library(htmlwidgets)
@@ -157,27 +157,37 @@ frome_map
 #=================================================================
 
 
+# 2012_leopoldkanaal ####
+leopoldkanaal <- filter(data, animal_project_code == "2012_leopoldkanaal")
+leopoldkanaal$day <- as.Date(leopoldkanaal$date_time)
+leopoldkanaal <- select(leopoldkanaal, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+unique(leopoldkanaal$tag_id) # 92 detected eels, 
+
+# Create sf
+spatial_leopoldkanaal <- st_as_sf(leopoldkanaal,
+                          coords = c(8:9),
+                          crs = 4326)  # WGS84
+
+# Select country of project
+# This enables the code to run faster, instead of using the 'world' data frame
+belgium <- filter(world, name_long == "Belgium")   
+
+# Create and save interactive map
+leopoldkanaal_map <- tm_shape(belgium) +
+  tm_basemap() +    
+  tm_borders() +
+  tm_shape(spatial_frome) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 46) +
+  tmap_options(limits = c(facets.view = 92))
+leopoldkanaal_map
+
+
+#=================================================================
 
 
 
 
 
-
-
-
-library(mapview)
-library(leaflet)
-
-mapview(grotenete_map)
-
-
-m <- leaflet(gudena_map) %>%
-  addTiles() %>%
-  addMarkers(lng = 9,0,
-             lat = 55,0)
-m
-## create standalone .html
-mapshot(m, url = paste0(getwd(), "/map.html"))
 
 
 
