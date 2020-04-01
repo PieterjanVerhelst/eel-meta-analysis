@@ -5,16 +5,7 @@
 # Packages
 library(sf)
 library(tmap)
-library(rnaturalearth)
-library(rnaturalearthdata)
-devtools::install_github("ropensci/rnaturalearthhires")
-library(rnaturalearthhires)
 
-#library(rgeos)
-#library(leaflet)
-#library(htmltools)
-#library(htmlwidgets)
-#library(plotly)
 
 
 # Source code to upload and process data
@@ -29,21 +20,12 @@ unique(data$animal_project_code)
 
 
 
-# Upload world map with all countries
-# Plot Europe
-world <- ne_countries(scale = "large", returnclass = "sf")
-class(world)
-
-tm_shape(world) +
-  tm_fill() +
-  tm_borders() 
-
 # Set interactive view
 ttm() # switches between static plot and interactive viewing
 
 
-
 # Create subset per project
+
 
 # 2004_gudena ####
 gudena <- filter(data, animal_project_code == "2004_Gudena")
@@ -56,15 +38,8 @@ spatial_gudena <- st_as_sf(gudena,
                            coords = c(8:9),
                            crs = 4326)  # WGS84
 
-# Select country of project
-# This enables the code to run faster, instead of using the 'world' data frame
-denmark <- filter(world, name_long == "Denmark")   
-
 # Create and save interactive map
-gudena_map <- tm_shape(denmark) +
-            tm_basemap() +    
-            tm_borders() +
-            tm_shape(spatial_gudena) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+gudena_map <- tm_shape(spatial_gudena) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
             tm_facets(by = "tag_id",  ncol = 2, nrow = 32) +
             tmap_options(limits = c(facets.view = 63))
 gudena_map
@@ -84,15 +59,8 @@ spatial_albertkanaal <- st_as_sf(albertkanaal,
                            coords = c(8:9),
                            crs = 4326)  # WGS84
 
-# Select country of project
-# This enables the code to run faster, instead of using the 'world' data frame
-belgium <- filter(world, name_long == "Belgium")   
-
 # Create and save interactive map
-albertkanaal_map <- tm_shape(belgium) +
-  tm_basemap() +    
-  tm_borders() +
-  tm_shape(spatial_albertkanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+albertkanaal_map <- tm_shape(spatial_albertkanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 80) +
   tmap_options(limits = c(facets.view = 160))
 albertkanaal_map
@@ -112,15 +80,8 @@ spatial_grotenete <- st_as_sf(grotenete,
                                  coords = c(8:9),
                                  crs = 4326)  # WGS84
 
-# Select country of project
-# This enables the code to run faster, instead of using the 'world' data frame
-belgium <- filter(world, name_long == "Belgium")   
-
 # Create and save interactive map
-grotenete_map <- tm_shape(belgium) +
-  tm_basemap() +    
-  tm_borders() +
-  tm_shape(spatial_grotenete) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+grotenete_map <- tm_shape(spatial_grotenete) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 4) +
   tmap_options(limits = c(facets.view = 7))
 grotenete_map
@@ -140,15 +101,8 @@ spatial_frome <- st_as_sf(frome,
                               coords = c(8:9),
                               crs = 4326)  # WGS84
 
-# Select country of project
-# This enables the code to run faster, instead of using the 'world' data frame
-uk <- filter(world, name_long == "United Kingdom")   
-
 # Create and save interactive map
-frome_map <- tm_shape(uk) +
-  tm_basemap() +    
-  tm_borders() +
-  tm_shape(spatial_frome) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+frome_map <- tm_shape(spatial_frome) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 24) +
   tmap_options(limits = c(facets.view = 48))
 frome_map
@@ -168,15 +122,8 @@ spatial_leopoldkanaal <- st_as_sf(leopoldkanaal,
                           coords = c(8:9),
                           crs = 4326)  # WGS84
 
-# Select country of project
-# This enables the code to run faster, instead of using the 'world' data frame
-belgium <- filter(world, name_long == "Belgium")   
-
 # Create and save interactive map
-leopoldkanaal_map <- tm_shape(belgium) +
-  tm_basemap() +    
-  tm_borders() +
-  tm_shape(spatial_leopoldkanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+leopoldkanaal_map <- tm_shape(spatial_leopoldkanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 46) +
   tmap_options(limits = c(facets.view = 92))
 leopoldkanaal_map
