@@ -39,7 +39,7 @@ For this meta-analysis, data from 18 projects and 9 countries have been centrali
 	* obtain meta-data on tagged eels `eel_meta_data.csv`
 	* obtain meta-data on deployments `deployments.csv` (station names and positions)
 2. `attach_stour.R`: Merge data from the River Stour to the dataset
-3. `process_data.R`: Data processing by filling in missing values and removing ghost detections
+3. `process_data.R`: Data processing by filling in missing values and removing false detections
 4. `create_interactive_maps.R`: Create interactive html widget maps per project
 
 
