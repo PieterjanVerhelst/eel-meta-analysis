@@ -135,7 +135,7 @@ leopoldkanaal_map
 loire <- filter(data, animal_project_code == "2011_Loire")
 loire$day <- as.Date(loire$date_time)
 loire <- select(loire, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
-unique(loire$tag_id) # 50 detected eels, 
+unique(loire$tag_id) # 50 detected eels
 
 # Create sf
 spatial_loire <- st_as_sf(loire,
@@ -144,13 +144,9 @@ spatial_loire <- st_as_sf(loire,
 
 # Create and save interactive map
 loire_map <- tm_shape(spatial_loire) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 25) +
-  tmap_options(limits = c(facets.view = 50))
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 25, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 50), max.categories = 33) 
 loire_map
-
-
-
-
 
 
 
