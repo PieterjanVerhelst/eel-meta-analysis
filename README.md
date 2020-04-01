@@ -31,12 +31,24 @@ For this meta-analysis, data from 18 projects and 9 countries have been centrali
 * `/external:`
 
 
-
 ### Data-analyse
 
 * `/src:`
-1. download_data.R: Download data from silver eel meta-analysis from ETN database via RStudio LifeWatch server
+1. `download_data.R`: Download data from silver eel meta-analysis from ETN database via RStudio LifeWatch server
 	* obtain detection dataset `raw_detection_data.csv`
 	* obtain meta-data on tagged eels `eel_meta_data.csv`
 	* obtain meta-data on deployments `deployments.csv` (station names and positions)
-2. attach_stour.R: Merge data from the River Stour to the dataset
+2. `attach_stour.R`: Merge data from the River Stour to the dataset
+3. `create_interactive_maps.R`: Create interactive html widget maps per project
+
+
+### Figures
+
+* `/figures:`
+	+ `/html_interactive_maps:` interactive html widget maps per project
+
+
+
+
+
+
