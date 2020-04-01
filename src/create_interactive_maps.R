@@ -70,7 +70,7 @@ gudena_map <- tm_shape(denmark) +
 gudena_map
 
 
-#=================================================================
+
 
 
 # 2013_albertkanaal ####
@@ -98,7 +98,7 @@ albertkanaal_map <- tm_shape(belgium) +
 albertkanaal_map
 
 
-#=================================================================
+
 
 
 # 2019_Grotenete ####
@@ -126,7 +126,7 @@ grotenete_map <- tm_shape(belgium) +
 grotenete_map
 
 
-#=================================================================
+
 
 
 # 2014_Frome ####
@@ -154,7 +154,7 @@ frome_map <- tm_shape(uk) +
 frome_map
 
 
-#=================================================================
+
 
 
 # 2012_leopoldkanaal ####
@@ -176,13 +176,13 @@ belgium <- filter(world, name_long == "Belgium")
 leopoldkanaal_map <- tm_shape(belgium) +
   tm_basemap() +    
   tm_borders() +
-  tm_shape(spatial_frome) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_shape(spatial_leopoldkanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 46) +
   tmap_options(limits = c(facets.view = 92))
 leopoldkanaal_map
 
 
-#=================================================================
+
 
 
 
