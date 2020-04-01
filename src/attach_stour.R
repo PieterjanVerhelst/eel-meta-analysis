@@ -13,13 +13,15 @@ library(lubridate)
 data <- read_csv("./data/raw/raw_detection_data.csv")
 data$X1 <- NULL
 
-# Upload Stour Data
+# Upload Stour data
 stour_detections <- read_csv("./data/raw/stour/stour_data.csv")
 stour_detections$date_time <- dmy_hms(stour_detections$date_time)
 
 
 # Bind datasets
 data <- rbind(data, stour_detections)
+
+rm(stour_detections)
 
 
 
@@ -29,7 +31,7 @@ data <- rbind(data, stour_detections)
 eels <- read_csv("./data/raw/eel_meta_data.csv")
 eels$X1 <- NULL
 
-# Upload Stour Data
+# Upload Stour data
 stour_eels <- read_csv("./data/raw/stour/stour_eel_meta.csv")
 stour_eels <- select(stour_eels, projectName,
                      scientificName,
@@ -74,7 +76,34 @@ stour_eels <- stour_eels %>%
 # Bind datasets
 eels <- rbind(eels, stour_eels)
 
+rm(stour_eels)
 
 
 
+# 3. Deployment meta-data ####
+
+# Upload ETN meta-data
+deployments <- read_csv("./data/raw/deployments.csv")
+deployments$X1 <- NULL
+
+# Upload Stour data
+stour_deployments <- read_csv("./data/raw/stour/stour_deployments.csv")
+stour_deployments <- select(stour_deployments, 
+                            projectName,
+                            stationName,
+                            deployLat,
+                            deployLong)
+
+stour_deployments <- stour_deployments %>%
+  rename(network_project_code = projectName,
+         station_name = stationName,
+         deploy_latitude = deployLat,
+         deploy_longitude = deployLong)
+
+
+# Bind datasets
+deployments <- rbind(deployments, stour_deployments)
+
+
+#write.csv(deployments, "./data/interim/deployments.csv")
 

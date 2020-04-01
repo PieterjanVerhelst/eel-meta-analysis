@@ -19,11 +19,14 @@ For this meta-analysis, data from 18 projects and 9 countries have been centrali
 * `/raw:`
 	+ `raw_detection_data.csv`: dataset containing the raw detection data
 	+ `eel_meta_data.csv`: dataset containing the meta-data on the tagged eels
+	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN
 	+ `/stour:`
 		+ `stour_data.csv`: dataset containing the raw detection data from the River Stour, '2013_stour' project
 		+ `stour_eel_meta.csv`: dataset containing the eel meta-data from the River Stour, '2013_stour' project
+		+ `stour_deployments.csv`: dataset containing the deployment meta-data from the River Stour, '2013_stour' project
 
 * `/interim:`
+	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN and Stour project
 
 * `/external:`
 
@@ -35,4 +38,5 @@ For this meta-analysis, data from 18 projects and 9 countries have been centrali
 1. download_data.R: Download data from silver eel meta-analysis from ETN database via RStudio LifeWatch server
 	* obtain detection dataset `raw_detection_data.csv`
 	* obtain meta-data on tagged eels `eel_meta_data.csv`
+	* obtain meta-data on deployments `deployments.csv` (station names and positions)
 2. attach_stour.R: Merge data from the River Stour to the dataset
