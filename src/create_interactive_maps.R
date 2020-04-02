@@ -273,4 +273,27 @@ semp_map
 
 
 
+# DAK ####
+dak <- filter(data, animal_project_code == "DAK")
+dak$day <- as.Date(dak$date_time)
+dak <- select(dak, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+unique(dak$tag_id) # 45 detected eels
+
+# Create sf
+spatial_dak <- st_as_sf(dak,
+                         coords = c(8:9),
+                         crs = 4326)  # WGS84
+
+# Create and save interactive map
+dak_map <- tm_shape(spatial_dak) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 23, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 45), max.categories = 50) 
+dak_map
+
+
+
+
+
+
+
 
