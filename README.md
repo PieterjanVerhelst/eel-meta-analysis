@@ -9,7 +9,7 @@ Migration speed and timing of European eel vary according to
 2. size and sex within a species;
 3. the presence and types of migration barriers.
 
-For this meta-analysis, data from 18 projects and 9 countries have been centralized: Belgium, Denmark, France, Germany, Lithuania, Norway, Portugal, The Netherlands, UK
+For this meta-analysis, data from 17 projects/locations and 9 countries have been centralized: Belgium (4), Denmark (1), France (3), Germany (1), Lithuania (1), Norway (1), Portugal (1), The Netherlands (3), UK (2)
 
 
 ## Project structure
