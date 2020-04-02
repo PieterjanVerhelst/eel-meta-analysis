@@ -18,6 +18,7 @@ data$deploy_longitude <- ifelse(data$animal_project_code == '2012_leopoldkanaal'
 # 2014_Frome ####
 
 # False detections in the Albert Canal (S-stations)
+frome <- filter(data, animal_project_code == "2014_Frome")
 unique(frome$station_name)
 # [1] "F1"  "F2"  "F6"  "F7"  "F8"  "F5"  "F3"  "F4"  "S18" "S15" "S10" "S12"
 
@@ -26,7 +27,7 @@ data <- data[!(data$animal_project_code == "2014_Frome" & data$station_name=="S1
 data <- data[!(data$animal_project_code == "2014_Frome" & data$station_name=="S15"),]
 data <- data[!(data$animal_project_code == "2014_Frome" & data$station_name=="S18"),]
 
-
+rm(frome)
 
 
 
