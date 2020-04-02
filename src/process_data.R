@@ -72,3 +72,33 @@ data <- data[!(data$animal_project_code == "2011_Warnow" & data$station_name=="P
 
 
 
+# SEMP ####
+
+# False detections in Albert Canal (ak-30, S14, S15), bpns (PC4C-A7-2, bpns-CPowerReefballs, PC4C-C09-2, PC4C-F05-3) and Norway (4, 9, 13)
+#semp <- filter(data, animal_project_code == "SEMP")
+#unique(semp$station_name)
+#[1] "above-kaunas-2"       "above-kaunas-3"       "above-kaunas-4"       "above-kaunas-1"      
+#[5] "PC4C-A7-2"            "Rusne-1"              "Rusne-2"              "Rusne-3"             
+#[9] "Rusne-4"              "klaipeda-1"           "klaipeda-4"           "klaipeda-2"          
+#[13] "klaipeda-3"           "below-kaunas-2"       "below-kaunas-3"       "below-kaunas-4"      
+#[17] "below-kaunas-1"       "bpns-CPowerReefballs" "S14"                  "S15"                 
+#[21] "ak-30"                "PC4C-C09-2"           "PC4C-F05-3"           "13"                  
+#[25] "4"                    "9"   
+
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="ak-30"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="S14"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="S15"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="PC4C-A7-2"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="bpns-CPowerReefballs"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="PC4C-C09-2"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="PC4C-F05-3"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="4"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="9"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="13"),]
+
+
+
+
+
+
+
