@@ -267,7 +267,7 @@ stour_map
 semp <- filter(data, animal_project_code == "SEMP")
 semp$day <- as.Date(semp$date_time)
 semp <- select(semp, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
-unique(semp$tag_id) # 145 detected eels
+unique(semp$tag_id) # 47 detected eels
 
 # Create sf
 spatial_semp <- st_as_sf(semp,
@@ -276,8 +276,8 @@ spatial_semp <- st_as_sf(semp,
 
 # Create and save interactive map
 semp_map <- tm_shape(spatial_semp) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 73, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 145), max.categories = 50) 
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 24, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 47), max.categories = 50) 
 semp_map
 
 
