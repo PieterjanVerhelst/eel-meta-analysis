@@ -10,6 +10,7 @@ library(tmap)
 
 # Source code to upload and process data
 source('./src/attach_stour.R')
+source('./src/process_data.R')
 
 # Animal project codes
 unique(data$animal_project_code)
@@ -40,12 +41,9 @@ spatial_gudena <- st_as_sf(gudena,
 
 # Create and save interactive map
 gudena_map <- tm_shape(spatial_gudena) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
-            tm_facets(by = "tag_id",  ncol = 2, nrow = 32) +
-            tmap_options(limits = c(facets.view = 63))
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 32, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 63), max.categories = 33) 
 gudena_map
-
-
-
 
 
 # 2013_albertkanaal ####
@@ -61,8 +59,8 @@ spatial_albertkanaal <- st_as_sf(albertkanaal,
 
 # Create and save interactive map
 albertkanaal_map <- tm_shape(spatial_albertkanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 80) +
-  tmap_options(limits = c(facets.view = 160))
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 80, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 160), max.categories = 50)
 albertkanaal_map
 
 
@@ -82,8 +80,8 @@ spatial_grotenete <- st_as_sf(grotenete,
 
 # Create and save interactive map
 grotenete_map <- tm_shape(spatial_grotenete) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 4) +
-  tmap_options(limits = c(facets.view = 7))
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 4, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 7), max.categories = 50)
 grotenete_map
 
 
@@ -103,8 +101,8 @@ spatial_frome <- st_as_sf(frome,
 
 # Create and save interactive map
 frome_map <- tm_shape(spatial_frome) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 24) +
-  tmap_options(limits = c(facets.view = 48))
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 24, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 48), max.categories = 50)
 frome_map
 
 
@@ -124,8 +122,8 @@ spatial_leopoldkanaal <- st_as_sf(leopoldkanaal,
 
 # Create and save interactive map
 leopoldkanaal_map <- tm_shape(spatial_leopoldkanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 46) +
-  tmap_options(limits = c(facets.view = 92))
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 46, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 92), max.categories = 50)
 leopoldkanaal_map
 
 
@@ -147,6 +145,69 @@ loire_map <- tm_shape(spatial_loire) + tm_dots(col = "day", palette = "Spectral"
   tm_facets(by = "tag_id",  ncol = 2, nrow = 25, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 50), max.categories = 33) 
 loire_map
+
+
+
+
+# PTN-Silver-eel-Mondego ####
+mondego <- filter(data, animal_project_code == "PTN-Silver-eel-Mondego")
+mondego$day <- as.Date(mondego$date_time)
+mondego <- select(mondego, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+unique(mondego$tag_id) # 37 detected eels
+
+# Create sf
+spatial_mondego <- st_as_sf(mondego,
+                          coords = c(8:9),
+                          crs = 4326)  # WGS84
+
+# Create and save interactive map
+mondego_map <- tm_shape(spatial_mondego) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 19, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 37), max.categories = 50) 
+mondego_map
+
+
+
+
+
+# ESGL ####
+esgl <- filter(data, animal_project_code == "ESGL")
+esgl$day <- as.Date(esgl$date_time)
+esgl <- select(esgl, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+unique(esgl$tag_id) # 44 detected eels
+
+# Create sf
+spatial_esgl <- st_as_sf(esgl,
+                            coords = c(8:9),
+                            crs = 4326)  # WGS84
+
+# Create and save interactive map
+esgl_map <- tm_shape(spatial_esgl) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 22, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 44), max.categories = 50) 
+esgl_map
+
+
+
+
+# 2017_Fremur ####
+fremur <- filter(data, animal_project_code == "2017_Fremur")
+fremur$day <- as.Date(fremur$date_time)
+fremur <- select(fremur, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+unique(fremur$tag_id) # 22 detected eels
+
+# Create sf
+spatial_fremur <- st_as_sf(fremur,
+                         coords = c(8:9),
+                         crs = 4326)  # WGS84
+
+# Create and save interactive map
+fremur_map <- tm_shape(spatial_fremur) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 11, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 22), max.categories = 50) 
+fremur_map
+
+
 
 
 
