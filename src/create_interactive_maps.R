@@ -238,7 +238,7 @@ warnow_map
 stour <- filter(data, animal_project_code == "2013_stour")
 stour$day <- as.Date(stour$date_time)
 stour <- select(stour, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
-unique(stour$tag_id) # 145 detected eels
+unique(stour$tag_id) # 101 detected eels
 
 # Create sf
 spatial_stour <- st_as_sf(stour,
@@ -247,8 +247,8 @@ spatial_stour <- st_as_sf(stour,
 
 # Create and save interactive map
 stour_map <- tm_shape(spatial_stour) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 73, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 145), max.categories = 50) 
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 51, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 101), max.categories = 50) 
 stour_map
 
 
