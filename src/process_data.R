@@ -7,17 +7,98 @@
 
 # receiver VR2W-115438 doesn't have station name and coordinates
 # bh-9, 51.2591163, 3.5789817
-leopoldkanaal <- filter(data, animal_project_code == "2012_leopoldkanaal")
-no_lon <- leopoldkanaal[is.na(leopoldkanaal$deploy_longitude),]
+data$station_name <- ifelse(data$animal_project_code == '2012_leopoldkanaal' & data$receiver_id == "VR2W-115438" & is.na(data$station_name), "bh-9", data$station_name)   
 
-sub_data <- filter(data, animal_project_code == "2012_leopoldkanaal" |
-                     animal_project_code == "2014_Frome")
+data$deploy_latitude <- ifelse(data$animal_project_code == '2012_leopoldkanaal' & data$receiver_id == "VR2W-115438" & is.na(data$deploy_latitude), 51.2591163, data$deploy_latitude)   
+
+data$deploy_longitude <- ifelse(data$animal_project_code == '2012_leopoldkanaal' & data$receiver_id == "VR2W-115438" & is.na(data$deploy_longitude), 3.5789817, data$deploy_longitude)   
+
+# False detections in the Albert Canal (S07 and S12), Zeeschelde (s-wetteren) and bpns (PC4C-B10-2)
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="S07"),]
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="S12"),]
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="s-Wetteren"),]
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="PC4C-B10-2"),]
 
 
-for (i in 1:dim(sub_data)[1]){
-  if (sub_data$animal_project_code[1] == "2012_leopoldkanaal" & sub_data$station_name[1] == 'NA'){
-    sub_data$station_name[i] = "bh_9"
-  }   }
+
+# 2014_Frome ####
+
+# False detections in the Albert Canal (S-stations)
+#frome <- filter(data, animal_project_code == "2014_Frome")
+#unique(frome$station_name)
+# [1] "F1"  "F2"  "F6"  "F7"  "F8"  "F5"  "F3"  "F4"  "S18" "S15" "S10" "S12"
+
+data <- data[!(data$animal_project_code == "2014_Frome" & data$station_name=="S10"),]
+data <- data[!(data$animal_project_code == "2014_Frome" & data$station_name=="S12"),]
+data <- data[!(data$animal_project_code == "2014_Frome" & data$station_name=="S15"),]
+data <- data[!(data$animal_project_code == "2014_Frome" & data$station_name=="S18"),]
 
 
-no_lon2 <- sub_data[is.na(sub_data$deploy_longitude),]
+
+
+# PTN-Silver-eel-Mondego ####
+
+# False detection in the Albert Canal (S09) and North Sea (PC4C-B6-4)
+data <- data[!(data$animal_project_code == "PTN-Silver-eel-Mondego" & data$station_name=="S09"),]
+data <- data[!(data$animal_project_code == "PTN-Silver-eel-Mondego" & data$station_name=="PC4C-B6-4"),]
+
+
+
+# ESGL ####
+
+# 2 false detection in the Albert Canal (HH5)
+data <- data[!(data$animal_project_code == "ESGL" & data$station_name=="HH5"),]
+
+
+
+
+# 2011_Warnow ####
+
+# False detections in Albert Canal (ak-29, ak-33, S14, S16, S18) and bpns (bpns-CNB03, PC4C-A7-3 and PC4C-B10-6)
+# warnow <- filter(data, animal_project_code == "2011_Warnow")
+# unique(warnow$station_name)
+#[1] "W5"         "W6"         "W2"         "W7"         "W8"         "W3"         "W4"         "W1"        
+#[9] "PC4C-B10-6" "S14"        "PC4C-A7-3"  "ak-33"      "S18"        "S16"        "ak-29"      "bpns-CNB03"
+
+data <- data[!(data$animal_project_code == "2011_Warnow" & data$station_name=="ak-29"),]
+data <- data[!(data$animal_project_code == "2011_Warnow" & data$station_name=="ak-33"),]
+data <- data[!(data$animal_project_code == "2011_Warnow" & data$station_name=="S14"),]
+data <- data[!(data$animal_project_code == "2011_Warnow" & data$station_name=="S16"),]
+data <- data[!(data$animal_project_code == "2011_Warnow" & data$station_name=="S18"),]
+data <- data[!(data$animal_project_code == "2011_Warnow" & data$station_name=="bpns-CNB03"),]
+data <- data[!(data$animal_project_code == "2011_Warnow" & data$station_name=="PC4C-A7-3"),]
+data <- data[!(data$animal_project_code == "2011_Warnow" & data$station_name=="PC4C-B10-6"),]
+
+
+
+
+# SEMP ####
+
+# False detections in Albert Canal (ak-30, S14, S15), bpns (PC4C-A7-2, bpns-CPowerReefballs, PC4C-C09-2, PC4C-F05-3) and Norway (4, 9, 13)
+#semp <- filter(data, animal_project_code == "SEMP")
+#unique(semp$station_name)
+#[1] "above-kaunas-2"       "above-kaunas-3"       "above-kaunas-4"       "above-kaunas-1"      
+#[5] "PC4C-A7-2"            "Rusne-1"              "Rusne-2"              "Rusne-3"             
+#[9] "Rusne-4"              "klaipeda-1"           "klaipeda-4"           "klaipeda-2"          
+#[13] "klaipeda-3"           "below-kaunas-2"       "below-kaunas-3"       "below-kaunas-4"      
+#[17] "below-kaunas-1"       "bpns-CPowerReefballs" "S14"                  "S15"                 
+#[21] "ak-30"                "PC4C-C09-2"           "PC4C-F05-3"           "13"                  
+#[25] "4"                    "9"   
+
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="ak-30"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="S14"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="S15"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="PC4C-A7-2"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="bpns-CPowerReefballs"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="PC4C-C09-2"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="PC4C-F05-3"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="4"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="9"),]
+data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="13"),]
+
+
+
+
+
+
+
