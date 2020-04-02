@@ -46,6 +46,9 @@ gudena_map <- tm_shape(spatial_gudena) + tm_dots(col = "day", palette = "Spectra
 gudena_map
 
 
+
+
+
 # 2013_albertkanaal ####
 albertkanaal <- filter(data, animal_project_code == "2013_albertkanaal")
 albertkanaal$day <- as.Date(albertkanaal$date_time)
