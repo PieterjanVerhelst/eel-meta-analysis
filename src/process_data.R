@@ -13,6 +13,12 @@ data$deploy_latitude <- ifelse(data$animal_project_code == '2012_leopoldkanaal' 
 
 data$deploy_longitude <- ifelse(data$animal_project_code == '2012_leopoldkanaal' & data$receiver_id == "VR2W-115438" & is.na(data$deploy_longitude), 3.5789817, data$deploy_longitude)   
 
+# False detections in the Albert Canal (S07 and S12), Zeeschelde (s-wetteren) and bpns (PC4C-B10-2)
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="S07"),]
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="S12"),]
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="s-Wetteren"),]
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="PC4C-B10-2"),]
+
 
 
 # 2014_Frome ####
