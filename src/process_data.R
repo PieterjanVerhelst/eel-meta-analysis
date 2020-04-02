@@ -31,9 +31,11 @@ rm(frome)
 
 
 
+# PTN-Silver-eel-Mondego ####
 
-
-
+# False detection in the Albert Canal (S09) and North Sea (PC4C-B6-4)
+data <- data[!(data$animal_project_code == "PTN-Silver-eel-Mondego" & data$station_name=="S09"),]
+data <- data[!(data$animal_project_code == "PTN-Silver-eel-Mondego" & data$station_name=="PC4C-B6-4"),]
 
 
 
