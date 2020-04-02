@@ -303,6 +303,42 @@ dak_map
 
 
 
+# 2015_phd_verhelst ####
+verhelst <- filter(data, animal_project_code == "2015_phd_verhelst")
+verhelst$day <- as.Date(verhelst$date_time)
+verhelst <- select(verhelst, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+unique(verhelst$tag_id) # 135 detected eels
+
+# Create sf
+spatial_verhelst <- st_as_sf(verhelst,
+                        coords = c(8:9),
+                        crs = 4326)  # WGS84
+
+# Create and save interactive map
+verhelst_map <- tm_shape(spatial_verhelst) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 68, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 135), max.categories = 50) 
+verhelst_map
+
+
+
+
+# Noordzeekanaal ####
+noordzeekanaal <- filter(data, animal_project_code == "Noordzeekanaal")
+noordzeekanaal$day <- as.Date(noordzeekanaal$date_time)
+noordzeekanaal <- select(noordzeekanaal, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+unique(noordzeekanaal$tag_id) # 300 detected eels
+
+# Create sf
+spatial_verhelst <- st_as_sf(noordzeekanaal,
+                             coords = c(8:9),
+                             crs = 4326)  # WGS84
+
+# Create and save interactive map
+noordzeekanaal_map <- tm_shape(spatial_noordzeekanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 150, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 300), max.categories = 50) 
+noordzeekanaal_map
 
 
 
