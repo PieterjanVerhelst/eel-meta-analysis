@@ -19,6 +19,13 @@ unique(data$animal_project_code)
 #[9] "2011_Warnow"            "DAK"                    "2019_Grotenete"         "Noordzeekanaal"        
 #[13] "2017_Fremur"            "2011_Loire"             "2013_stour"   
 
+# Return number of detections, eels and detections per eel for each project
+number <- data %>%
+  group_by(animal_project_code) %>%
+  summarise(tot_detections = n(),
+            tot_eels = n_distinct(tag_id))
+number$detpereel <- number$tot_detections  /  number$tot_eels
+
 
 
 # Set interactive view
