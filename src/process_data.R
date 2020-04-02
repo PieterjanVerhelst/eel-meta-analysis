@@ -39,6 +39,17 @@ data <- data[!(data$animal_project_code == "PTN-Silver-eel-Mondego" & data$stati
 
 
 
+# ESGL ####
+
+# 2 false detection in the Albert Canal (HH5)
+data <- data[!(data$animal_project_code == "ESGL" & data$station_name=="HH5"),]
+
+
+
+
+
+
+
 
 
 
