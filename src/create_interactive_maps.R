@@ -211,4 +211,21 @@ fremur_map
 
 
 
+# 2011_Warnow ####
+warnow <- filter(data, animal_project_code == "2011_Warnow")
+warnow$day <- as.Date(warnow$date_time)
+warnow <- select(warnow, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+unique(warnow$tag_id) # 145 detected eels
+
+# Create sf
+spatial_warnow <- st_as_sf(warnow,
+                           coords = c(8:9),
+                           crs = 4326)  # WGS84
+
+# Create and save interactive map
+warnow_map <- tm_shape(spatial_warnow) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 73, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 145), max.categories = 50) 
+warnow_map
+
 
