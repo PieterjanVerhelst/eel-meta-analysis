@@ -47,3 +47,5 @@ additionals/
 # ignore folder with raw data (large files)
 data/raw/
 
+# ignore folder with figures data (large files)
+figures/
