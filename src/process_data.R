@@ -98,6 +98,25 @@ data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="13"),]
 
 
 
+# DAK ####
+
+# False detections of eel A69-1602-10860 in Markiezaatsmeer (Markiezaat-5), while tagged and released in Superpolder
+data <- data[!(data$tag_id == "A69-1602-10860" & data$station_name=="Markiezaat-5"),]
+
+
+
+# 2013_albertkanaal ####
+
+# False detections in France and Norway
+data <- data[!(data$tag_id == "A69-1105-100" & data$station_name=="F25"),]
+data <- data[!(data$tag_id == "A69-1105-104" & data$station_name=="F17"),]
+data <- data[!(data$tag_id == "A69-1601-26446" & data$station_name=="9"),]
+data <- data[!(data$tag_id == "A69-1601-26446" & data$station_name=="15"),]
+data <- data[!(data$tag_id == "A69-1601-26446" & data$station_name=="27"),]
+data <- data[!(data$tag_id == "A69-1601-38745" & data$station_name=="4"),]
+data <- data[!(data$tag_id == "A69-1601-38745" & data$station_name=="13"),]
+
+
 
 
 
