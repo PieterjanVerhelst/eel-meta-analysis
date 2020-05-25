@@ -401,3 +401,23 @@ mondego_map
 
 
 
+
+# EMMN ####
+emmn <- filter(data, animal_project_code == "EMMN")
+emmn$day <- as.Date(emmn$date_time)
+emmn <- select(emmn, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+emmn$date_time <- NULL
+emmn <- distinct(emmn)   # Select unique rows to reduce size of dataset
+unique(emmn$tag_id) # 7 detected eels
+
+# Create sf
+spatial_emmn <- st_as_sf(emmn,
+                         coords = c(7:8),
+                         crs = 4326)  # WGS84
+
+# Create and save interactive map
+emmn_map <- tm_shape(spatial_emmn) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 4, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 8), max.categories = 19) 
+emmn_map
+
