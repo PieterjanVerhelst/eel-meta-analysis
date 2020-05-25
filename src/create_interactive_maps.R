@@ -14,10 +14,11 @@ source('./src/process_data.R')
 
 # Animal project codes
 unique(data$animal_project_code)
-#[1] "2004_Gudena"            "2013_albertkanaal"      "2012_leopoldkanaal"     "SEMP"                  
-#[5] "PTN-Silver-eel-Mondego" "2014_Frome"             "2015_phd_verhelst"      "ESGL"                  
-#[9] "2011_Warnow"            "DAK"                    "2019_Grotenete"         "Noordzeekanaal"        
-#[13] "2017_Fremur"            "2011_Loire"             "2013_stour"   
+#[1] "2015_phd_verhelst"      "2013_albertkanaal"      "2014_Nene"              "EMMN"                   "2011_Loire"         
+#[6] "2004_Gudena"            "2012_leopoldkanaal"     "SEMP"                   "PTN-Silver-eel-Mondego" "2014_Frome"         
+#[11] "2019_Grotenete"         "ESGL"                   "2011_Warnow"            "DAK"                    "Noordzeekanaal"   
+#[16] "2017_Fremur"            "2013_stour"  
+
 
 # Return number of detections, eels and detections per eel for each project
 number <- data %>%
@@ -190,6 +191,29 @@ frome_map <- tm_shape(spatial_frome) + tm_dots(col = "day", palette = "Spectral"
   tm_facets(by = "tag_id",  ncol = 2, nrow = 24, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 48), max.categories = 19)
 frome_map
+
+
+
+
+
+# 2014_Nene ####
+nene <- filter(data, animal_project_code == "2014_Nene")
+nene$day <- as.Date(nene$date_time)
+nene <- select(nene, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+nene$date_time <- NULL
+nene <- distinct(nene)   # Select unique rows to reduce size of dataset
+unique(nene$tag_id) # 19 detected eels, 
+
+# Create sf
+spatial_nene <- st_as_sf(nene,
+                          coords = c(7:8),
+                          crs = 4326)  # WGS84
+
+# Create and save interactive map
+nene_map <- tm_shape(spatial_nene) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 10, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 20), max.categories = 19)
+nene_map
 
 
 
