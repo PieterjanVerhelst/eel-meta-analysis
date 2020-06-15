@@ -16,6 +16,8 @@ For this meta-analysis, data from 18 projects/locations and 9 countries have bee
 
 ### Data
 
+<mark>Update 15/06/2020</mark>
+
 * `/raw:`
 	+ `raw_detection_data.csv`: dataset containing the raw detection data
 	+ `eel_meta_data.csv`: dataset containing the meta-data on the tagged eels
