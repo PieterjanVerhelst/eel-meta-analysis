@@ -50,7 +50,8 @@ spatial_gudena <- st_as_sf(gudena,
                            crs = 4326)  # WGS84
 
 # Create and save interactive map
-gudena_map <- tm_shape(spatial_gudena) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+gudena_map <- tm_shape(spatial_gudena) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 32, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 63), max.categories = 19) 
 gudena_map
@@ -72,7 +73,8 @@ spatial_loire <- st_as_sf(loire,
                           crs = 4326)  # WGS84
 
 # Create and save interactive map
-loire_map <- tm_shape(spatial_loire) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+loire_map <- tm_shape(spatial_loire) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 25, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 50), max.categories = 19) 
 loire_map
@@ -95,7 +97,8 @@ spatial_warnow <- st_as_sf(warnow,
                            crs = 4326)  # WGS84
 
 # Create and save interactive map
-warnow_map <- tm_shape(spatial_warnow) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+warnow_map <- tm_shape(spatial_warnow) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 73, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 145), max.categories = 19) 
 warnow_map
@@ -118,7 +121,8 @@ spatial_leopoldkanaal <- st_as_sf(leopoldkanaal,
                                   crs = 4326)  # WGS84
 
 # Create and save interactive map
-leopoldkanaal_map <- tm_shape(spatial_leopoldkanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+leopoldkanaal_map <- tm_shape(spatial_leopoldkanaal) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 46, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 92), max.categories = 19)
 leopoldkanaal_map
@@ -141,7 +145,8 @@ spatial_albertkanaal <- st_as_sf(albertkanaal,
                            crs = 4326)  # WGS84
 
 # Create and save interactive map
-albertkanaal_map <- tm_shape(spatial_albertkanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+albertkanaal_map <- tm_shape(spatial_albertkanaal) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 80, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 160), max.categories = 19)
 albertkanaal_map
@@ -164,7 +169,8 @@ spatial_stour <- st_as_sf(stour,
                           crs = 4326)  # WGS84
 
 # Create and save interactive map
-stour_map <- tm_shape(spatial_stour) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+stour_map <- tm_shape(spatial_stour) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 51, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 101), max.categories = 19) 
 stour_map
@@ -187,7 +193,8 @@ spatial_frome <- st_as_sf(frome,
                           crs = 4326)  # WGS84
 
 # Create and save interactive map
-frome_map <- tm_shape(spatial_frome) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+frome_map <- tm_shape(spatial_frome) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 24, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 48), max.categories = 19)
 frome_map
@@ -210,7 +217,8 @@ spatial_nene <- st_as_sf(nene,
                           crs = 4326)  # WGS84
 
 # Create and save interactive map
-nene_map <- tm_shape(spatial_nene) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+nene_map <- tm_shape(spatial_nene) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 10, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 20), max.categories = 19)
 nene_map
@@ -232,7 +240,8 @@ spatial_verhelst <- st_as_sf(verhelst,
                              crs = 4326)  # WGS84
 
 # Create and save interactive map
-verhelst_map <- tm_shape(spatial_verhelst) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+verhelst_map <- tm_shape(spatial_verhelst) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 68, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 135), max.categories = 19) 
 verhelst_map
@@ -254,7 +263,8 @@ spatial_fremur <- st_as_sf(fremur,
                            crs = 4326)  # WGS84
 
 # Create and save interactive map
-fremur_map <- tm_shape(spatial_fremur) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+fremur_map <- tm_shape(spatial_fremur) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 11, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 22), max.categories = 19) 
 fremur_map
@@ -276,7 +286,8 @@ spatial_grotenete <- st_as_sf(grotenete,
                                  crs = 4326)  # WGS84
 
 # Create and save interactive map
-grotenete_map <- tm_shape(spatial_grotenete) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+grotenete_map <- tm_shape(spatial_grotenete) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 4, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 7), max.categories = 19)
 grotenete_map
@@ -298,7 +309,8 @@ spatial_dak <- st_as_sf(dak,
                         crs = 4326)  # WGS84
 
 # Create and save interactive map
-dak_map <- tm_shape(spatial_dak) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+dak_map <- tm_shape(spatial_dak) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 23, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 45), max.categories = 19) 
 dak_map
@@ -321,7 +333,8 @@ spatial_esgl <- st_as_sf(esgl,
                          crs = 4326)  # WGS84
 
 # Create and save interactive map
-esgl_map <- tm_shape(spatial_esgl) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+esgl_map <- tm_shape(spatial_esgl) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 22, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 44), max.categories = 19) 
 esgl_map
@@ -345,7 +358,8 @@ spatial_noordzeekanaal <- st_as_sf(noordzeekanaal,
                                    crs = 4326)  # WGS84
 
 # Create and save interactive map
-noordzeekanaal_map <- tm_shape(spatial_noordzeekanaal) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+noordzeekanaal_map <- tm_shape(spatial_noordzeekanaal) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 150, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 300), max.categories = 19) 
 noordzeekanaal_map
@@ -368,7 +382,8 @@ spatial_semp <- st_as_sf(semp,
                          crs = 4326)  # WGS84
 
 # Create and save interactive map
-semp_map <- tm_shape(spatial_semp) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+semp_map <- tm_shape(spatial_semp) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 24, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 47), max.categories = 19) 
 semp_map
@@ -392,7 +407,8 @@ spatial_mondego <- st_as_sf(mondego,
                           crs = 4326)  # WGS84
 
 # Create and save interactive map
-mondego_map <- tm_shape(spatial_mondego) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
+mondego_map <- tm_shape(spatial_mondego) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 19, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 37), max.categories = 19) 
 mondego_map
@@ -408,7 +424,7 @@ emmn$day <- as.Date(emmn$date_time)
 emmn <- select(emmn, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 emmn$date_time <- NULL
 emmn <- distinct(emmn)   # Select unique rows to reduce size of dataset
-unique(emmn$tag_id) # 7 detected eels
+unique(emmn$tag_id) # 26 detected eels
 
 # Create sf
 spatial_emmn <- st_as_sf(emmn,
@@ -416,8 +432,9 @@ spatial_emmn <- st_as_sf(emmn,
                          crs = 4326)  # WGS84
 
 # Create and save interactive map
-emmn_map <- tm_shape(spatial_emmn) + tm_dots(col = "day", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 4, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 8), max.categories = 19) 
+emmn_map <- tm_shape(spatial_emmn) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 13, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 26), max.categories = 19) 
 emmn_map
 
