@@ -16,7 +16,7 @@ For this meta-analysis, data from 18 projects/locations and 9 countries have bee
 
 ### Data
 
-<span style="background-color: #FFFF00">Updated on 15/06/2020</span>
+<mark>Updated on 15/06/2020</mark>
 
 * `/raw:`
 	+ `raw_detection_data.csv`: dataset containing the raw detection data
