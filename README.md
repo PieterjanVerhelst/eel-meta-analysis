@@ -29,6 +29,7 @@ For this meta-analysis, data from 18 projects/locations and 9 countries have bee
 
 * `/interim:`
 	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN and Stour project
+	+ `eel_meta_data.csv`: dataset containing the eel meta data from ETN and Stour project
 
 * `/external:`
 
