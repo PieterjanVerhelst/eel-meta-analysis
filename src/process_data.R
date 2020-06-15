@@ -119,5 +119,20 @@ data <- data[!(data$tag_id == "A69-1601-38745" & data$station_name=="13"),]
 
 
 
+# EMMN ####
+# False detections in various networks of Europe, all after study period (2007)
+data <- data[!(data$animal_project_code == "EMMN" & data$date_time >= '2008-01-01 00:00:00'),]
+
+# Remove detections from receivers with incorrect position (actual position is unknown)
+data <- data[!(data$animal_project_code == "EMMN" & data$receiver_id >= "VR2-5349"),]
+data <- data[!(data$animal_project_code == "EMMN" & data$receiver_id >= "VR2-5357"),]
+data <- data[!(data$animal_project_code == "EMMN" & data$receiver_id >= "VR2W-100569"),]
+data <- data[!(data$animal_project_code == "EMMN" & data$receiver_id >= "VR2W-100574"),]
+
+
+
+
+
+
 
 
