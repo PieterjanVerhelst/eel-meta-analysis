@@ -32,6 +32,7 @@ For this meta-analysis, data from 19 projects/locations and 9 countries have bee
 	+ `eel_meta_data.csv`: dataset containing the eel meta data from ETN and Stour project
 
 * `/external:`
+	+ `release_locations_stations.csv`: file containing the release locations and the more abbreviated release station names.
 
 
 ### Data-analyse
@@ -43,7 +44,8 @@ For this meta-analysis, data from 19 projects/locations and 9 countries have bee
 	* obtain meta-data on deployments `deployments.csv` (station names and positions)
 2. `attach_stour.R`: Merge data from the River Stour to the dataset
 3. `process_data.R`: Data processing by filling in missing values and removing false detections
-4. `create_interactive_maps.R`: Create interactive html widget maps per project
+4. `attach_release.R`: Add eel release positions and date-time to detection dataset
+5. `create_interactive_maps.R`: Create interactive html widget maps per project
 
 
 ### Figures
