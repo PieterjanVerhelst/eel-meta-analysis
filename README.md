@@ -30,6 +30,7 @@ For this meta-analysis, data from 18 projects/locations and 9 countries have bee
 * `/interim:`
 	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN and Stour project
 	+ `eel_meta_data.csv`: dataset containing the eel meta data from ETN and Stour project
+	+ `/receivernetworks`: folder containing the generated files with the receiver networks per project
 
 * `/external:`
 	+ `release_locations_stations.csv`: file containing the release locations and the more abbreviated release station names.
@@ -46,6 +47,7 @@ For this meta-analysis, data from 18 projects/locations and 9 countries have bee
 3. `process_data.R`: Data processing by filling in missing values and removing false detections
 4. `attach_release.R`: Add eel release positions and date-time to detection dataset
 5. `create_interactive_maps.R`: Create interactive html widget maps per project
+6. `extract_network.R`: Extract receiver networks based on detection data
 
 
 ### Figures
