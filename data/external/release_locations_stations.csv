@@ -50,20 +50,6 @@ Suderpolder Tzum boezem,rel_superpolder3
 elvestrand,rel_emmn1
 elvemunning,rel_emmn2
 Grand Lieu Lake,rel_esgl
-Noordzeekanaal,rel_noordzeekanaal1
-Willem I,rel_noordzeekanaal2
-Kadoelen,rel_noordzeekanaal3
-Overtoom,rel_noordzeekanaal4
-Spaarndam,rel_noordzeekanaal5
-Halfweg,rel_noordzeekanaal6
-Katwijk,rel_noordzeekanaal7
-Vinkeveen binnenzijde,rel_noordzeekanaal8
-Vinkeveen buitenzijde,rel_noordzeekanaal9
-Kortenhoef binnenzijde,rel_noordzeekanaal10
-Kortenhoef buitenzijde,rel_noordzeekanaal11
-Zaangemaal,rel_noordzeekanaal12
-Markermeer Uitdam,rel_noordzeekanaal13
-Markermeer Hoorn,rel_noordzeekanaal14
 near Miro,rel_mondego
 Zeimena Kaltanenai,rel_semp1
 Siesartis,rel_semp2
@@ -72,3 +58,20 @@ Sventoji,rel_semp4
 Neris,rel_semp5
 Zeimena Pabrade,rel_semp6
 Prie Kauno HE,rel_semp7
+Noordzeekanaal,rel_noordzeekanaal1
+Willem I,rel_noordzeekanaal2
+Kadoelen1,rel_noordzeekanaal3
+Kadoelen2,rel_noordzeekanaal4
+Overtoom,rel_noordzeekanaal5
+Spaarndam,rel_noordzeekanaal6
+Halfweg,rel_noordzeekanaal7
+Katwijk1,rel_noordzeekanaal8
+Katwijk2,rel_noordzeekanaal9
+Vinkeveen binnenzijde,rel_noordzeekanaal10
+Vinkeveen buitenzijde,rel_noordzeekanaal11
+Kortenhoef binnenzijde,rel_noordzeekanaal12
+Kortenhoef buitenzijde,rel_noordzeekanaal13
+Zaangemaal1,rel_noordzeekanaal14
+Zaangemaal2,rel_noordzeekanaal15
+Markermeer Uitdam,rel_noordzeekanaal16
+Markermeer Hoorn,rel_noordzeekanaal17
