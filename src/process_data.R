@@ -162,6 +162,9 @@ data <- data[!(data$animal_project_code == "2004_Gudena" & data$station_name=="0
 
 
 
+# 2019_Grotenete ####
+# Remove false detections in Spain
+data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=="14"),]
 
 
 
