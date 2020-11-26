@@ -102,6 +102,9 @@ data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="4"),]
 data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="9"),]
 data <- data[!(data$animal_project_code == "SEMP" & data$station_name=="13"),]
 
+# Remove false detections after study period
+data <- data[!(data$animal_project_code == "SEMP" & data$date_time >= '2016-01-01 00:00:00'),]
+
 
 
 # DAK ####
@@ -139,6 +142,8 @@ data <- data[!(data$animal_project_code == "EMMN" & data$receiver_id == "VR2W-10
 data <- data[!(data$animal_project_code == "EMMN" & data$receiver_id == "VR2W-100574"),]
 
 
+
+
 # 2015_phd_verhelst_eel ####
 # Remove eel from Saeftinghe
 data <- data[!(data$tag_id == "A69-1601-58620"),]
@@ -167,6 +172,13 @@ data <- data[!(data$animal_project_code == "2004_Gudena" & data$station_name=="0
 # 2019_Grotenete ####
 # Remove false detections in Spain
 data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=="14"),]
+
+
+
+
+# Noordzeekanaal ####
+# Remove false detections in North Sea
+data <- data[!(data$animal_project_code == "Noordzeekanaal" & data$station_name=="bpns-Belwindreefballs-CPOD"),]
 
 
 
