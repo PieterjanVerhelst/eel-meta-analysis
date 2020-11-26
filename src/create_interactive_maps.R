@@ -227,7 +227,7 @@ nene_map
 
 
 # 2015_phd_verhelst ####
-verhelst <- filter(data, animal_project_code == "2015_phd_verhelst")
+verhelst <- filter(data, animal_project_code == "2015_phd_verhelst_eel")
 verhelst$day <- as.Date(verhelst$date_time)
 verhelst <- select(verhelst, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 verhelst$date_time <- NULL
