@@ -89,7 +89,7 @@ warnow$day <- as.Date(warnow$date_time)
 warnow <- select(warnow, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 warnow$date_time <- NULL
 warnow <- distinct(warnow)   # Select unique rows to reduce size of dataset
-unique(warnow$tag_id) # 145 detected eels
+unique(warnow$tag_id) # 146 detected eels
 
 # Create sf
 spatial_warnow <- st_as_sf(warnow,
@@ -100,7 +100,7 @@ spatial_warnow <- st_as_sf(warnow,
 warnow_map <- tm_shape(spatial_warnow) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 73, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 145), max.categories = 19) 
+  tmap_options(limits = c(facets.view = 146), max.categories = 19) 
 warnow_map
 
 
@@ -113,7 +113,7 @@ leopoldkanaal$day <- as.Date(leopoldkanaal$date_time)
 leopoldkanaal <- select(leopoldkanaal, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 leopoldkanaal$date_time <- NULL
 leopoldkanaal <- distinct(leopoldkanaal)   # Select unique rows to reduce size of dataset
-unique(leopoldkanaal$tag_id) # 92 detected eels, 
+unique(leopoldkanaal$tag_id) # 103 detected eels, 
 
 # Create sf
 spatial_leopoldkanaal <- st_as_sf(leopoldkanaal,
@@ -123,8 +123,8 @@ spatial_leopoldkanaal <- st_as_sf(leopoldkanaal,
 # Create and save interactive map
 leopoldkanaal_map <- tm_shape(spatial_leopoldkanaal) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 46, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 92), max.categories = 19)
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 52, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 103), max.categories = 19)
 leopoldkanaal_map
 
 
@@ -137,7 +137,7 @@ albertkanaal$day <- as.Date(albertkanaal$date_time)
 albertkanaal <- select(albertkanaal, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 albertkanaal$date_time <- NULL
 albertkanaal <- distinct(albertkanaal)   # Select unique rows to reduce size of dataset
-unique(albertkanaal$tag_id) # 160 detected eels, 
+unique(albertkanaal$tag_id) # 161 detected eels, 
 
 # Create sf
 spatial_albertkanaal <- st_as_sf(albertkanaal,
@@ -147,8 +147,8 @@ spatial_albertkanaal <- st_as_sf(albertkanaal,
 # Create and save interactive map
 albertkanaal_map <- tm_shape(spatial_albertkanaal) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 80, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 160), max.categories = 19)
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 81, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 162), max.categories = 19)
 albertkanaal_map
 
 
@@ -185,7 +185,7 @@ frome$day <- as.Date(frome$date_time)
 frome <- select(frome, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 frome$date_time <- NULL
 frome <- distinct(frome)   # Select unique rows to reduce size of dataset
-unique(frome$tag_id) # 47 detected eels, 
+unique(frome$tag_id) # 50 detected eels, 
 
 # Create sf
 spatial_frome <- st_as_sf(frome,
@@ -195,8 +195,8 @@ spatial_frome <- st_as_sf(frome,
 # Create and save interactive map
 frome_map <- tm_shape(spatial_frome) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 24, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 48), max.categories = 19)
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 25, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 50), max.categories = 19)
 frome_map
 
 
@@ -232,7 +232,7 @@ verhelst$day <- as.Date(verhelst$date_time)
 verhelst <- select(verhelst, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 verhelst$date_time <- NULL
 verhelst <- distinct(verhelst)   # Select unique rows to reduce size of dataset
-unique(verhelst$tag_id) # 135 detected eels
+unique(verhelst$tag_id) # 136 detected eels
 
 # Create sf
 spatial_verhelst <- st_as_sf(verhelst,
@@ -243,7 +243,7 @@ spatial_verhelst <- st_as_sf(verhelst,
 verhelst_map <- tm_shape(spatial_verhelst) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 68, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 135), max.categories = 19) 
+  tmap_options(limits = c(facets.view = 136), max.categories = 19) 
 verhelst_map
 
 
@@ -278,7 +278,7 @@ grotenete$day <- as.Date(grotenete$date_time)
 grotenete <- select(grotenete, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 grotenete$date_time <- NULL
 grotenete <- distinct(grotenete)   # Select unique rows to reduce size of dataset
-unique(grotenete$tag_id) # 7 detected eels, 
+unique(grotenete$tag_id) # 30 detected eels, 
 
 # Create sf
 spatial_grotenete <- st_as_sf(grotenete,
@@ -288,8 +288,8 @@ spatial_grotenete <- st_as_sf(grotenete,
 # Create and save interactive map
 grotenete_map <- tm_shape(spatial_grotenete) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 12, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 24), max.categories = 19)
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 15, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 30), max.categories = 19)
 grotenete_map
 
 
@@ -301,7 +301,7 @@ dak$day <- as.Date(dak$date_time)
 dak <- select(dak, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 dak$date_time <- NULL
 dak <- distinct(dak)   # Select unique rows to reduce size of dataset
-unique(dak$tag_id) # 45 detected eels
+unique(dak$tag_id) # 50 detected eels
 
 # Create sf
 spatial_dak <- st_as_sf(dak,
@@ -311,8 +311,8 @@ spatial_dak <- st_as_sf(dak,
 # Create and save interactive map
 dak_map <- tm_shape(spatial_dak) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 23, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 45), max.categories = 19) 
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 25, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 50), max.categories = 19) 
 dak_map
 
 
@@ -325,7 +325,7 @@ esgl$day <- as.Date(esgl$date_time)
 esgl <- select(esgl, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 esgl$date_time <- NULL
 esgl <- distinct(esgl)   # Select unique rows to reduce size of dataset
-unique(esgl$tag_id) # 44 detected eels
+unique(esgl$tag_id) # 50 detected eels
 
 # Create sf
 spatial_esgl <- st_as_sf(esgl,
@@ -335,8 +335,8 @@ spatial_esgl <- st_as_sf(esgl,
 # Create and save interactive map
 esgl_map <- tm_shape(spatial_esgl) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 22, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 44), max.categories = 19) 
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 25, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 50), max.categories = 19) 
 esgl_map
 
 
@@ -350,7 +350,7 @@ noordzeekanaal$day <- as.Date(noordzeekanaal$date_time)
 noordzeekanaal <- select(noordzeekanaal, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 noordzeekanaal$date_time <- NULL
 noordzeekanaal <- distinct(noordzeekanaal)   # Select unique rows to reduce size of dataset
-unique(noordzeekanaal$tag_id) # 300 detected eels
+unique(noordzeekanaal$tag_id) # 330 detected eels
 
 # Create sf
 spatial_noordzeekanaal <- st_as_sf(noordzeekanaal,
@@ -360,8 +360,8 @@ spatial_noordzeekanaal <- st_as_sf(noordzeekanaal,
 # Create and save interactive map
 noordzeekanaal_map <- tm_shape(spatial_noordzeekanaal) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 1) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 150, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 300), max.categories = 19) 
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 165, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 330), max.categories = 19) 
 noordzeekanaal_map
 
 
@@ -374,7 +374,7 @@ semp$day <- as.Date(semp$date_time)
 semp <- select(semp, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 semp$date_time <- NULL
 semp <- distinct(semp)   # Select unique rows to reduce size of dataset
-unique(semp$tag_id) # 47 detected eels
+unique(semp$tag_id) # 70 detected eels
 
 # Create sf
 spatial_semp <- st_as_sf(semp,
@@ -384,8 +384,8 @@ spatial_semp <- st_as_sf(semp,
 # Create and save interactive map
 semp_map <- tm_shape(spatial_semp) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 24, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 48), max.categories = 19) 
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 35, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 70), max.categories = 19) 
 semp_map
 
 
@@ -399,7 +399,7 @@ mondego$day <- as.Date(mondego$date_time)
 mondego <- select(mondego, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 mondego$date_time <- NULL
 mondego <- distinct(mondego)   # Select unique rows to reduce size of dataset
-unique(mondego$tag_id) # 37 detected eels
+unique(mondego$tag_id) # 40 detected eels
 
 # Create sf
 spatial_mondego <- st_as_sf(mondego,
@@ -409,8 +409,8 @@ spatial_mondego <- st_as_sf(mondego,
 # Create and save interactive map
 mondego_map <- tm_shape(spatial_mondego) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 19, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 37), max.categories = 19) 
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 20, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 40), max.categories = 19) 
 mondego_map
 
 
