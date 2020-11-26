@@ -137,3 +137,15 @@ data <- data[!(data$tag_id == "A69-1601-58620"),]
 # Remove false detections from Albert Canal (ak-43 and ak-x)
 data <- data[!(data$tag_id == "A69-1601-52649" & data$station_name=="ak-43"),]
 data <- data[!(data$tag_id == "A69-1601-57477" & data$station_name=="ak-x"),]
+
+
+
+# 2004_Gudena ####
+# Remove false detections from Azores
+data <- data[!(data$animal_project_code == "2004_Gudena" & data$station_name=="06 MG ponta radares"),]
+
+
+
+
+
+
