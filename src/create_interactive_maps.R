@@ -359,7 +359,7 @@ spatial_noordzeekanaal <- st_as_sf(noordzeekanaal,
 
 # Create and save interactive map
 noordzeekanaal_map <- tm_shape(spatial_noordzeekanaal) + 
-  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 1) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 150, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 300), max.categories = 19) 
 noordzeekanaal_map
