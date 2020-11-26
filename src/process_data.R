@@ -134,6 +134,6 @@ data <- data[!(data$animal_project_code == "EMMN" & data$receiver_id == "VR2W-10
 # Remove eel from Saeftinghe
 data <- data[!(data$tag_id == "A69-1601-58620"),]
 
-
-
-
+# Remove false detections from Albert Canal (ak-43 and ak-x)
+data <- data[!(data$tag_id == "A69-1601-52649" & data$station_name=="ak-43"),]
+data <- data[!(data$tag_id == "A69-1601-57477" & data$station_name=="ak-x"),]
