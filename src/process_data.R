@@ -145,6 +145,15 @@ data <- data[!(data$tag_id == "A69-1601-58620"),]
 data <- data[!(data$tag_id == "A69-1601-52649" & data$station_name=="ak-43"),]
 data <- data[!(data$tag_id == "A69-1601-57477" & data$station_name=="ak-x"),]
 
+# Remove false detections in Spain
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="1"),]
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="9"),]
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="14"),]
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="16"),]
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="18"),]
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="20"),]
+
+
 
 
 # 2004_Gudena ####
