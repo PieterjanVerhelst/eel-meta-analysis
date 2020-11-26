@@ -65,7 +65,7 @@ loire$day <- as.Date(loire$date_time)
 loire <- select(loire, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 loire$date_time <- NULL
 loire <- distinct(loire)   # Select unique rows to reduce size of dataset
-unique(loire$tag_id) # 50 detected eels
+unique(loire$tag_id) # 89 detected eels
 
 # Create sf
 spatial_loire <- st_as_sf(loire,
@@ -75,8 +75,8 @@ spatial_loire <- st_as_sf(loire,
 # Create and save interactive map
 loire_map <- tm_shape(spatial_loire) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 25, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 50), max.categories = 19) 
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 45, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 90), max.categories = 19) 
 loire_map
 
 
