@@ -288,8 +288,8 @@ spatial_grotenete <- st_as_sf(grotenete,
 # Create and save interactive map
 grotenete_map <- tm_shape(spatial_grotenete) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
-  tm_facets(by = "tag_id",  ncol = 2, nrow = 4, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 7), max.categories = 19)
+  tm_facets(by = "tag_id",  ncol = 2, nrow = 12, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 24), max.categories = 19)
 grotenete_map
 
 
