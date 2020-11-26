@@ -120,6 +120,9 @@ data <- data[!(data$tag_id == "A69-1601-26446" & data$station_name=="27"),]
 data <- data[!(data$tag_id == "A69-1601-38745" & data$station_name=="4"),]
 data <- data[!(data$tag_id == "A69-1601-38745" & data$station_name=="13"),]
 
+# False detections in Spain after study period
+data <- data[!(data$animal_project_code == "2013_albertkanaal" & data$date_time >= '2019-01-01 00:00:00'),]
+
 
 
 
