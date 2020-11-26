@@ -15,7 +15,7 @@ data$X1 <- NULL
 
 # Upload Stour data
 stour_detections <- read_csv("./data/raw/stour/stour_data.csv")
-stour_detections$date_time <- dmy_hms(stour_detections$date_time)
+stour_detections$date_time <- dmy_hm(stour_detections$date_time)
 
 
 # Bind datasets
