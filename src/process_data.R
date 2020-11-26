@@ -20,7 +20,9 @@ data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_n
 data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="PC4C-B10-2"),]
 
 # Remove complete eel (false detections)
-data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$tag_id == "A69-1601-31878"),]
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$date_time >= '2016-01-01 00:00:00'),]
+
+
 
 
 # 2014_Frome ####
