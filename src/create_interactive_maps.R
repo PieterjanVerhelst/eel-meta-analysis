@@ -385,7 +385,7 @@ spatial_semp <- st_as_sf(semp,
 semp_map <- tm_shape(spatial_semp) + 
   tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 0.5) +
   tm_facets(by = "tag_id",  ncol = 2, nrow = 24, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 47), max.categories = 19) 
+  tmap_options(limits = c(facets.view = 48), max.categories = 19) 
 semp_map
 
 
