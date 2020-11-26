@@ -156,7 +156,7 @@ albertkanaal_map
 
 
 # 2013_stour ####
-stour <- filter(data, animal_project_code == "2013_stour")
+stour <- filter(data, animal_project_code == "2013_Stour")
 stour$day <- as.Date(stour$date_time)
 stour <- select(stour, animal_project_code, scientific_name, date_time, day, tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 stour$date_time <- NULL
