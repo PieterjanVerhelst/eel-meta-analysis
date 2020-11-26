@@ -19,6 +19,8 @@ data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_n
 data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="s-Wetteren"),]
 data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$station_name=="PC4C-B10-2"),]
 
+# Remove complete eel (false detections)
+data <- data[!(data$animal_project_code == "2012_leopoldkanaal" & data$tag_id == "A69-1601-31878"),]
 
 
 # 2014_Frome ####
