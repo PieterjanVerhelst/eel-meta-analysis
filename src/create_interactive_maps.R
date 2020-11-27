@@ -8,9 +8,6 @@ library(tmap)
 
 
 
-# Source code to upload and process data
-source('./src/attach_stour.R')
-source('./src/process_data.R')
 
 # Animal project codes
 unique(data$animal_project_code)
