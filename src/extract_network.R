@@ -4,7 +4,7 @@
 
 
 # 2015_phd_verhelst_eel ####
-scheldt <- filter(data, animal_project_code == "2015_phd_verhelst")
+scheldt <- filter(data, animal_project_code == "2015_phd_verhelst_eel")
 distinct_stations <- scheldt %>%
   distinct(station_name, .keep_all = TRUE) %>%
   select(animal_project_code, station_name, deploy_latitude, deploy_longitude) %>%
