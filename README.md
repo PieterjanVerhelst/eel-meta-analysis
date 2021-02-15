@@ -38,7 +38,7 @@ Recent update from ETN database: 26-11-2020
 	+ `release_locations_stations.csv`: file containing the release locations and the more abbreviated release station names.
 
 
-### Data-analyse
+### Scripts
 
 * `/src:`
 1. `download_data.R`: Download data from silver eel meta-analysis from ETN database via RStudio LifeWatch server
