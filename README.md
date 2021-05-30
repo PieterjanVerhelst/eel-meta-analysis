@@ -24,7 +24,7 @@ Recent update from ETN database: 26-11-2020
 	+ `raw_detection_data.csv`: dataset containing the raw detection data
 	+ `eel_meta_data.csv`: dataset containing the meta-data on the tagged eels
 	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN
-	+ `/stour:`
+	+ `/stour`:
 		+ `stour_data.csv`: dataset containing the raw detection data from the River Stour, '2013_stour' project
 		+ `stour_eel_meta.csv`: dataset containing the eel meta-data from the River Stour, '2013_stour' project
 		+ `stour_deployments.csv`: dataset containing the deployment meta-data from the River Stour, '2013_stour' project
@@ -35,7 +35,8 @@ Recent update from ETN database: 26-11-2020
 	+ `/receivernetworks`: folder containing the generated files with the receiver networks per project
 
 * `/external:`
-	+ `release_locations_stations.csv`: file containing the release locations and the more abbreviated release station names.
+	+ `release_locations_stations.csv`: file with the release locations and the more abbreviated release station names.
+	+ `/distance_matrices`: folder containing the distance matrices with the distances between detection stations per receiver network (matrices are created at https://github.com/inbo/fish-tracking).
 
 
 ### Scripts
@@ -50,6 +51,7 @@ Recent update from ETN database: 26-11-2020
 4. `attach_release.R`: Add eel release positions and date-time to detection dataset
 5. `create_interactive_maps.R`: Create interactive html widget maps per project
 6. `extract_network.R`: Extract receiver networks based on detection data
+	* This serves as input to calculate the distance matrices at https://github.com/inbo/fish-tracking
 
 
 ### Figures
