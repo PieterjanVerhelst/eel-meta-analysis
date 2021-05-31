@@ -38,13 +38,14 @@ get_timeline <- function(df,
   # find first station
   args <- df %>% 
     filter(date_time  == t) %>% select(station_name, receiver_id, 
-                                  deploy_longitude, deploy_latitude, counts)
+                                  deploy_longitude, deploy_latitude, counts, animal_project_code)
   station_name <-  args %>% select(station_name)
   station_name <-  as.character(station_name[nrow(station_name),1])
   receiver_id <- args %>% select(receiver_id)
   #network <- args %>% select(network)
   deploy_longitude <- args %>% select(deploy_longitude)
   deploy_latitude <- args %>% select(deploy_latitude)
+  animal_project_code <- args %>% select(animal_project_code)
   counts <- sum(args$counts)
   # first row of final timeline (output)
   timeline <- data.frame(station_name = station_name, 
@@ -52,6 +53,7 @@ get_timeline <- function(df,
                          end = as_datetime(t, tz = "UTC"),
                          receiver_id = as.character(receiver_id[nrow(receiver_id),1]),
                          #network = as.character(network[nrow(network),1]),
+                         animal_project_code = as.character(animal_project_code[nrow(animal_project_code),1]),
                          deploy_longitude = as.character(deploy_longitude[nrow(deploy_longitude),1]),
                          deploy_latitude = as.character(deploy_latitude[nrow(deploy_latitude),1]),
                          counts = counts,
@@ -75,6 +77,7 @@ get_timeline <- function(df,
       station_name <- new_station
       receiver_id <- new_args %>% select(receiver_id)
       #network <- new_args %>% select(network)
+      animal_project_code <- new_args %>% select(animal_project_code)
       deploy_longitude <- new_args %>% select(deploy_longitude)
       deploy_latitude <- new_args %>% select(deploy_latitude)
       counts <- sum(new_args$counts)
@@ -85,6 +88,7 @@ get_timeline <- function(df,
         end = as_datetime(t, tz = "UTC"),
         receiver_id = as.character(receiver_id[nrow(receiver_id),1]),
         #network = as.character(network[nrow(network),1]),
+        animal_project_code = as.character(animal_project_code[nrow(animal_project_code),1]),
         deploy_longitude = as.character(deploy_longitude[nrow(deploy_longitude),1]),
         deploy_latitude = as.character(deploy_latitude[nrow(deploy_latitude),1]),
         counts = counts,

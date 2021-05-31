@@ -117,7 +117,7 @@ residency_gudena <- rename(residency_gudena, detections = counts)
 
 
 # Change order of columns
-residency_gudena <- residency_gudena[, c("tag_id","station_name","receiver_id", "deploy_latitude", "deploy_longitude", "arrival", "departure","detections")]
+residency_gudena <- residency_gudena[, c("animal_project_code", "tag_id","station_name","receiver_id", "deploy_latitude", "deploy_longitude", "arrival", "departure","detections")]
 
 
 
