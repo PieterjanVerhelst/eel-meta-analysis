@@ -11,11 +11,13 @@ library(actel)
 browseVignettes("actel")
 
 
+# Filter Gudena detection data
+gudena <- read_csv("./data/interim/residencies/residency_2004_gudena.csv")
+gudena$X1 <- NULL
 
 # Load distance matrix
 gudena_distances <- read_csv("./data/external/distance_matrices/distancematrix_2004_gudena.csv")
 
-# Filter Gudena detection data
-gudena <- filter(data, animal_project_code == "2004_Gudena")
+
 
 
