@@ -105,29 +105,24 @@ head(track_A69_1601_28264_1h, n = 20)
 
 
 
-
-
 ## Arrange dataset ##
 
 # Merge list of dataframes into 1 dataframe
-df <- do.call(rbind.data.frame, tracks)
+residency_gudena <- do.call(rbind.data.frame, tracks)
 
-
-# Rename columns (necessary for following scripts)
-df <- rename(df, Transmitter = code)
-df <- rename(df, Detections = counts)
-df <- rename(df, Receiver = receiver)
-df <- rename(df, Arrival = start)
-df <- rename(df, Departure = end)
+# Rename columns 
+residency_gudena <- rename(residency_gudena, arrival = start)
+residency_gudena <- rename(residency_gudena, departure = end)
+residency_gudena <- rename(residency_gudena, detections = counts)
 
 
 # Change order of columns
-df <- df[, c("Transmitter","Receiver","latitude","longitude","network","station","Arrival","Departure","Detections")]
+residency_gudena <- residency_gudena[, c("tag_id","station_name","receiver_id", "deploy_latitude", "deploy_longitude", "arrival", "departure","detections")]
 
 
 
 
-write.csv(df, "./data/interim/residency_eel.csv")
+write.csv(residency_gudena, "./data/interim/residcencies/residency_2004_gudena.csv")
 
 
 
