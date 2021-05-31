@@ -27,7 +27,7 @@ get_timeline <- function(df,
   assertthat::assert_that(all(c("date_time", "tag_id", "station_name", "counts") %in% colnames(df)),
                           msg = paste("Column date_time, tag_id, station_name and counts", 
                                       "have to be present in dataframe"))
-  assertthat::assert_that(all(unique(df$station) %in% names(proxy_stations)),
+  assertthat::assert_that(all(unique(df$station_name) %in% names(proxy_stations)),
                           msg = paste("there are one or more stations in df which",
                                       "are not present in proxy_stations."))
   df %<>% filter(tag_id == eel)
@@ -90,7 +90,7 @@ get_timeline <- function(df,
         counts = counts,
         stringsAsFactors = FALSE))
       if (isTRUE(verbose)) {
-        print(paste(eel, "is at", t, "at station:", station_id))
+        print(paste(eel, "is at", t, "at station:", station_name))
       }
     } else{
       counts <- counts + sum(new_args$counts)
