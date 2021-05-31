@@ -33,6 +33,7 @@ Recent update from ETN database: 26-11-2020
 	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN and Stour project
 	+ `eel_meta_data.csv`: dataset containing the eel meta data from ETN and Stour project
 	+ `/receivernetworks`: folder containing the generated files with the receiver networks per project
+	+ `/residencies`: folder containing the residency datasets, calculated via the `smooth_eel_tracks.R` code
 
 * `/external:`
 	+ `release_locations_stations.csv`: file with the release locations and the more abbreviated release station names.
@@ -55,7 +56,7 @@ Recent update from ETN database: 26-11-2020
 7. `smooth_eel_tracks.R`: Smooths duplicates and calculates residencies per eel per station. Therefore, it calls the following two functions:
 	+ 7a. `get_nearest_stations.R`: general function to extract the smoothed track for one eel (via its `transmitter ID`)
 	+ 7b. `get_timeline.R`: function to get the stations which are near a given station (where near means that the distance is smaller than a certain given limit, e.g. detection range).
-		- --> Generate 'residency.csv'
+		- --> Generate residency datasets and store them in `/interim/residencies`
 8. `calculate_speed.R`: Calculate migration speeds between consecutive detection stations
 
 
