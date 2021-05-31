@@ -16,23 +16,23 @@ source("./src/get_nearest_stations.R")
 source("./src/get_timeline.r")
 
 
-# Filter Gudena detection data
-gudena <- filter(data, animal_project_code == "2004_Gudena")
-head(gudena)
+# Filter project detection data
+subset <- filter(data, animal_project_code == "2004_Gudena")
+head(subset)
 
 # Add 'count' column
-gudena$counts <- 1
+subset$counts <- 1
 
 # Good practice to sort the dataset
-gudena %<>% arrange(tag_id, date_time)
+subset %<>% arrange(tag_id, date_time)
 
 # Import distance matrix
-gudena_distances <- read_csv("./data/external/distance_matrices/distancematrix_2004_gudena.csv")
+distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_2004_gudena.csv")
 
 
 
 # Extract eel codes
-eels_all <- gudena %>% 
+eels_all <- subset %>% 
   select(tag_id) %>% 
   unique()
 eels_all <- eels_all[[1]]
@@ -40,7 +40,7 @@ eels_all
 
 
 # Extract stations
-stations_all <- gudena %>% 
+stations_all <- subset %>% 
   select(station_name) %>%
   unique()
 stations_all <- stations_all[[1]]
@@ -48,13 +48,13 @@ stations_all
 
 
 # Rename column `X1` to `station` in distance dataframe
-gudena_distances %<>% rename(station_name = X1)
-head(gudena_distances)
+distance_matrix %<>% rename(station_name = X1)
+head(distance_matrix)
 
 
 # Select from `distance` only the distance among stations we need and overwrite it:
-distance_all <- gudena_distances %<>% select(station_name, 
-                                     which(colnames(gudena_distances) %in% stations_all)) %>%
+distance_all <- distance_matrix %<>% select(station_name, 
+                                     which(colnames(distance_matrix) %in% stations_all)) %>%
   filter(station_name %in% stations_all)
 distance_all
 
@@ -84,7 +84,7 @@ names(near_stations_all) <- stations_all
 # For each eel, smoothing is applied by calling function `get_timeline`
 tracks <- purrr::map(eels_all, 
                      function(eel) 
-                       get_timeline(gudena, 
+                       get_timeline(subset, 
                                     proxy_stations = near_stations_all,
                                     eel = eel, verbose = FALSE))
 
@@ -94,12 +94,12 @@ View(tracks[[5]])
 
 
 ## In case you want to run the smoothing only for one eel from `eels` (e.g; the first one with `code = "A69-1601-52622"`) and modify default parameters `max_limit` (e.g. 1 hour) and `verbose` (TRUE):
-track_A69_1601_28264_1h <- get_timeline(dfk, 
-                                        proxy_stations = near_stations_all,
-                                        eel = eels_all[1], 
-                                        limit = 3600, 
-                                        verbose = TRUE) 
-head(track_A69_1601_28264_1h, n = 20)
+#track_A69_1601_28264_1h <- get_timeline(dfk, 
+#                                        proxy_stations = near_stations_all,
+#                                        eel = eels_all[1], 
+#                                        limit = 3600, 
+#                                        verbose = TRUE) 
+#head(track_A69_1601_28264_1h, n = 20)
 
 
 
@@ -108,21 +108,21 @@ head(track_A69_1601_28264_1h, n = 20)
 ## Arrange dataset ##
 
 # Merge list of dataframes into 1 dataframe
-residency_gudena <- do.call(rbind.data.frame, tracks)
+residency <- do.call(rbind.data.frame, tracks)
 
 # Rename columns 
-residency_gudena <- rename(residency_gudena, arrival = start)
-residency_gudena <- rename(residency_gudena, departure = end)
-residency_gudena <- rename(residency_gudena, detections = counts)
+residency <- rename(residency, arrival = start)
+residency <- rename(residency, departure = end)
+residency <- rename(residency, detections = counts)
 
 
 # Change order of columns
-residency_gudena <- residency_gudena[, c("animal_project_code", "tag_id","station_name","receiver_id", "deploy_latitude", "deploy_longitude", "arrival", "departure","detections")]
+residency <- residency[, c("animal_project_code", "tag_id","station_name","receiver_id", "deploy_latitude", "deploy_longitude", "arrival", "departure","detections")]
 
 
 
 
-write.csv(residency_gudena, "./data/interim/residcencies/residency_2004_gudena.csv")
+write.csv(residency, "./data/interim/residcencies/residency_2004_gudena.csv")
 
 
 
