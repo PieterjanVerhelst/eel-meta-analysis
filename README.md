@@ -52,6 +52,14 @@ Recent update from ETN database: 26-11-2020
 5. `create_interactive_maps.R`: Create interactive html widget maps per project
 6. `extract_network.R`: Extract receiver networks based on detection data
 	* This serves as input to calculate the distance matrices at https://github.com/inbo/fish-tracking
+7. `smooth_eel_tracks.R`: Smooths duplicates and calculates residencies per eel per station. Therefore, it calls the following two functions:
+	+ 7a. `get_nearest_stations.R`: general function to extract the smoothed track for one eel (via its `transmitter ID`)
+	+ 7b. `get_timeline.R`: function to get the stations which are near a given station (where near means that the distance is smaller than a certain given limit, e.g. detection range).
+		- --> Generate 'residency_eel.csv'
+8. `calculate_speed.R`: Calculate migration speeds between consecutive detection stations
+
+
+
 
 
 ### Figures
