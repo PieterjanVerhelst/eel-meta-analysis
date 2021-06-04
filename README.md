@@ -59,7 +59,7 @@ For this meta-analysis, data from 18 projects/locations and 9 countries have bee
 		- --> Generate residency datasets per project and store them in `/interim/residencies`
 8. `calculate_speed.R`: Calculate movement speeds between consecutive detection stations
 	+ 8a. `calculate_speed_function.R`: function to calculate speed between consecutive displacements; based on a function in Hugo Flavio's `actel` package
-9. `create_distance_plot.R`: Create plots with travelled distance and store as .pdf
+9. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
 
 
 
