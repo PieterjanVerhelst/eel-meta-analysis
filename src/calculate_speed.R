@@ -43,6 +43,14 @@ speed <- speed %>%
   group_by(tag_id) %>%
   mutate(totaldistance_m=cumsum(coalesce(swimdistance_m, 0)) + swimdistance_m*0)
 
+# Set row with release station at 0 total distance
+speed <- speed %>% 
+  #group_by(id) %>% 
+  mutate(totaldistance_m = ifelse(row_number() == 1 | all(is.na(totaldistance_m)), 0, totaldistance_m))
+
+# Replace the remaining NA values with previous non-NA value
+speed$totaldistance_m <- zoo::na.locf(speed$totaldistance_m)
+
 
 # Write csv
 write.csv(speed, "./data/interim/speed/speed_2004_gudena.csv")
