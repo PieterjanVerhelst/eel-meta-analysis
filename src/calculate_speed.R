@@ -38,6 +38,11 @@ speed <- plyr::ldply (speed_list, data.frame)
 speed$.id <- NULL
 
 
+# Calculate total swim distance per tag_id
+speed <- speed %>% 
+  group_by(tag_id) %>%
+  mutate(totaldistance_m=cumsum(coalesce(swimdistance_m, 0)) + swimdistance_m*0)
+
 
 # Write csv
 write.csv(speed, "./data/interim/speed/speed_2004_gudena.csv")
