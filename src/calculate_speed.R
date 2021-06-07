@@ -12,6 +12,7 @@ library(actel)
 
 # Source functions
 source("./src/calculate_speed_function.R")
+source("./src/calculate_sourcedistance_function.R")
 
 # Filter Gudena detection data
 residency <- read_csv("./data/interim/residencies/residency_2004_gudena.csv")
@@ -25,7 +26,7 @@ distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_20
 #speed <- movementSpeeds(residency, "last to first", distance_matrix)
 
 # Turn dataset into list per tag_id
-residency_list <- split(residency , f = residency$tag_id )
+residency_list <- split(residency , f = residency$tag_id)
 #sapply(residency_list, function(x) max(x$detections))
 
 # Calculate speed per tag_id
@@ -51,6 +52,14 @@ speed <- speed %>%
 # Replace the remaining NA values with previous non-NA value
 speed$totaldistance_m <- zoo::na.locf(speed$totaldistance_m)
 
+# Calculate the the station distance from a 'source' station
+speed <- distanceSource(speed, "last to first", distance_matrix)
+
+# Set 'NA' to '0'
+speed <- speed %>% 
+  replace_na(list(distance_to_source_m = 0))
+                     
+                     
 
 # Write csv
 write.csv(speed, "./data/interim/speed/speed_2004_gudena.csv")
