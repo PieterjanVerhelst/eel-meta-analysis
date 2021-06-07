@@ -44,7 +44,7 @@ dev.off()
 ## Create single plot
 
 # Select individual
-data2 <- data[which(data$tag_id == "A69-1008-214"), ]
+data2 <- data[which(data$tag_id == "A69-1008-101"), ]
 #data2=data2[order(as.POSIXct(strptime(data2$Arrival,"%d/%m/%Y %H:%M"))),]
 data2 <- data2[order(as.POSIXct(strptime(data2$arrival,"%Y-%m-%d %H:%M:%S"))),]
 
