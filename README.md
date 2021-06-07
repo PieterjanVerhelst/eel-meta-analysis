@@ -57,8 +57,9 @@ For this meta-analysis, data from 18 projects/locations and 9 countries have bee
 	+ 7a. `get_nearest_stations.R`: general function to extract the smoothed track for one eel (via its `transmitter ID`)
 	+ 7b. `get_timeline.R`: function to get the stations which are near a given station (where near means that the distance is smaller than a certain given limit, e.g. detection range).
 		- --> Generate residency datasets per project and store them in `/interim/residencies`
-8. `calculate_speed.R`: Calculate movement speeds between consecutive detection stations
+8. `calculate_speed.R`: Calculate movement speeds between consecutive detection stations. Also calculates swim distance, swim time, cumulative swim distance and station distance from source station.
 	+ 8a. `calculate_speed_function.R`: function to calculate speed between consecutive displacements; based on a function in Hugo Flavio's `actel` package
+	+ 8b. `calculate_sourcedistance_function.R`: function to calculate the station distance from a 'source' station; based on a function in Hugo Flavio's `actel` package
 9. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
 
 

@@ -57,7 +57,7 @@ speed <- distanceSource(speed, "last to first", distance_matrix)
 
 # Set 'NA' to '0'
 speed <- speed %>% 
-  replace_na(list(distance_to_source = 0))
+  replace_na(list(distance_to_source_m = 0))
                      
                      
 

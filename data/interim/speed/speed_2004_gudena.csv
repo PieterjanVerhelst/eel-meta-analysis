@@ -1,4 +1,4 @@
-"","animal_project_code","tag_id","station_name","receiver_id","deploy_latitude","deploy_longitude","arrival","departure","detections","swimtime_s","swimdistance_m","speed_m_s","totaldistance_m","distance_to_source"
+"","animal_project_code","tag_id","station_name","receiver_id","deploy_latitude","deploy_longitude","arrival","departure","detections","swimtime_s","swimdistance_m","speed_m_s","totaldistance_m","distance_to_source_m"
 "1","2004_Gudena","A69-1008-101","rel_gudena","none",56.364919,9.900337,2004-05-10 12:00:00,2004-05-10 12:00:00,1,NA,NA,NA,0,0
 "2","2004_Gudena","A69-1008-101","GUD2","VR2-1908",56.38312088,9.901577397,2004-05-10 19:34:31,2004-05-10 19:34:31,1,27271,2697.647099,0.09892,2697.647099,2697.647099
 "3","2004_Gudena","A69-1008-101","RAN1","VR2-3538",56.45735379,10.01770257,2004-05-11 04:48:57,2004-05-11 05:01:12,14,33266,14448.010732,0.434318,17145.657831,17145.657831
