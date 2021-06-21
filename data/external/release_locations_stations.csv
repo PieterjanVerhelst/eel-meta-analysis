@@ -16,18 +16,9 @@ Legemeersbeek,rel_leopoldkanaal8
 Leopoldkanaal (Stenenschuurbrug),rel_leopoldkanaal9
 Leopoldkanaal (Oesterput),rel_leopoldkanaal10
 downstream Grosse Batte Ourthe,rel_albertkanaal1
-gear SO1,rel_albertkanaal2
-gear upstream complex Diepenbeek,rel_albertkanaal3
-gear upstream complex Hasselt,rel_albertkanaal4
-uitzet Genk SO1,rel_albertkanaal5
-gear upstream Diepenbeek,rel_albertkanaal6
-gear upstream Hasselt,rel_albertkanaal7
-gear upstream Genk,rel_albertkanaal8
-Diepenbeek,rel_albertkanaal9
-Hasselt,rel_albertkanaal10
-Genk,rel_albertkanaal11
-upstream complex Genk marina,rel_albertkanaal12
-HH5,rel_albertkanaal13
+Upstream shipping lock Genk,rel_albertkanaal2
+Upstream shipping lock Diepenbeek,rel_albertkanaal3
+Upstream shipping lock Hasselt,rel_albertkanaal4
 Stratford St Mary,rel_stour1
 30 m upstream Flatford mill,rel_stour2
 Downstream East Burton eel rack,rel_frome
