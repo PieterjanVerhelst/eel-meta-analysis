@@ -36,6 +36,9 @@ release$release_station <- factor(release$release_station)
 # 4. Merge release station with eel data
 eel <- left_join(eel, release, by = "release_location")
 
+summary(eel$release_station)  # May not contain any NAs!
+
+
 # 5. Process eel dataset column names
 eel$receiver_id <- "none"
 
