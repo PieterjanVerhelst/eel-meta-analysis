@@ -4,11 +4,12 @@
 
 
 # 1. Load eel metadata ####
-eel <- read.csv("./data/interim/eel_meta_data.csv")
-eel$X <- NULL
+eel <- read_csv("./data/interim/eel_meta_data.csv")
+eel$X1 <- NULL
 eel$scientific_name <- NULL
 eel$age <- NULL
 eel$age_unit <- NULL
+eel$treatment_type <- NULL
 eel$tag_id <- factor(eel$tag_id)
 eel$capture_date_time  <- as_datetime(eel$capture_date_time)
 eel$release_date_time  <- as_datetime(eel$release_date_time)
@@ -37,6 +38,13 @@ eel$tag_id <- gsub("R04K", "A69-1206", eel$tag_id)
 eel$tag_id <- gsub("S256", "A69-1105", eel$tag_id)
 
 
+
+# Set factors
+eel$tag_id <- factor(eel$tag_id)
+eel$animal_project_code <- factor(eel$animal_project_code)
+
+data$tag_id <- factor(data$tag_id)
+data$animal_project_code <- factor(data$animal_project_code)
 
 # 6. Merge eel characteristics with dataset ####
 data <- merge(data, eel, by=c("tag_id", "animal_project_code"))
