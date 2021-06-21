@@ -50,18 +50,17 @@ For this meta-analysis, data from 18 projects/locations and 9 countries have bee
 2. `attach_stour.R`: Merge data from the River Stour to the dataset
 3. `process_data.R`: Data processing by filling in missing values and removing false detections
 4. `attach_release.R`: Add eel release positions and date-time to detection dataset
-5. `merge_eel_characteristics.R`: Add eel meta data to the detection dataset
-6. `create_interactive_maps.R`: Create interactive html widget maps per project
-7. `extract_network.R`: Extract receiver networks based on detection data
+5. `create_interactive_maps.R`: Create interactive html widget maps per project
+6. `extract_network.R`: Extract receiver networks based on detection data
 	* This serves as input to calculate the distance matrices at https://github.com/inbo/fish-tracking
-8. `smooth_eel_tracks.R`: Smooths duplicates and calculates residencies per eel per station. Therefore, it calls the following two functions:
-	+ 8a. `get_nearest_stations.R`: general function to extract the smoothed track for one eel (via its `transmitter ID`)
-	+ 8b. `get_timeline.R`: function to get the stations which are near a given station (where near means that the distance is smaller than a certain given limit, e.g. detection range).
+7. `smooth_eel_tracks.R`: Smooths duplicates and calculates residencies per eel per station. Therefore, it calls the following two functions:
+	+ 7a. `get_nearest_stations.R`: general function to extract the smoothed track for one eel (via its `transmitter ID`)
+	+ 7b. `get_timeline.R`: function to get the stations which are near a given station (where near means that the distance is smaller than a certain given limit, e.g. detection range).
 		- --> Generate residency datasets per project and store them in `/interim/residencies`
-9. `calculate_speed.R`: Calculate movement speeds between consecutive detection stations. Also calculates swim distance, swim time, cumulative swim distance and station distance from source station.
-	+ 9a. `calculate_speed_function.R`: function to calculate speed between consecutive displacements; based on a function in Hugo Flavio's `actel` package
-	+ 9b. `calculate_sourcedistance_function.R`: function to calculate the station distance from a 'source' station; based on a function in Hugo Flavio's `actel` package
-10. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
+8. `calculate_speed.R`: Calculate movement speeds between consecutive detection stations. Also calculates swim distance, swim time, cumulative swim distance and station distance from source station.
+	+ 8a. `calculate_speed_function.R`: function to calculate speed between consecutive displacements; based on a function in Hugo Flavio's `actel` package
+	+ 8b. `calculate_sourcedistance_function.R`: function to calculate the station distance from a 'source' station; based on a function in Hugo Flavio's `actel` package
+9. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
 
 
 
