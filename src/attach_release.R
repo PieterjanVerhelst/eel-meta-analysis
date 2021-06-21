@@ -62,7 +62,12 @@ eel <- rename(eel,
 data <- rbind(data, eel)
 
 
+# 7. Substitute code space into 'Vemco' format ####
+# 2011_Loire & part EMNN
+data$tag_id <- gsub("R04K", "A69-1206", data$tag_id)
 
+# 2017_Fremur & part EMMN
+data$tag_id <- gsub("S256", "A69-1105", data$tag_id)
 
 
 
