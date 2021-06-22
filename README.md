@@ -48,7 +48,7 @@ For this meta-analysis, data from 18 projects/locations and 9 countries have bee
 	* obtain meta-data on tagged eels `eel_meta_data.csv`
 	* obtain meta-data on deployments `deployments.csv` (station names and positions)
 2. `attach_stour.R`: Merge data from the River Stour to the dataset
-3. `process_data.R`: Data processing by filling in missing values and removing false detections
+3. `clean_data.R`: Data cleaning by filling in missing values and removing false detections
 4. `attach_release.R`: Add eel release positions and date-time to detection dataset
 5. `create_interactive_maps.R`: Create interactive html widget maps per project
 6. `extract_network.R`: Extract receiver networks based on detection data

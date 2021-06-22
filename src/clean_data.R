@@ -1,4 +1,4 @@
-# Data processing by filling in missing values and removing ghost detections
+# Data cleaning by filling in missing values, removing ghost detections and deleting duplicate detections
 # by Pieterjan Verhelst
 # Pieterjan.Verhelst@UGent.be
 
@@ -181,4 +181,7 @@ data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=
 data <- data[!(data$animal_project_code == "Noordzeekanaal" & data$station_name=="bpns-Belwindreefballs-CPOD"),]
 
 
+
+# Remove duplicate detections ####
+data <- data[!duplicated(data[c("date_time", "tag_id")]),]
 
