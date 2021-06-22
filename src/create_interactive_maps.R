@@ -7,7 +7,9 @@ library(sf)
 library(tmap)
 
 
-
+# Load data
+data <- read_csv("./data/interim/detection_data.csv")
+data$X1 <- NULL
 
 # Animal project codes
 unique(data$animal_project_code)

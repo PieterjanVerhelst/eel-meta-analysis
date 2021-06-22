@@ -16,6 +16,10 @@ source("./src/get_nearest_stations.R")
 source("./src/get_timeline.r")
 
 
+# Load data
+data <- read_csv("./data/interim/detection_data.csv")
+data$X1 <- NULL
+
 # Filter project detection data
 subset <- filter(data, animal_project_code == "2004_Gudena")
 head(subset)

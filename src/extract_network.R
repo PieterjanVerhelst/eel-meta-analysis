@@ -3,6 +3,11 @@
 # Pieterjan.Verhelst@UGent.be
 
 
+# Load data
+data <- read_csv("./data/interim/detection_data.csv")
+data$X1 <- NULL
+
+
 # 2015_phd_verhelst_eel ####
 scheldt <- filter(data, animal_project_code == "2015_phd_verhelst_eel")
 distinct_stations <- scheldt %>%
