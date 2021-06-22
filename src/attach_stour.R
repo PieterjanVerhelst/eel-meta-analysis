@@ -80,9 +80,6 @@ rm(stour_eels)
 
 
 
-#write.csv(eels, "./data/interim/eel_meta_data.csv")
-
-
 # 3. Deployment meta-data ####
 
 # Upload ETN meta-data
