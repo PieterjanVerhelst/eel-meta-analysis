@@ -57,9 +57,45 @@ for (i in 1:dim(eels)[1]){
   }}
 
 
+# 5. Consistent use of weight units ####
+unique(eels$weight_unit)
+eels <- eels %>%                               
+  mutate(weight_unit = replace(weight_unit, weight_unit == "grams", "g"))
 
 
+# 6. Consistent use of length type, units and values (mm) ####
+# Length type
+unique(eels$length1_type)
+eels <- eels %>%                               
+  mutate(length1_type = replace(length1_type, length1_type == "Total length", "total length"))
 
+# Length unit
+unique(eels$length1_unit)
+eels <- eels %>%                               
+  mutate(length1_unit = replace(length1_unit, length1_unit == "milimeters", "mm"))
+
+eels$length1_unit <- ifelse(eels$animal_project_code == '2017_Fremur' & is.na(eels$length1_unit), "mm", eels$length1_unit) # missing length unit for this eel
+
+
+# Length value
+for (i in 1:dim(eels)[1]){
+  if (eels$length1_unit[i] == "cm"){
+    eels$length1[i] = eels$length1[i] * 10
+  } else{
+    eels$length1[i] = eels$length1[i]
+  }}
+
+# cm to mm
+unique(eels$length1_unit)
+eels <- eels %>%                               
+  mutate(length1_unit = replace(length1_unit, length1_unit == "cm", "mm"))
+
+
+summary(eels$length1)
+
+#check <- 
+#  eels %>% 
+#  filter(is.na(length1))
 
 
 
