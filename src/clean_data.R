@@ -185,3 +185,19 @@ data <- data[!(data$animal_project_code == "Noordzeekanaal" & data$station_name=
 # Remove duplicate detections ####
 data <- data[!duplicated(data[c("date_time", "tag_id")]),]
 
+
+
+# Remove transmitters that have been reused ####
+# Because it is not clear when transmitter has been taken from a recaptured eel and put into another eel
+nrow(eels)==length(unique(eels$tag_id))
+eels$tag_id[duplicated(eels$tag_id)]
+# [1] A69-1601-29925 A69-1601-29920 A69-1601-38334 A69-1602-4036 
+
+data <- data[!(data$tag_id == "A69-1601-29925"),]
+data <- data[!(data$tag_id == "A69-1601-29920"),]
+data <- data[!(data$tag_id == "A69-1601-38334"),]
+data <- data[!(data$tag_id == "A69-1602-4036"),]
+
+
+
+
