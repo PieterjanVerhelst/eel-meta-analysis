@@ -98,17 +98,24 @@ summary(eels$length1)
 #  filter(is.na(length1))
 
 
-
-# 5. Return number of tagged eels per project ####
-eel %>%
+# 7. Return number of tagged eels per project ####
+eels %>%
   group_by(animal_project_code) %>%
   summarise(tot_eels = n_distinct(tag_id))
 
 
-# 6. Substitute code space into 'Vemco' format ####
+# 8. Substitute code space into 'Vemco' format ####
 # 2011_Loire & part EMNN
-eel$tag_id <- gsub("R04K", "A69-1206", eel$tag_id)
+eels$tag_id <- gsub("R04K", "A69-1206", eels$tag_id)
 
 # 2017_Fremur & part EMMN
-eel$tag_id <- gsub("S256", "A69-1105", eel$tag_id)
+eels$tag_id <- gsub("S256", "A69-1105", eels$tag_id)
+
+
+
+# 9. Write csv file  ####
+write.csv(eels, "./data/interim/eel_meta_data.csv")
+
+
+
 
