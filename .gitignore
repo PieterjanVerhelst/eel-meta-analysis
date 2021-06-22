@@ -45,10 +45,10 @@ src/download_data.R
 additionals/
 
 # ignore folder with raw data (large files)
-data/interim/detection_data.csv
-
-# ignore cleaned large detection file 
 data/raw/
+
+# ignore large cleaned detection file 
+data/interim/detection_data.csv
 
 # ignore folder with figures data (large files)
 figures/
