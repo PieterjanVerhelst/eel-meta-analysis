@@ -22,7 +22,7 @@ eels <- eels[!(eels$tag_id == "A69-1601-29920"),]
 eels <- eels[!(eels$tag_id == "A69-1601-38334"),]
 eels <- eels[!(eels$tag_id == "A69-1602-4036"),]
 
-# 4 eels from '2012_leopoldkanaal' that were tagged in 2011, but not detected
+# 5 eels from '2012_leopoldkanaal' that were tagged in 2011, but not detected
 eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$tag_id == "A69-1601-31894"),]
 eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$tag_id == "A69-1601-31899"),]
 eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$tag_id == "A69-1601-31901"),]
