@@ -52,8 +52,10 @@ eels$sex <- ifelse(eels$animal_project_code == 'SEMP' & is.na(eels$sex), "female
 for (i in 1:dim(eels)[1]){
   if (eels$animal_project_code[i] == "2014_Frome" & eels$length1[i] < 46.0){
     eels$sex[i] = "male"
-  } else{
+  } else if (eels$animal_project_code[i] == "2014_Frome" & eels$length1[i] > 46.0){
     eels$sex[i] = "female"
+  } else{
+    eels$sex[i] = eels$sex[i]
   }}
 
 
