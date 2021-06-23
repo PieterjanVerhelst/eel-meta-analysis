@@ -35,7 +35,7 @@ unique(eels$life_stage)
 eels <- eels %>%                               
   mutate(life_stage = replace(life_stage, life_stage == "Silver", "silver"))
 
-# 4. Consistent use of F and M ####
+# 4. Consistent use of sex notation ####
 unique(eels$sex)
 eels <- eels %>%                               
   mutate(sex = replace(sex, sex == "F", "female"))
