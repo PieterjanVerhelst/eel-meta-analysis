@@ -20,7 +20,7 @@ residency$X1 <- NULL
 
 # Load distance matrix
 # Make sure the first column is not containing the station names
-distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_2004_gudena.csv",  row.names = 1)
+distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_2004_gudena.csv",  row.names = 1, check.names=FALSE)
 
 # Calculate speed without taking into account different tag_id
 #speed <- movementSpeeds(residency, "last to first", distance_matrix)
