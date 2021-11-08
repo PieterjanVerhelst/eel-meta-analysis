@@ -29,6 +29,9 @@ For this meta-analysis, data from 19 projects/locations and 9 countries have bee
 		+ `stour_deployments.csv`: dataset containing the deployment meta-data from the River Stour, '2013_stour' project
 
 * `/interim:`
+	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN and Stour project
+	+ `eel_meta_data.csv`: cleaned dataset containing the eel meta data from ETN and Stour project
+	+ `detection_data.csv`: cleaned dataset containing the detection data from ETN and Stour project
 	+ `/receivernetworks`: folder containing the generated files with the receiver networks per project
 	+ `/residencies`: folder containing the residency datasets, calculated via the `smooth_eel_tracks.R` code
 	+ `/speed`: folder containing the speed datasets, calculated via the `calculate_speed.R` code
