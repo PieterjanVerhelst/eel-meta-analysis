@@ -3,6 +3,7 @@
 # Pieterjan.Verhelst@UGent.be
 
 # Packages
+library(tidyverse)
 library(sf)
 library(tmap)
 
