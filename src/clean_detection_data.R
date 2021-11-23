@@ -110,20 +110,20 @@ data <- data[!(data$animal_project_code == "SEMP" & data$date_time >= '2016-01-0
 # DAK ####
 
 # False detections of eel A69-1602-10860 in Markiezaatsmeer (Markiezaat-5), while tagged and released in Superpolder
-data <- data[!(data$tag_id == "A69-1602-10860" & data$station_name=="Markiezaat-5"),]
+data <- data[!(data$acoustic_tag_id == "A69-1602-10860" & data$station_name=="Markiezaat-5"),]
 
 
 
 # 2013_albertkanaal ####
 
 # False detections in France and Norway
-data <- data[!(data$tag_id == "A69-1105-100" & data$station_name=="F25"),]
-data <- data[!(data$tag_id == "A69-1105-104" & data$station_name=="F17"),]
-data <- data[!(data$tag_id == "A69-1601-26446" & data$station_name=="9"),]
-data <- data[!(data$tag_id == "A69-1601-26446" & data$station_name=="15"),]
-data <- data[!(data$tag_id == "A69-1601-26446" & data$station_name=="27"),]
-data <- data[!(data$tag_id == "A69-1601-38745" & data$station_name=="4"),]
-data <- data[!(data$tag_id == "A69-1601-38745" & data$station_name=="13"),]
+data <- data[!(data$acoustic_tag_id == "A69-1105-100" & data$station_name=="F25"),]
+data <- data[!(data$acoustic_tag_id == "A69-1105-104" & data$station_name=="F17"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-26446" & data$station_name=="9"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-26446" & data$station_name=="15"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-26446" & data$station_name=="27"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-38745" & data$station_name=="4"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-38745" & data$station_name=="13"),]
 
 # False detections in Spain after study period
 data <- data[!(data$animal_project_code == "2013_albertkanaal" & data$date_time >= '2019-01-01 00:00:00'),]
@@ -146,11 +146,11 @@ data <- data[!(data$animal_project_code == "EMMN" & data$receiver_id == "VR2W-10
 
 # 2015_phd_verhelst_eel ####
 # Remove eel from Saeftinghe
-data <- data[!(data$tag_id == "A69-1601-58620"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-58620"),]
 
 # Remove false detections from Albert Canal (ak-43 and ak-x)
-data <- data[!(data$tag_id == "A69-1601-52649" & data$station_name=="ak-43"),]
-data <- data[!(data$tag_id == "A69-1601-57477" & data$station_name=="ak-x"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-52649" & data$station_name=="ak-43"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-57477" & data$station_name=="ak-x"),]
 
 # Remove false detections in Spain
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="1"),]
@@ -183,29 +183,29 @@ data <- data[!(data$animal_project_code == "Noordzeekanaal" & data$station_name=
 
 
 # Remove duplicate detections ####
-data <- data[!duplicated(data[c("date_time", "tag_id")]),]
+data <- data[!duplicated(data[c("date_time", "acoustic_tag_id")]),]
 
 
 
 # Remove transmitters that have been reused ####
 # Because it is not clear when transmitter has been taken from a recaptured eel and put into another eel
-nrow(eels)==length(unique(eels$tag_id))
-eels$tag_id[duplicated(eels$tag_id)]
+nrow(eels)==length(unique(eels$acoustic_tag_id))
+eels$acoustic_tag_id[duplicated(eels$acoustic_tag_id)]
 # [1] A69-1601-29925 A69-1601-29920 A69-1601-38334 A69-1602-4036 
 
-data <- data[!(data$tag_id == "A69-1601-29925"),]
-data <- data[!(data$tag_id == "A69-1601-29920"),]
-data <- data[!(data$tag_id == "A69-1601-38334"),]
-data <- data[!(data$tag_id == "A69-1602-4036"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-29925"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-29920"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-38334"),]
+data <- data[!(data$acoustic_tag_id == "A69-1602-4036"),]
 
 
 
 # Substitute code space into 'Vemco' format ####
 # 2011_Loire & part EMNN
-data$tag_id <- gsub("R04K", "A69-1206", data$tag_id)
+data$acoustic_tag_id <- gsub("R04K", "A69-1206", data$acoustic_tag_id)
 
 # 2017_Fremur & part EMMN
-data$tag_id <- gsub("S256", "A69-1105", data$tag_id)
+data$acoustic_tag_id <- gsub("S256", "A69-1105", data$acoustic_tag_id)
 
 
 
