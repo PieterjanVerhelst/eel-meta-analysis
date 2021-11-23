@@ -33,6 +33,10 @@ eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$acoustic_
 eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$acoustic_tag_id == "A69-1601-31903"),]
 
 
+# 140 eels from life4fish tagged after 2017 (139 in 2019 and 1 in 220)
+eels <- eels[!(eels$animal_project_code == "life4fish" & eels$capture_date_time > "2018-01-01"),]
+
+
 # 6. Replace "Silver" by "silver" in life stage ####
 unique(eels$life_stage)
 eels <- eels %>%                               
