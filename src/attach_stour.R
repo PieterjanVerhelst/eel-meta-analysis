@@ -1,6 +1,6 @@
 # Attach detection and meta data of project on the River Stour
 # by Pieterjan Verhelst
-# Pieterjan.Verhelst@UGent.be
+# Pieterjan.Verhelst@inbo.be
 
 # Packages
 library(tidyverse)

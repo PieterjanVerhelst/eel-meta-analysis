@@ -1,6 +1,6 @@
 # Eel meta-data cleaning by removing irrelevant and redundant eels, columns and make certain column values consistent
 # by Pieterjan Verhelst
-# Pieterjan.Verhelst@UGent.be
+# Pieterjan.Verhelst@inbo.be
 
 
 # 1. Remove redundant columns ####
