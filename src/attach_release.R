@@ -14,7 +14,7 @@ eel <- read_csv("./data/interim/eel_meta_data.csv")
 eel <- select(eel, 
               animal_project_code, 
               release_date_time, 
-              tag_id, 
+              acoustic_tag_id, 
               release_location, 
               release_latitude, 
               release_longitude)
@@ -40,7 +40,7 @@ eel$receiver_id <- "none"
 eel <- select(eel,
               animal_project_code,
               release_date_time, 
-              tag_id, 
+              acoustic_tag_id, 
               release_station,
               receiver_id,
               release_latitude, 
