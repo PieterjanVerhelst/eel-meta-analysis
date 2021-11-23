@@ -1,6 +1,6 @@
 # Data cleaning by filling in missing values, removing ghost detections and deleting duplicate detections
 # by Pieterjan Verhelst
-# Pieterjan.Verhelst@UGent.be
+# Pieterjan.Verhelst@inbo.be
 
 
 # 2012_leopoldkanaal  ####
@@ -42,9 +42,10 @@ data <- data[!(data$animal_project_code == "2014_Frome" & data$station_name=="S1
 
 # PTN-Silver-eel-Mondego ####
 
-# False detection in the Albert Canal (S09) and North Sea (PC4C-B6-4)
+# False detection in the Albert Canal (S09) and North Sea (PC4C-B6-4, BC89)
 data <- data[!(data$animal_project_code == "PTN-Silver-eel-Mondego" & data$station_name=="S09"),]
 data <- data[!(data$animal_project_code == "PTN-Silver-eel-Mondego" & data$station_name=="PC4C-B6-4"),]
+data <- data[!(data$animal_project_code == "PTN-Silver-eel-Mondego" & data$station_name=="BC89"),]
 
 
 
@@ -123,7 +124,11 @@ data <- data[!(data$acoustic_tag_id == "A69-1601-26446" & data$station_name=="9"
 data <- data[!(data$acoustic_tag_id == "A69-1601-26446" & data$station_name=="15"),]
 data <- data[!(data$acoustic_tag_id == "A69-1601-26446" & data$station_name=="27"),]
 data <- data[!(data$acoustic_tag_id == "A69-1601-38745" & data$station_name=="4"),]
+data <- data[!(data$acoustic_tag_id == "A69-1601-38745" & data$station_name=="8"),]
 data <- data[!(data$acoustic_tag_id == "A69-1601-38745" & data$station_name=="13"),]
+
+# False detections in the UK
+data <- data[!(data$acoustic_tag_id == "A69-1601-38747" & data$station_name=="SWB"),]
 
 # False detections in Spain after study period
 data <- data[!(data$animal_project_code == "2013_albertkanaal" & data$date_time >= '2019-01-01 00:00:00'),]
@@ -154,11 +159,23 @@ data <- data[!(data$acoustic_tag_id == "A69-1601-57477" & data$station_name=="ak
 
 # Remove false detections in Spain
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="1"),]
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="8"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="9"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="14"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="16"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="18"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="20"),]
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="21"),]
+
+# Remove false detections in Portugal
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="19"),]
+
+# Remove false detections in UK
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="HGB LBE1"),]
+
+# Remove false detections in BPNS
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="PC4C-B08-1"),]
+data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$station_name=="CP_100m_base"),]
 
 
 
@@ -171,14 +188,31 @@ data <- data[!(data$animal_project_code == "2004_Gudena" & data$station_name=="0
 
 # 2019_Grotenete ####
 # Remove false detections in Spain
+data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=="7"),]
 data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=="14"),]
+data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=="15"),]
+data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=="19"),]
+data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=="21"),]
 
+# Remove false detections in Norway
+data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=="9"),]
+data <- data[!(data$animal_project_code == "2019_Grotenete" & data$station_name=="1"),]
 
 
 
 # Noordzeekanaal ####
 # Remove false detections in North Sea
 data <- data[!(data$animal_project_code == "Noordzeekanaal" & data$station_name=="bpns-Belwindreefballs-CPOD"),]
+
+
+
+
+
+# 2017_Fremur ####
+# Remove false detections in North Sea
+data <- data[!(data$animal_project_code == "2017_Fremur" & data$station_name=="CP_0m_Thelma"),]
+data <- data[!(data$animal_project_code == "2017_Fremur" & data$station_name=="CP_300m_Thelma"),]
+data <- data[!(data$animal_project_code == "2017_Fremur" & data$station_name=="C6_1_Belwind"),]
 
 
 

@@ -1,6 +1,6 @@
 # Add eel release positions and date-time to detection dataset
 # by Pieterjan Verhelst
-# Pieterjan.Verhelst@UGent.be
+# Pieterjan.Verhelst@inbo.be
 
 
 # Packages
