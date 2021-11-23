@@ -17,7 +17,7 @@ For this meta-analysis, data from 19 projects/locations and 9 countries have bee
 
 ### Data
 
-<mark>Data last updated on 26-11-2020</mark>
+<mark>Data last updated on 26-11-2021</mark>
 
 * `/raw:`
 	+ `raw_detection_data.csv`: dataset containing the raw detection data
