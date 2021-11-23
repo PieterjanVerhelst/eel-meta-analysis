@@ -107,5 +107,6 @@ deployments <- rbind(deployments, stour_deployments)
 rm(stour_deployments)
 
 
-
+# write csv of deployments
+write.csv(deployments, "./data/interim/deployments.csv")
 
