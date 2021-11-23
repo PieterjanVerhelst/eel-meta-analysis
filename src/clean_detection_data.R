@@ -130,6 +130,9 @@ data <- data[!(data$acoustic_tag_id == "A69-1601-38745" & data$station_name=="13
 # False detections in the UK
 data <- data[!(data$acoustic_tag_id == "A69-1601-38747" & data$station_name=="SWB"),]
 
+# False detections in the BPNS
+data <- data[!(data$acoustic_tag_id == "A69-1601-26516" & data$station_name=="bpns-CNB07"),]
+
 # False detections in Spain after study period
 data <- data[!(data$animal_project_code == "2013_albertkanaal" & data$date_time >= '2019-01-01 00:00:00'),]
 
