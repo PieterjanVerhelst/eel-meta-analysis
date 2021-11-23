@@ -109,7 +109,7 @@ data <- data[!(data$animal_project_code == "SEMP" & data$date_time >= '2016-01-0
 
 # DAK ####
 
-# False detections of eel A69-1602-10860 in Markiezaatsmeer (Markiezaat-5), while tagged and released in Superpolder
+# False detections of eel A69-1602-10860 in Markiezaatsmeer (Markiezaat-5), while tagged and released in Suderpolder
 data <- data[!(data$acoustic_tag_id == "A69-1602-10860" & data$station_name=="Markiezaat-5"),]
 
 
@@ -208,5 +208,10 @@ data$acoustic_tag_id <- gsub("R04K", "A69-1206", data$acoustic_tag_id)
 data$acoustic_tag_id <- gsub("S256", "A69-1105", data$acoustic_tag_id)
 
 
+
+# Return number of detected eels per project ####
+data %>%
+  group_by(animal_project_code) %>%
+  summarise(tot_eels = n_distinct(acoustic_tag_id))
 
 
