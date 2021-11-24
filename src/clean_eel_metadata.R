@@ -121,6 +121,14 @@ eels$acoustic_tag_id <- gsub("R04K", "A69-1206", eels$acoustic_tag_id)
 eels$acoustic_tag_id <- gsub("S256", "A69-1105", eels$acoustic_tag_id)
 
 
+# 12. Remove '416kHz-' prefix for tags of life4fish
+for (i in 1:dim(eels)[1]){
+  if (eels$animal_project_code[i] == "life4fish"){
+    eels$acoustic_tag_id[i] = gsub('416kHz-', '', eels$acoustic_tag_id[i])
+  } else{
+    eels$acoustic_tag_id[i] = eels$acoustic_tag_id[i]
+  }}
+
 
 # 12. Write csv file  ####
 write.csv(eels, "./data/interim/eel_meta_data.csv")

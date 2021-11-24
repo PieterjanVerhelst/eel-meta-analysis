@@ -4,19 +4,6 @@
 
 
 
-# life4fish ####
-# Add '416kHz-' prefix to acoustic_tag_id
-for (i in 1:dim(data)[1]){
-  if (data$animal_project_code[i] == "life4fish"){
-    data$acoustic_tag_id[i] = paste0('416kHz-', data$acoustic_tag_id[i])
-  } else{
-    data$acoustic_tag_id[i] = data$acoustic_tag_id[i]
-  }}
-
-
-
-
-
 # 2012_leopoldkanaal  ####
 
 # receiver VR2W-115438 doesn't have station name and coordinates
