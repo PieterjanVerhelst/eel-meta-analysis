@@ -54,7 +54,6 @@ eel <- rename(eel,
 
 
 # 6. Merge eel releases to the detection dataset
-data$scientific_name <- NULL
 data <- rbind(data, eel)
 
 
