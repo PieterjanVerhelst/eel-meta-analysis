@@ -8,7 +8,7 @@ library(lubridate)
 
 # Load data
 data <- read_csv("./data/interim/detection_data.csv")
-data$X1 <- NULL
+data$...1 <- NULL
 
 
 # 2015_phd_verhelst_eel ####
@@ -133,31 +133,31 @@ distinct_stations <- warnow %>%
 
 # DAK_SUPERPOLDER ####
 dak_superpolder <- filter(data, animal_project_code == "DAK" ,
-                            tag_id == "A69-1602-10817" | 
-                            tag_id == "A69-1602-10818" | 
-                            tag_id == "A69-1602-10819" | 
-                            tag_id == "A69-1602-10820" | 
-                            tag_id == "A69-1602-10821" | 
-                            tag_id == "A69-1602-10822" | 
-                            tag_id == "A69-1602-10823" | 
-                            tag_id == "A69-1602-10824" | 
-                            tag_id == "A69-1602-10825" | 
-                            tag_id == "A69-1602-10826" | 
-                            tag_id == "A69-1602-10827" | 
-                            tag_id == "A69-1602-10828" | 
-                            tag_id == "A69-1602-10829" | 
-                            tag_id == "A69-1602-10830" | 
-                            tag_id == "A69-1602-10831" | 
-                            tag_id == "A69-1602-10857" | 
-                            tag_id == "A69-1602-10858" | 
-                            tag_id == "A69-1602-10859" | 
-                            tag_id == "A69-1602-10860" | 
-                            tag_id == "A69-1602-10861" | 
-                            tag_id == "A69-1602-10862" | 
-                            tag_id == "A69-1602-10863" | 
-                            tag_id == "A69-1602-10864" | 
-                            tag_id == "A69-1602-10865" | 
-                            tag_id == "A69-1602-10866" 
+                            acoustic_tag_id == "A69-1602-10817" | 
+                            acoustic_tag_id == "A69-1602-10818" | 
+                            acoustic_tag_id == "A69-1602-10819" | 
+                            acoustic_tag_id == "A69-1602-10820" | 
+                            acoustic_tag_id == "A69-1602-10821" | 
+                            acoustic_tag_id == "A69-1602-10822" | 
+                            acoustic_tag_id == "A69-1602-10823" | 
+                            acoustic_tag_id == "A69-1602-10824" | 
+                            acoustic_tag_id == "A69-1602-10825" | 
+                            acoustic_tag_id == "A69-1602-10826" | 
+                            acoustic_tag_id == "A69-1602-10827" | 
+                            acoustic_tag_id == "A69-1602-10828" | 
+                            acoustic_tag_id == "A69-1602-10829" | 
+                            acoustic_tag_id == "A69-1602-10830" | 
+                            acoustic_tag_id == "A69-1602-10831" | 
+                            acoustic_tag_id == "A69-1602-10857" | 
+                            acoustic_tag_id == "A69-1602-10858" | 
+                            acoustic_tag_id == "A69-1602-10859" | 
+                            acoustic_tag_id == "A69-1602-10860" | 
+                            acoustic_tag_id == "A69-1602-10861" | 
+                            acoustic_tag_id == "A69-1602-10862" | 
+                            acoustic_tag_id == "A69-1602-10863" | 
+                            acoustic_tag_id == "A69-1602-10864" | 
+                            acoustic_tag_id == "A69-1602-10865" | 
+                            acoustic_tag_id == "A69-1602-10866" 
                             )
 distinct_stations <- dak_superpolder %>%
   distinct(station_name, .keep_all = TRUE) %>%
@@ -171,31 +171,31 @@ distinct_stations <- dak_superpolder %>%
 
 # DAK_MARKIEZAAT ####
 dak_markiezaat <- filter(data, animal_project_code == "DAK" ,
-                          tag_id == "A69-1602-10832" | 
-                            tag_id == "A69-1602-10833" | 
-                            tag_id == "A69-1602-10834" | 
-                            tag_id == "A69-1602-10835" | 
-                            tag_id == "A69-1602-10836" | 
-                            tag_id == "A69-1602-10837" | 
-                            tag_id == "A69-1602-10838" | 
-                            tag_id == "A69-1602-10839" | 
-                            tag_id == "A69-1602-10840" | 
-                            tag_id == "A69-1602-10841" | 
-                            tag_id == "A69-1602-10842" | 
-                            tag_id == "A69-1602-10843" | 
-                            tag_id == "A69-1602-10844" | 
-                            tag_id == "A69-1602-10845" | 
-                            tag_id == "A69-1602-10846" | 
-                            tag_id == "A69-1602-10847" | 
-                            tag_id == "A69-1602-10848" | 
-                            tag_id == "A69-1602-10849" | 
-                            tag_id == "A69-1602-10850" | 
-                            tag_id == "A69-1602-10851" | 
-                            tag_id == "A69-1602-10852" | 
-                            tag_id == "A69-1602-10853" | 
-                            tag_id == "A69-1602-10854" | 
-                            tag_id == "A69-1602-10855" | 
-                            tag_id == "A69-1602-10856" 
+                         acoustic_tag_id == "A69-1602-10832" | 
+                           acoustic_tag_id == "A69-1602-10833" | 
+                           acoustic_tag_id == "A69-1602-10834" | 
+                           acoustic_tag_id == "A69-1602-10835" | 
+                           acoustic_tag_id == "A69-1602-10836" | 
+                           acoustic_tag_id == "A69-1602-10837" | 
+                           acoustic_tag_id == "A69-1602-10838" | 
+                           acoustic_tag_id == "A69-1602-10839" | 
+                           acoustic_tag_id == "A69-1602-10840" | 
+                           acoustic_tag_id == "A69-1602-10841" | 
+                           acoustic_tag_id == "A69-1602-10842" | 
+                           acoustic_tag_id == "A69-1602-10843" | 
+                           acoustic_tag_id == "A69-1602-10844" | 
+                           acoustic_tag_id == "A69-1602-10845" | 
+                           acoustic_tag_id == "A69-1602-10846" | 
+                           acoustic_tag_id == "A69-1602-10847" | 
+                           acoustic_tag_id == "A69-1602-10848" | 
+                           acoustic_tag_id == "A69-1602-10849" | 
+                           acoustic_tag_id == "A69-1602-10850" | 
+                           acoustic_tag_id == "A69-1602-10851" | 
+                           acoustic_tag_id == "A69-1602-10852" | 
+                           acoustic_tag_id == "A69-1602-10853" | 
+                           acoustic_tag_id == "A69-1602-10854" | 
+                           acoustic_tag_id == "A69-1602-10855" | 
+                           acoustic_tag_id == "A69-1602-10856" 
 )
 distinct_stations <- dak_markiezaat %>%
   distinct(station_name, .keep_all = TRUE) %>%
@@ -276,5 +276,16 @@ distinct_stations <- stour %>%
          longitude = deploy_longitude)
 
 #write.csv(distinct_stations, "./data/interim/receivernetworks/receivernetwork_2013_Stour.csv", row.names=FALSE)
+
+
+# life4fish ####
+life4fish <- filter(data, animal_project_code == "life4fish")
+distinct_stations <- life4fish %>%
+  distinct(station_name, .keep_all = TRUE) %>%
+  select(animal_project_code, station_name, deploy_latitude, deploy_longitude) %>%
+  rename(latitude = deploy_latitude,
+         longitude = deploy_longitude)
+
+#write.csv(distinct_stations, "./data/interim/receivernetworks/receivernetwork_life4fish.csv", row.names=FALSE)
 
 
