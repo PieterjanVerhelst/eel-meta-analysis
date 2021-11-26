@@ -1,7 +1,10 @@
 # Extract receiver networks based on detections per project
 # by Pieterjan Verhelst
-# Pieterjan.Verhelst@UGent.be
+# Pieterjan.Verhelst@inbo.be
 
+# Packages
+library(tidyverse)
+library(lubridate)
 
 # Load data
 data <- read_csv("./data/interim/detection_data.csv")
