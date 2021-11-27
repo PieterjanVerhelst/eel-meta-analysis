@@ -28,7 +28,7 @@ head(subset)
 subset$counts <- 1
 
 # Good practice to sort the dataset
-subset %<>% arrange(tag_id, date_time)
+subset %<>% arrange(acoustic_tag_id, date_time)
 
 # Import distance matrix
 distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_2004_gudena.csv")
@@ -37,7 +37,7 @@ distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_20
 
 # Extract eel codes
 eels_all <- subset %>% 
-  select(tag_id) %>% 
+  select(acoustic_tag_id) %>% 
   unique()
 eels_all <- eels_all[[1]]
 eels_all
@@ -121,7 +121,7 @@ residency <- rename(residency, detections = counts)
 
 
 # Change order of columns
-residency <- residency[, c("animal_project_code", "tag_id","station_name","receiver_id", "deploy_latitude", "deploy_longitude", "arrival", "departure","detections")]
+residency <- residency[, c("animal_project_code", "acoustic_tag_id","station_name","receiver_id", "deploy_latitude", "deploy_longitude", "arrival", "departure","detections")]
 
 
 
