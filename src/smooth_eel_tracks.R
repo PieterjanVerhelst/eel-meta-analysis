@@ -20,8 +20,15 @@ source("./src/get_timeline.r")
 data <- read_csv("./data/interim/detection_data.csv")
 data$...1 <- NULL
 
+# Animal project codes
+#unique(data$animal_project_code)
+#[1] "2012_leopoldkanaal"     "SEMP"                   "PTN-Silver-eel-Mondego" "2015_phd_verhelst_eel"  "Noordzeekanaal"     
+#[6] "DAK"                    "EMMN"                   "2004_Gudena"            "2017_Fremur"            "2013_albertkanaal"  
+#[11] "2011_Loire"             "2011_Warnow"            "2014_Frome"             "2014_Nene"              "2019_Grotenete"    
+#[16] "ESGL"                   "life4fish"              "2013_Stour"     
+
 # Filter project detection data
-subset <- filter(data, animal_project_code == "2004_Gudena")
+subset <- filter(data, animal_project_code == "2012_leopoldkanaal")
 head(subset)
 
 # Add 'count' column
@@ -31,7 +38,7 @@ subset$counts <- 1
 subset %<>% arrange(acoustic_tag_id, date_time)
 
 # Import distance matrix
-distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_2004_gudena.csv")
+distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_2012_leopoldkanaal.csv")
 
 
 
@@ -52,7 +59,7 @@ stations_all
 
 
 # Rename column `X1` to `station` in distance dataframe
-distance_matrix %<>% rename(station_name = X1)
+distance_matrix %<>% rename(station_name = ...1)
 head(distance_matrix)
 
 
@@ -126,7 +133,7 @@ residency <- residency[, c("animal_project_code", "acoustic_tag_id","station_nam
 
 
 # Write csv
-write.csv(residency, "./data/interim/residencies/residency_2004_gudena.csv")
+write.csv(residency, "./data/interim/residencies/residency_2012_leopoldkanaal.csv")
 
 
 
