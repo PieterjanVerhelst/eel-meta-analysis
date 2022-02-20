@@ -93,12 +93,17 @@ names(near_stations_all) <- stations_all
 
 
 # For each eel, smoothing is applied by calling function `get_timeline`
-tracks <- purrr::map(eels_all, 
-                     function(eel) 
+tracks <- purrr::imap(eels_all, 
+                     function(eel, index) {
+                       message <- paste0(
+                         "Analyse timeseries of ", eel,
+                         " (",index,"/", n_eels,")"
+                       )
+                       message(message)
                        get_timeline(subset, 
                                     proxy_stations = near_stations_all,
-                                    eel = eel, verbose = FALSE))
-
+                                    eel = eel, verbose = FALSE)
+                     })
 
 # You get a list of data.frames. You can view them separately
 View(tracks[[5]])
