@@ -108,6 +108,9 @@ tracks <- purrr::imap(eels_all,
 # You get a list of data.frames. You can view them separately
 View(tracks[[5]])
 
+# Give eels "names" to tracks list
+names(tracks) <- eels_all
+
 
 ## In case you want to run the smoothing only for one eel from `eels` (e.g; the first one with `code = "A69-1601-52622"`) and modify default parameters `max_limit` (e.g. 1 hour) and `verbose` (TRUE):
 #track_A69_1601_28264_1h <- get_timeline(dfk, 
