@@ -30,6 +30,7 @@ data$...1 <- NULL
 # Filter project detection data
 subset <- filter(data, animal_project_code == "2015_phd_verhelst_eel")
 head(subset)
+remove(data)
 
 # Add 'count' column
 subset$counts <- 1
