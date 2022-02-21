@@ -49,6 +49,7 @@ eels_all <- subset %>%
   unique()
 eels_all <- eels_all[[1]]
 eels_all
+n_eels <- length(eels_all)
 
 
 # Extract stations
@@ -59,19 +60,21 @@ stations_all <- stations_all[[1]]
 stations_all
 
 
-# Rename column `X1` to `station` in distance dataframe
+# Rename column `...1` to `station` in distance dataframe
 distance_matrix %<>% rename(station_name = ...1)
 head(distance_matrix)
 
 
 # Select from `distance` only the distance among stations we need and overwrite it:
-distance_all <- distance_matrix %<>% select(station_name, 
-                                            which(colnames(distance_matrix) %in% stations_all)) %>%
+distance_all <- distance_matrix %<>% 
+  select(station_name, which(colnames(distance_matrix) %in% stations_all)) %>%
   filter(station_name %in% stations_all)
 distance_all
 
 
-# Before proceeding smoothing the raw data and removing duplicates, we should be sure that stations present in the data are present in the distance matrix as well!
+# Before proceeding smoothing the raw data and removing duplicates, we should be
+# sure that stations present in the data are present in the distance matrix as
+# well!
 assert_that(
   all(stations_all %in% colnames(distance_all)),
   msg = cat("These stations are not present in distance matrix:",
@@ -83,7 +86,8 @@ max_limit <- 3600 # seconds
 max_dist <- 1005 #  meters; based on detection range
 
 
-# For each eel, the nearest stations are found by `get_nearest_stations()` and saved in a list, `near_stations`
+# For each eel, the nearest stations are found by `get_nearest_stations()` and
+# saved in a list, `near_stations`
 near_stations_all <- purrr::map(stations_all, 
                                 function(x) 
                                   distance_all %>%
