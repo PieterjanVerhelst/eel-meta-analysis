@@ -114,7 +114,7 @@ get_timeline <- function(df,
   )
   computation_message <- 
     paste0("Analysis of ", n_detections, " detections analysed in ", 
-          computation_time, "seconds (", 
+          computation_time, " seconds (", 
           computation_time/n_detections, " detections/s)")
   message(computation_message)
   return(tibble::as_tibble(timeline))
