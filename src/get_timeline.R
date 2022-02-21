@@ -18,12 +18,13 @@
 #' `counts` (number of rows from `df` merged) and `acoustic_tag_id` (constant)
 #' @export
 #' @importFrom dplyr select bind_rows filter
-#' @importFrom lubridate as_datetime
+#' @importFrom lubridate as_datetime now
 get_timeline <- function(df, 
                          proxy_stations, 
                          eel, 
                          limit = 3600, 
                          verbose = FALSE)  {
+  start_computation <- lubridate::now()
   assertthat::assert_that(all(c("date_time", "acoustic_tag_id", "station_name", "counts") %in% colnames(df)),
                           msg = paste("Column date_time, acoustic_tag_id, station_name and counts", 
                                       "have to be present in dataframe"))
@@ -31,6 +32,8 @@ get_timeline <- function(df,
                           msg = paste("there are one or more stations in df which",
                                       "are not present in proxy_stations."))
   df %<>% filter(acoustic_tag_id == eel)
+  # number of records
+  n_detections <- nrow(df)
   # find start
   t <- min(df$date_time)
   # find end of time series
@@ -104,5 +107,15 @@ get_timeline <- function(df,
     end <- t + limit
   }
   timeline$acoustic_tag_id <- eel
+  end_computation <- lubridate::now()
+  computation_time <- lubridate::time_length(
+    end_computation - start_computation,
+    unit = "second"
+  )
+  computation_message <- 
+    paste0("Analysis of ", n_detections, " detections analysed in ", 
+          computation_time, "seconds (", 
+          computation_time/n_detections, " detections/s)")
+  message(computation_message)
   return(tibble::as_tibble(timeline))
 }
