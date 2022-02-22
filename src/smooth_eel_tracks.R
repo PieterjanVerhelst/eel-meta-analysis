@@ -28,8 +28,9 @@ data$...1 <- NULL
 #[16] "ESGL"                   "life4fish"              "2013_Stour"     
 
 # Filter project detection data
-subset <- filter(data, animal_project_code == "PTN-Silver-eel-Mondego")
+subset <- filter(data, animal_project_code == "2015_phd_verhelst_eel")
 head(subset)
+remove(data)
 
 # Add 'count' column
 subset$counts <- 1
@@ -38,7 +39,7 @@ subset$counts <- 1
 subset %<>% arrange(acoustic_tag_id, date_time)
 
 # Import distance matrix
-distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_mondego.csv")
+distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_2015_phd_verhelst_eel.csv")
 
 
 
@@ -48,6 +49,7 @@ eels_all <- subset %>%
   unique()
 eels_all <- eels_all[[1]]
 eels_all
+n_eels <- length(eels_all)
 
 
 # Extract stations
@@ -58,19 +60,21 @@ stations_all <- stations_all[[1]]
 stations_all
 
 
-# Rename column `X1` to `station` in distance dataframe
+# Rename column `...1` to `station` in distance dataframe
 distance_matrix %<>% rename(station_name = ...1)
 head(distance_matrix)
 
 
 # Select from `distance` only the distance among stations we need and overwrite it:
-distance_all <- distance_matrix %<>% select(station_name, 
-                                     which(colnames(distance_matrix) %in% stations_all)) %>%
+distance_all <- distance_matrix %<>% 
+  select(station_name, which(colnames(distance_matrix) %in% stations_all)) %>%
   filter(station_name %in% stations_all)
 distance_all
 
 
-# Before proceeding smoothing the raw data and removing duplicates, we should be sure that stations present in the data are present in the distance matrix as well!
+# Before proceeding smoothing the raw data and removing duplicates, we should be
+# sure that stations present in the data are present in the distance matrix as
+# well!
 assert_that(
   all(stations_all %in% colnames(distance_all)),
   msg = cat("These stations are not present in distance matrix:",
@@ -82,7 +86,8 @@ max_limit <- 3600 # seconds
 max_dist <- 1005 #  meters; based on detection range
 
 
-# For each eel, the nearest stations are found by `get_nearest_stations()` and saved in a list, `near_stations`
+# For each eel, the nearest stations are found by `get_nearest_stations()` and
+# saved in a list, `near_stations`
 near_stations_all <- purrr::map(stations_all, 
                                 function(x) 
                                   distance_all %>%
@@ -93,15 +98,23 @@ names(near_stations_all) <- stations_all
 
 
 # For each eel, smoothing is applied by calling function `get_timeline`
-tracks <- purrr::map(eels_all, 
-                     function(eel) 
+tracks <- purrr::imap(eels_all, 
+                     function(eel, index) {
+                       message <- paste0(
+                         "Analyse timeseries of ", eel,
+                         " (",index,"/", n_eels,")"
+                       )
+                       message(message)
                        get_timeline(subset, 
                                     proxy_stations = near_stations_all,
-                                    eel = eel, verbose = FALSE))
-
+                                    eel = eel, verbose = FALSE)
+                     })
 
 # You get a list of data.frames. You can view them separately
 View(tracks[[5]])
+
+# Give eels "names" to tracks list
+names(tracks) <- eels_all
 
 
 ## In case you want to run the smoothing only for one eel from `eels` (e.g; the first one with `code = "A69-1601-52622"`) and modify default parameters `max_limit` (e.g. 1 hour) and `verbose` (TRUE):
@@ -133,10 +146,5 @@ residency <- residency[, c("animal_project_code", "acoustic_tag_id","station_nam
 
 
 # Write csv
-write.csv(residency, "./data/interim/residencies/residency_mondego.csv")
-
-
-
-
-
+write.csv(residency, "./data/interim/residencies/residency_2015_phd_verhelst_eel.csv")
 
