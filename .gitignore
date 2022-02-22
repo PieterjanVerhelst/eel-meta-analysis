@@ -52,3 +52,8 @@ data/interim/detection_data.csv
 
 # ignore folder with figures data (large files)
 figures/
+
+# ignore folder with detection data per project (large files)
+data/interim/detection_data_per_project
+
+

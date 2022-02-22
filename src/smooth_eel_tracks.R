@@ -18,6 +18,7 @@ source("./src/get_timeline.r")
 
 # Load data
 data <- read_csv("./data/interim/detection_data.csv")
+data <- read_csv("./data/interim/detection_data_per_project/verhelst.csv")
 data$...1 <- NULL
 
 # Animal project codes
