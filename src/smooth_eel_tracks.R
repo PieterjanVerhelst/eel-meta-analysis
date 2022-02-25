@@ -28,7 +28,7 @@ data$...1 <- NULL
 #[16] "ESGL"                   "life4fish"              "2013_Stour"     
 
 # Filter project detection data
-subset <- filter(data, animal_project_code == "2015_phd_verhelst_eel")
+subset <- filter(data, animal_project_code == "2013_albertkanaal")
 head(subset)
 remove(data)
 
@@ -146,5 +146,5 @@ residency <- residency[, c("animal_project_code", "acoustic_tag_id","station_nam
 
 
 # Write csv
-write.csv(residency, "./data/interim/residencies/residency_2015_phd_verhelst_eel.csv")
+write.csv(residency, "./data/interim/residencies/residency_2013_albertkanaal.csv")
 
