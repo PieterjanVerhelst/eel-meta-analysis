@@ -39,7 +39,7 @@ subset$counts <- 1
 subset %<>% arrange(acoustic_tag_id, date_time)
 
 # Import distance matrix
-distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_emmn")
+distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_emmn.csv")
 
 
 # Extract eel codes
