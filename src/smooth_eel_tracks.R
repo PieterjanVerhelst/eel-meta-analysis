@@ -32,6 +32,36 @@ subset <- filter(data, animal_project_code == "ESGL")
 head(subset)
 
 
+# Filter DAK project and eels for Suderpolder
+subset <- filter(data, animal_project_code == "DAK" ,
+                          acoustic_tag_id == "A69-1602-10817" | 
+                            acoustic_tag_id == "A69-1602-10818" | 
+                            acoustic_tag_id == "A69-1602-10819" | 
+                            acoustic_tag_id == "A69-1602-10820" | 
+                            acoustic_tag_id == "A69-1602-10821" | 
+                            acoustic_tag_id == "A69-1602-10822" | 
+                            acoustic_tag_id == "A69-1602-10823" | 
+                            acoustic_tag_id == "A69-1602-10824" | 
+                            acoustic_tag_id == "A69-1602-10825" | 
+                            acoustic_tag_id == "A69-1602-10826" | 
+                            acoustic_tag_id == "A69-1602-10827" | 
+                            acoustic_tag_id == "A69-1602-10828" | 
+                            acoustic_tag_id == "A69-1602-10829" | 
+                            acoustic_tag_id == "A69-1602-10830" | 
+                            acoustic_tag_id == "A69-1602-10831" | 
+                            acoustic_tag_id == "A69-1602-10857" | 
+                            acoustic_tag_id == "A69-1602-10858" | 
+                            acoustic_tag_id == "A69-1602-10859" | 
+                            acoustic_tag_id == "A69-1602-10860" | 
+                            acoustic_tag_id == "A69-1602-10861" | 
+                            acoustic_tag_id == "A69-1602-10862" | 
+                            acoustic_tag_id == "A69-1602-10863" | 
+                            acoustic_tag_id == "A69-1602-10864" | 
+                            acoustic_tag_id == "A69-1602-10865" | 
+                            acoustic_tag_id == "A69-1602-10866" 
+)
+
+
 # Add 'count' column
 subset$counts <- 1
 
@@ -39,7 +69,7 @@ subset$counts <- 1
 subset %<>% arrange(acoustic_tag_id, date_time)
 
 # Import distance matrix
-distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_esgl.csv")
+distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_dak_superpolder.csv")
 
 
 # Extract eel codes
@@ -145,5 +175,5 @@ residency <- residency[, c("animal_project_code", "acoustic_tag_id","station_nam
 
 
 # Write csv
-write.csv(residency, "./data/interim/residencies/residency_esgl.csv")
+write.csv(residency, "./data/interim/residencies/residency_dak_superpolder.csv")
 
