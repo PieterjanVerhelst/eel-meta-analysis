@@ -131,7 +131,7 @@ distinct_stations <- warnow %>%
 
 
 
-# DAK_SUPERPOLDER ####
+# DAK_SUDERPOLDER ####
 dak_superpolder <- filter(data, animal_project_code == "DAK" ,
                             acoustic_tag_id == "A69-1602-10817" | 
                             acoustic_tag_id == "A69-1602-10818" | 
