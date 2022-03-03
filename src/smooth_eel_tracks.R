@@ -28,7 +28,7 @@ data$...1 <- NULL
 #[16] "ESGL"                   "life4fish"              "2013_Stour"     
 
 # Filter project detection data
-subset <- filter(data, animal_project_code == "ESGL")
+subset <- filter(data, animal_project_code == "2004_Gudena")
 head(subset)
 
 
@@ -97,7 +97,7 @@ subset$counts <- 1
 subset %<>% arrange(acoustic_tag_id, date_time)
 
 # Import distance matrix
-distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_dak_markiezaatsmeer.csv")
+distance_matrix <- read_csv("./data/external/distance_matrices/distancematrix_2004_gudena.csv")
 
 
 # Extract eel codes
@@ -203,5 +203,5 @@ residency <- residency[, c("animal_project_code", "acoustic_tag_id","station_nam
 
 
 # Write csv
-write.csv(residency, "./data/interim/residencies/residency_dak_markiezaatsmeer.csv")
+write.csv(residency, "./data/interim/residencies/residency_2004_gudena.csv")
 
