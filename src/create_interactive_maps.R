@@ -467,8 +467,6 @@ life4fish_map
 
 # nedap_meuse ####
 nedap <- filter(data, animal_project_code == "nedap_meuse")
-nedap$year <- factor(year(nedap$date_time))
-nedap <- filter(nedap, year == "2006")
 nedap$day <- as.Date(nedap$date_time)
 nedap <- select(nedap, animal_project_code, date_time, day, acoustic_tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
 nedap$date_time <- NULL
