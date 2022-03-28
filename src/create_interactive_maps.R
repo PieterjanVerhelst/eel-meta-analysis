@@ -482,7 +482,7 @@ spatial_nedap <- st_as_sf(nedap,
 
 # Create and save interactive map
 nedap_map <- tm_shape(spatial_nedap) + 
-  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 3.0) +
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 5.0) +
   tm_facets(by = "acoustic_tag_id",  ncol = 2, nrow = 524, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 1048), max.categories = 19) 
 nedap_map
