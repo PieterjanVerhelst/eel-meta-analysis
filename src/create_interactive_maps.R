@@ -463,3 +463,27 @@ life4fish_map <- tm_shape(spatial_life4fish) +
 life4fish_map
 
 
+
+
+# nedap_meuse ####
+nedap <- filter(data, animal_project_code == "nedap_meuse")
+nedap$year <- factor(year(nedap$date_time))
+nedap <- filter(nedap, year == "2006")
+nedap$day <- as.Date(nedap$date_time)
+nedap <- select(nedap, animal_project_code, date_time, day, acoustic_tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
+nedap$date_time <- NULL
+nedap <- distinct(nedap)   # Select unique rows to reduce size of dataset
+unique(nedap$acoustic_tag_id) # 1048 detected eels, 
+
+# Create sf
+spatial_nedap <- st_as_sf(nedap,
+                           coords = c(6:7),
+                           crs = 4326)  # WGS84
+
+# Create and save interactive map
+nedap_map <- tm_shape(spatial_nedap) + 
+  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 3.0) +
+  tm_facets(by = "acoustic_tag_id",  ncol = 2, nrow = 524, free.scales = TRUE) +
+  tmap_options(limits = c(facets.view = 1048), max.categories = 19) 
+nedap_map
+
