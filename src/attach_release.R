@@ -1,6 +1,6 @@
 # Add eel release positions and date-time to detection dataset
 # by Pieterjan Verhelst
-# Pieterjan.Verhelst@UGent.be
+# Pieterjan.Verhelst@inbo.be
 
 
 # Packages
@@ -14,7 +14,7 @@ eel <- read_csv("./data/interim/eel_meta_data.csv")
 eel <- select(eel, 
               animal_project_code, 
               release_date_time, 
-              tag_id, 
+              acoustic_tag_id, 
               release_location, 
               release_latitude, 
               release_longitude)
@@ -40,7 +40,7 @@ eel$receiver_id <- "none"
 eel <- select(eel,
               animal_project_code,
               release_date_time, 
-              tag_id, 
+              acoustic_tag_id, 
               release_station,
               receiver_id,
               release_latitude, 
@@ -54,7 +54,6 @@ eel <- rename(eel,
 
 
 # 6. Merge eel releases to the detection dataset
-data$scientific_name <- NULL
 data <- rbind(data, eel)
 
 

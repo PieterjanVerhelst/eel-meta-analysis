@@ -1,41 +1,48 @@
 # Eel meta-data cleaning by removing irrelevant and redundant eels, columns and make certain column values consistent
 # by Pieterjan Verhelst
-# Pieterjan.Verhelst@UGent.be
+# Pieterjan.Verhelst@inbo.be
 
 
 # 1. Remove redundant columns ####
-eels$scientific_name <- NULL
 eels$age <- NULL
 eels$age_unit <- NULL
 eels$treatment_type <- NULL
-eels$tag_id <- factor(eels$tag_id)
 
+# 2. Set as factors ####
+eels$animal_project_code <- factor(eels$animal_project_code)
+eels$acoustic_tag_id <- factor(eels$acoustic_tag_id)
+eels$sex <- factor(eels$sex)
+eels$life_stage <- factor(eels$life_stage)
 
-# 2. Remove redundant and irrelevant eels ####
+# 3. Remove redundant and irrelevant eels ####
 
 # Eel from saeftinghe 
-eels <- eels[!(eels$animal_project_code == "2015_phd_verhelst_eel" & eels$tag_id == "A69-1601-58620"),]
+eels <- eels[!(eels$animal_project_code == "2015_phd_verhelst_eel" & eels$acoustic_tag_id == "A69-1601-58620"),]
 
 # 4 transmitter IDs that were reused 
-eels <- eels[!(eels$tag_id == "A69-1601-29925"),]
-eels <- eels[!(eels$tag_id == "A69-1601-29920"),]
-eels <- eels[!(eels$tag_id == "A69-1601-38334"),]
-eels <- eels[!(eels$tag_id == "A69-1602-4036"),]
+eels <- eels[!(eels$acoustic_tag_id == "A69-1601-29925"),]
+eels <- eels[!(eels$acoustic_tag_id == "A69-1601-29920"),]
+eels <- eels[!(eels$acoustic_tag_id == "A69-1601-38334"),]
+eels <- eels[!(eels$acoustic_tag_id == "A69-1602-4036"),]
 
 # 5 eels from '2012_leopoldkanaal' that were tagged in 2011, but not detected
-eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$tag_id == "A69-1601-31894"),]
-eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$tag_id == "A69-1601-31899"),]
-eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$tag_id == "A69-1601-31901"),]
-eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$tag_id == "A69-1601-31902"),]
-eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$tag_id == "A69-1601-31903"),]
+eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$acoustic_tag_id == "A69-1601-31894"),]
+eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$acoustic_tag_id == "A69-1601-31899"),]
+eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$acoustic_tag_id == "A69-1601-31901"),]
+eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$acoustic_tag_id == "A69-1601-31902"),]
+eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$acoustic_tag_id == "A69-1601-31903"),]
 
 
-# 3. Replace "Silver" by "silver" in life stage ####
+# 140 eels from life4fish tagged after 2017 (139 in 2019 and 1 in 220)
+eels <- eels[!(eels$animal_project_code == "life4fish" & eels$capture_date_time > "2018-01-01"),]
+
+
+# 6. Replace "Silver" by "silver" in life stage ####
 unique(eels$life_stage)
 eels <- eels %>%                               
   mutate(life_stage = replace(life_stage, life_stage == "Silver", "silver"))
 
-# 4. Consistent use of sex notation ####
+# 7. Consistent use of sex notation ####
 unique(eels$sex)
 eels <- eels %>%                               
   mutate(sex = replace(sex, sex == "F", "female"))
@@ -59,13 +66,13 @@ for (i in 1:dim(eels)[1]){
   }}
 
 
-# 5. Consistent use of weight units ####
+# 8. Consistent use of weight units ####
 unique(eels$weight_unit)
 eels <- eels %>%                               
   mutate(weight_unit = replace(weight_unit, weight_unit == "grams", "g"))
 
 
-# 6. Consistent use of length type, units and values (mm) ####
+# 9. Consistent use of length type, units and values (mm) ####
 # Length type
 unique(eels$length1_type)
 eels <- eels %>%                               
@@ -100,22 +107,30 @@ summary(eels$length1)
 #  filter(is.na(length1))
 
 
-# 7. Return number of tagged eels per project ####
+# 10. Return number of tagged eels per project ####
 eels %>%
   group_by(animal_project_code) %>%
-  summarise(tot_eels = n_distinct(tag_id))
+  summarise(tot_eels = n_distinct(acoustic_tag_id))
 
 
-# 8. Substitute code space into 'Vemco' format ####
+# 11. Substitute code space into 'Vemco' format ####
 # 2011_Loire & part EMNN
-eels$tag_id <- gsub("R04K", "A69-1206", eels$tag_id)
+eels$acoustic_tag_id <- gsub("R04K", "A69-1206", eels$acoustic_tag_id)
 
 # 2017_Fremur & part EMMN
-eels$tag_id <- gsub("S256", "A69-1105", eels$tag_id)
+eels$acoustic_tag_id <- gsub("S256", "A69-1105", eels$acoustic_tag_id)
 
 
+# 12. Remove '416kHz-' prefix for tags of life4fish ####
+for (i in 1:dim(eels)[1]){
+  if (eels$animal_project_code[i] == "life4fish"){
+    eels$acoustic_tag_id[i] = gsub('416kHz-', '', eels$acoustic_tag_id[i])
+  } else{
+    eels$acoustic_tag_id[i] = eels$acoustic_tag_id[i]
+  }}
 
-# 9. Write csv file  ####
+
+# 13. Write csv file  ####
 write.csv(eels, "./data/interim/eel_meta_data.csv")
 
 

@@ -52,3 +52,5 @@ data/interim/detection_data.csv
 
 # ignore folder with figures data (large files)
 figures/
+
+

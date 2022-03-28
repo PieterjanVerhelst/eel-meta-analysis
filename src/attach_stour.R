@@ -1,6 +1,6 @@
 # Attach detection and meta data of project on the River Stour
 # by Pieterjan Verhelst
-# Pieterjan.Verhelst@UGent.be
+# Pieterjan.Verhelst@inbo.be
 
 # Packages
 library(tidyverse)
@@ -31,6 +31,7 @@ rm(stour_detections)
 # Upload ETN meta-data
 eels <- read_csv("./data/raw/eel_meta_data.csv")
 eels$...1 <- NULL
+eels$scientific_name <- NULL
 
 # Upload Stour data
 stour_eels <- read_csv("./data/raw/stour/stour_eel_meta.csv")
@@ -106,5 +107,6 @@ deployments <- rbind(deployments, stour_deployments)
 rm(stour_deployments)
 
 
-
+# write csv of deployments
+write.csv(deployments, "./data/interim/deployments.csv")
 

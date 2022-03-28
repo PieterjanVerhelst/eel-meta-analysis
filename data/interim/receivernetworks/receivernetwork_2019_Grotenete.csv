@@ -27,6 +27,7 @@
 "2019_Grotenete","s-8",51.14319,4.33078
 "2019_Grotenete","s-8a",51.14222,4.32646
 "2019_Grotenete","s-9",51.19069,4.32954
+"2019_Grotenete","s-STD3",51.330504,4.270161
 "2019_Grotenete","ws-42A",51.42251303,4.032860596
 "2019_Grotenete","ws-HW6",51.43484,4.02702
 "2019_Grotenete","ws-18",51.3482621,3.8147323
@@ -57,6 +58,7 @@
 "2019_Grotenete","ws-OG10",51.474675,3.510681
 "2019_Grotenete","ws-2C",51.4169613,3.7188079
 "2019_Grotenete","bpns-WENDUINEBANKW",51.287167,2.879166667
+"2019_Grotenete","gn-8",51.070653,4.851284
 "2019_Grotenete","bpns-Trapegeer",51.1403333333,2.573
 "2019_Grotenete","ws-W7",51.410173,3.454515
 "2019_Grotenete","bpns-zbw2",51.359012,3.177194
@@ -64,7 +66,20 @@
 "2019_Grotenete","s-4b",51.05593,4.20024
 "2019_Grotenete","s-4a",51.03203,4.18166
 "2019_Grotenete","s-5",51.09258,4.17083
-"2019_Grotenete","bpns-Nautica Ena",51.30056,2.869061
-"2019_Grotenete","bpns-Sigurd Faulbaums",51.33519,2.602486
+"2019_Grotenete","bpns-Nauticaena",51.30056,2.869061
+"2019_Grotenete","bpns-Faulbaums",51.33519,2.602486
+"2019_Grotenete","ws-F53",51.41672,4.02487
+"2019_Grotenete","ws-12",51.37033,3.7511
+"2019_Grotenete","bpns-Whitley",51.1511666667,2.6603333333
+"2019_Grotenete","ws-25B",51.3805457,3.717259
+"2019_Grotenete","ws-14",51.3601518,3.7798113
+"2019_Grotenete","ws-PPC",51.3536136,3.7376409
+"2019_Grotenete","bpns-WK12",51.461167,3.107
+"2019_Grotenete","ws-DL12",51.466175,3.502181
+"2019_Grotenete","bpns-A1BIS",51.361333,2.967
+"2019_Grotenete","ws-DL7",51.471342,3.475013
+"2019_Grotenete","bpns-Grafton",51.4064667,2.81851667
+"2019_Grotenete","CP_100m_base",51.5445954,2.9418213
 "2019_Grotenete","rel_grotenete1",51.144779,5.003906
-"2019_Grotenete",NA,51.139997,4.997392
+"2019_Grotenete","rel_grotenete2",51.139997,4.997392
+"2019_Grotenete","rel_grotenete3",51.138881,4.996931
