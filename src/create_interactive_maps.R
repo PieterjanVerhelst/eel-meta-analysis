@@ -14,10 +14,11 @@ data$...1 <- NULL
 
 # Animal project codes
 unique(data$animal_project_code)
-#[1] "2015_phd_verhelst"      "2013_albertkanaal"      "2014_Nene"              "EMMN"                   "2011_Loire"         
-#[6] "2004_Gudena"            "2012_leopoldkanaal"     "SEMP"                   "PTN-Silver-eel-Mondego" "2014_Frome"         
-#[11] "2019_Grotenete"         "ESGL"                   "2011_Warnow"            "DAK"                    "Noordzeekanaal"   
-#[16] "2017_Fremur"            "2013_stour"             "life4fish"
+#[1] "2012_leopoldkanaal"     "SEMP"                   "PTN-Silver-eel-Mondego" "2015_phd_verhelst_eel" 
+#[5] "Noordzeekanaal"         "DAK"                    "EMMN"                   "2004_Gudena"           
+#[9] "2017_Fremur"            "2013_albertkanaal"      "2011_Loire"             "2011_Warnow"           
+#[13] "2014_Frome"             "2014_Nene"              "2019_Grotenete"         "ESGL"                  
+#[17] "life4fish"              "2013_Stour"             "nedap_meuse"
 
 
 # Return number of detections, eels and detections per eel for each project

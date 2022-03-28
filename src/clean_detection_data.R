@@ -3,7 +3,6 @@
 # Pieterjan.Verhelst@inbo.be
 
 
-
 # 2012_leopoldkanaal  ####
 
 # receiver VR2W-115438 doesn't have station name and coordinates
