@@ -83,7 +83,12 @@ nedap_deployments <- filter(nedap_deployments, station_name != "HV_Stellendam_sc
                              station_name != "Noordzeekanaal_Velsen",
                              station_name != "Roer_Roermond",
                              station_name != "Waal_Brakel",
-                            station_name != "NZK_IJmuiden_spui")
+                            station_name != "NZK_IJmuiden_spui",
+                            station_name != "Roer_Sint_Odili?ber",
+                            station_name != "Rijn_Xanten",
+                            station_name != "Nederrijn_Arnhem",
+                            station_name != "Nederrijn_Maurik_WKC_ben",
+                            station_name != "Lek_Nieuwegein")
 
 # Bind datasets
 deployments <- rbind(deployments, nedap_deployments)
@@ -158,7 +163,12 @@ nedap_deployments <- filter(nedap_deployments, station_name != "HV_Stellendam_sc
                             station_name != "Noordzeekanaal_Velsen",
                             station_name != "Roer_Roermond",
                             station_name != "Waal_Brakel",
-                            station_name != "NZK_IJmuiden_spui")
+                            station_name != "NZK_IJmuiden_spui",
+                            station_name != "Roer_Sint_Odili?ber",
+                            station_name != "Rijn_Xanten",
+                            station_name != "Nederrijn_Arnhem",
+                            station_name != "Nederrijn_Maurik_WKC_ben",
+                            station_name != "Lek_Nieuwegein")
 
 data_nedap <- merge(data_nedap, nedap_deployments, by = "station_name")  # Since not all deployments are in detection file, records are removed
 
