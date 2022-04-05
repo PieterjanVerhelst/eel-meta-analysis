@@ -16,7 +16,7 @@ source("./src/calculate_sourcedistance_function.R")
 
 # Read residency dataset per animal project
 residency <- read_csv("./data/interim/residencies/residency_2004_gudena.csv")
-residency$X1 <- NULL
+residency$...1 <- NULL
 
 # Load distance matrix
 # Make sure the first column is not containing the station names
