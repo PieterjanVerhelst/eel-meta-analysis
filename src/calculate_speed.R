@@ -15,21 +15,21 @@ source("./src/calculate_speed_function.R")
 source("./src/calculate_sourcedistance_function.R")
 
 # Filter Gudena detection data
-residency <- read_csv("./data/interim/residencies/residency_2004_gudena.csv")
+residency <- read_csv("./data/interim/residencies/residency_semp.csv")
 residency$X1 <- NULL
 
 # Load distance matrix
 # Make sure the first column is not containing the station names
-distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_2004_gudena.csv",  row.names = 1, check.names=FALSE)
+distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_semp.csv",  row.names = 1, check.names=FALSE)
 
 # Calculate speed without taking into account different tag_id
 #speed <- movementSpeeds(residency, "last to first", distance_matrix)
 
-# Turn dataset into list per tag_id
-residency_list <- split(residency , f = residency$tag_id)
+# Turn dataset into list per acoustic_tag_id
+residency_list <- split(residency , f = residency$acoustic_tag_id)
 #sapply(residency_list, function(x) max(x$detections))
 
-# Calculate speed per tag_id
+# Calculate speed per acoustic_tag_id
 speed_list <- lapply(residency_list, function(x) movementSpeeds(x, "last to first", distance_matrix))
 #speed_list[[1]]
 
@@ -39,9 +39,9 @@ speed <- plyr::ldply (speed_list, data.frame)
 speed$.id <- NULL
 
 
-# Calculate total swim distance per tag_id
+# Calculate total swim distance per acoustic_tag_id
 speed <- speed %>% 
-  group_by(tag_id) %>%
+  group_by(acoustic_tag_id) %>%
   mutate(totaldistance_m=cumsum(coalesce(swimdistance_m, 0)) + swimdistance_m*0)
 
 # Set row with release station at 0 total distance
@@ -62,6 +62,6 @@ speed <- speed %>%
                      
 
 # Write csv
-write.csv(speed, "./data/interim/speed/speed_2004_gudena.csv")
+write.csv(speed, "./data/interim/speed/speed_semp.csv")
 
 
