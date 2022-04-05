@@ -15,12 +15,12 @@ source("./src/calculate_speed_function.R")
 source("./src/calculate_sourcedistance_function.R")
 
 # Filter Gudena detection data
-residency <- read_csv("./data/interim/residencies/residency_semp.csv")
+residency <- read_csv("./data/interim/residencies/residency_mondego.csv")
 residency$X1 <- NULL
 
 # Load distance matrix
 # Make sure the first column is not containing the station names
-distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_semp.csv",  row.names = 1, check.names=FALSE)
+distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_mondego.csv",  row.names = 1, check.names=FALSE)
 
 # Calculate speed without taking into account different tag_id
 #speed <- movementSpeeds(residency, "last to first", distance_matrix)
@@ -62,6 +62,6 @@ speed <- speed %>%
                      
 
 # Write csv
-write.csv(speed, "./data/interim/speed/speed_semp.csv")
+write.csv(speed, "./data/interim/speed/speed_mondego.csv")
 
 
