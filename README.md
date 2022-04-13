@@ -43,6 +43,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 * `/external:`
 	+ `release_locations_stations.csv`: file with the release locations and the abbreviated release station names.
 	+ `/distance_matrices`: folder containing the distance matrices with the distances between detection stations per receiver network (matrices are created at https://github.com/inbo/fish-tracking).
+	+ `station_order.csv`: file containing the stations upstream the release location. This file is needed in `calculate_speed.R`
 
 
 ### Scripts

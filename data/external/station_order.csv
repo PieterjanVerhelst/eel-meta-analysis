@@ -1,0 +1,24 @@
+animal_project_code,release_station,upstream_stations
+2011_Loire,rel_loire1,"99V, 114R"
+2011_Loire,rel_loire2,
+2011_Loire,rel_loire3,
+2011_Loire,rel_loire4,"33V, 40R, 50R, StationGIP_Pellerin, 2R, 18R, 13V, 38R, 25V, 46R, 31V, 72R, 71V, 74R, 85V, 90R, 99V, 114R"
+2013_Stour,rel_stour1,
+2013_Stour,rel_stour2,"stour_6, stour_5, stour_4, stour_3, stour_2, stour_1"
+2014_Nene,rel_nene,Nene1
+2017_Fremur,rel_fremur,"F9, F8, F7, F6, F5, F4, F3, F2, F1"
+2011_Warnow,rel_warnow,W1
+nedap_meuse,rel_nedap_meuse,"GrensMaas_Bharen_vis, Maas_maastricht"
+life4fish,rel_life4fish1,
+life4fish,rel_life4fish2,
+life4fish,rel_life4fish3,
+life4fish,rel_life4fish4,
+life4fish,rel_life4fish5,
+life4fish,rel_life4fish6,
+2015_phd_verhelst_eel,rel_dijle,"M-3, M-2, M-1"
+2015_phd_verhelst_eel,rel_schelde1,"s-7, s-6, du-Hamveer, s-5, s-4c, s-4b, s-4a, s-Vlassenbroek, s-Dendermonde, s-Dendermonde2, s-4, s-3, Rt8, Rt7, Rt6, Rt5, Rt4, Rt3, Rt2, Rt1, s-2a, s-Wichelen, s-Wetteren, s-2, s-1"
+2015_phd_verhelst_eel,rel_schelde2,"s-Dendermonde, s-Dendermonde2, s-4, s-3, Rt8, Rt7, Rt6, Rt5, Rt4, Rt3, Rt2, Rt1, s-2a, s-Wichelen, s-Wetteren, s-2, s-1"
+2015_phd_verhelst_eel,rel_schelde3,"s-2a, s-Wichelen, s-Wetteren, s-2, s-1"
+2015_phd_verhelst_eel,rel_schelde4," s-4a, s-Vlassenbroek, s-Dendermonde, s-Dendermonde2, s-4, s-3, Rt8, Rt7, Rt6, Rt5, Rt4, Rt3, Rt2, Rt1, s-2a, s-Wichelen, s-Wetteren, s-2, s-1"
+2015_phd_verhelst_eel,rel_schelde5,
+DAK,rel_markiezaat,"Markiezaat-6, Markiezaat-7, Markiezaat-8"
