@@ -132,7 +132,10 @@ for (i in 1:dim(eels)[1]){
   }}
 
 
-# 13. Write csv file  ####
+# 13. Remove redundant column
+eels$capture_date_time2 <- NULL
+
+# 14. Write csv file  ####
 write.csv(eels, "./data/interim/eel_meta_data.csv")
 
 
