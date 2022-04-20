@@ -55,7 +55,7 @@ eels <- eels %>%
 eels <- eels %>%                               
   mutate(sex = replace(sex, sex == "unknown", "female"))  # 'unknown' had TL > 45 cm, so considered female
 
-eels$sex <- ifelse(eels$animal_project_code == 'SEMP' & is.na(eels$sex), "female", eels$sex) # SEMP eels > 45 cm, so considered female
+eels$sex <- ifelse(eels$animal_project_code == "SEMP" & is.na(eels$sex), "female", eels$sex) # SEMP eels > 45 cm, so considered female
 
 # For 2014_Frome consider males < 46 cm and females > 46 cm
 for (i in 1:dim(eels)[1]){
@@ -66,6 +66,12 @@ for (i in 1:dim(eels)[1]){
   } else{
     eels$sex[i] = eels$sex[i]
   }}
+
+
+# Check there are no NAs or unknown
+sum(is.na(eels$sex))
+table(eels$sex)
+
 
 
 # 8. Consistent use of weight units ####
