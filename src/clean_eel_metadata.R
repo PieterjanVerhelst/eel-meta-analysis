@@ -55,9 +55,10 @@ eels <- eels %>%
 eels <- eels %>%                               
   mutate(sex = replace(sex, sex == "unknown", "female"))  # 'unknown' had TL > 45 cm, so considered female
 
-eels$sex <- ifelse(eels$animal_project_code == "SEMP" & is.na(eels$sex), "female", eels$sex) # SEMP eels > 45 cm, so considered female
+#eels$sex <- ifelse(eels$animal_project_code == "SEMP" & is.na(eels$sex), "female", eels$sex) # SEMP eels > 45 cm, so considered female
 
 # For SEMP consider males < 46 cm and females > 46 cm
+# SEMP eels > 45 cm, so all considered female
 for (i in 1:dim(eels)[1]){
   if (eels$animal_project_code[i] == "SEMP" & eels$length1[i] < 46.0){
     eels$sex[i] = "male"
@@ -66,6 +67,7 @@ for (i in 1:dim(eels)[1]){
   } else{
     eels$sex[i] = eels$sex[i]
   }}
+
 
 # For 2014_Frome consider males < 46 cm and females > 46 cm
 for (i in 1:dim(eels)[1]){
@@ -80,6 +82,7 @@ for (i in 1:dim(eels)[1]){
 
 # Check there are no NAs or unknown
 sum(is.na(eels$sex))
+unique(eels$sex)
 table(eels$sex)
 
 
