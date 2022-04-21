@@ -52,6 +52,15 @@ nedap_eels <- nedap_eels %>%
          treatment_type = implantType)
 
 
+# Set release date time for nedap_eels
+nedap_eels$release_date_time <- gsub("T", " ", nedap_eels$release_date_time)
+nedap_eels$release_date_time <- gsub("Z", "", nedap_eels$release_date_time)
+
+nedap_eels$release_date_time <- ymd_hms(nedap_eels$release_date_time)
+
+#check <- select(nedap_eels, animal_project_code, acoustic_tag_id, release_date_time, release_date_time2)
+
+
 # Bind datasets
 eels <- rbind(eels, nedap_eels)
 
