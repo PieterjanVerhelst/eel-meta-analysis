@@ -14,8 +14,6 @@ eels$acoustic_tag_id <- factor(eels$acoustic_tag_id)
 eels$sex <- factor(eels$sex)
 eels$life_stage <- factor(eels$life_stage)
 
-eels$capture_date_time2 <- dmy_hm(eels$capture_date_time)
-
 
 # 3. Remove redundant and irrelevant eels ####
 
@@ -37,7 +35,7 @@ eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$acoustic_
 
 
 # 140 eels from life4fish tagged after 2017 (139 in 2019 and 1 in 220)
-eels <- eels[!(eels$animal_project_code == "life4fish" & eels$capture_date_time2 > "2018-01-01 00:00"),]
+eels <- eels[!(eels$animal_project_code == "life4fish" & eels$capture_date_time > "2018-01-01 00:00"),]
 
 # 6. Replace "Silver" by "silver" in life stage ####
 unique(eels$life_stage)
@@ -151,10 +149,7 @@ for (i in 1:dim(eels)[1]){
   }}
 
 
-# 13. Remove redundant column
-eels$capture_date_time2 <- NULL
-
-# 14. Write csv file  ####
+# 13. Write csv file  ####
 write.csv(eels, "./data/interim/eel_meta_data.csv")
 
 
