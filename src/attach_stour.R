@@ -73,6 +73,13 @@ stour_eels <- stour_eels %>%
          treatment_type = implantType)
 
 
+# Set date time
+eels$capture_date_time <- dmy_hm(eels$capture_date_time)
+eels$release_date_time <- dmy_hm(eels$release_date_time)
+
+#check <- select(eels, animal_project_code, acoustic_tag_id, capture_date_time, capture_date_time2, release_date_time, release_date_time2)
+
+
 # Bind datasets
 eels <- rbind(eels, stour_eels)
 
