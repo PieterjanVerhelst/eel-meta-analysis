@@ -22,23 +22,25 @@ max(data$distance_to_source_m)  # Identify the max limit for the y-axis
 
 
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/distance_tracks_2004_gudena.pdf") # Create pdf
+pdf("./figures/distance_tracks/distance_tracks_2004_gudena2.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
   mydfnew.temp<-mydfnew.split.eel[[i]] #for loop wordt doorlopen voor elke i transmitter
   g <- ggplot()
   g <- g + theme(axis.text.x = element_text(size = 12, colour = "black", angle=90))
-  g <- g + geom_line(aes(arrival, distance_to_source_m), data = mydfnew.temp, colour = "black", size = 1)
-  g <- g + geom_point(aes(arrival, distance_to_source_m), data = mydfnew.temp, shape = 1, size = 5, colour = "black")
+  g <- g + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                 panel.background = element_blank(), axis.line = element_line(colour = "black"))
+  g <- g + geom_line(aes(arrival, -1*distance_to_source_m), data = mydfnew.temp, colour = "black", size = 1)
+  g <- g + geom_point(aes(arrival, -1*distance_to_source_m), data = mydfnew.temp, shape = 1, size = 5, colour = "black")
   g <- g + theme(plot.title = element_text(lineheight=.8, face="bold", size=20))
-  g <- g + scale_y_continuous(limit = c(0, 60000),breaks = c(0,10000, 20000, 30000, 40000, 50000, 60000), labels = c(0,10,20,30,40,50,60))
+  g <- g + scale_y_continuous(limit = c(-60000, 0),breaks = c(-60000, -50000, -40000, -30000, -20000, -10000, 0), labels = c(-60,-50,-40,-30,-20,-10,0))
   g <- g + labs(title = mydfnew.temp$acoustic_tag_id, subtitle = mydfnew.temp$catch_year) 
   g <- g + ylab("Distance (km)")
   g <- g + xlab("Date")
-  g <- g + scale_x_datetime(date_breaks  ="1 day")
-  g <- g + geom_hline(yintercept = mydfnew.temp$distance_to_source_m, colour = "gray", size = 0.5, linetype = "dashed")
-  g <- g + annotate("text",x = mydfnew.temp$arrival[1]- (240*60*60), y = mydfnew.temp$distance_to_source_m, label = mydfnew.temp$station_name, hjust=0, colour="red", size = 3)
+  g <- g + scale_x_datetime(date_breaks  ="1 week")
+  g <- g + geom_hline(yintercept = -1*mydfnew.temp$distance_to_source_m, colour = "gray", size = 0.5, linetype = "dashed")
+  g <- g + annotate("text",x = mydfnew.temp$arrival[1]- (240*60*60), y = -1*mydfnew.temp$distance_to_source_m, label = mydfnew.temp$station_name, hjust=0, colour="red", size = 3)
   print(g)
 }
 
