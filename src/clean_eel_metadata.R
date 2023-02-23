@@ -8,11 +8,12 @@ eels$age <- NULL
 eels$age_unit <- NULL
 eels$treatment_type <- NULL
 
-# 2. Set as factors ####
+# 2. Set as factors and as Posixct ####
 eels$animal_project_code <- factor(eels$animal_project_code)
 eels$acoustic_tag_id <- factor(eels$acoustic_tag_id)
 eels$sex <- factor(eels$sex)
 eels$life_stage <- factor(eels$life_stage)
+
 
 # 3. Remove redundant and irrelevant eels ####
 
@@ -34,8 +35,7 @@ eels <- eels[!(eels$animal_project_code == "2012_leopoldkanaal" & eels$acoustic_
 
 
 # 140 eels from life4fish tagged after 2017 (139 in 2019 and 1 in 220)
-eels <- eels[!(eels$animal_project_code == "life4fish" & eels$capture_date_time > "2018-01-01"),]
-
+eels <- eels[!(eels$animal_project_code == "life4fish" & eels$capture_date_time > "2018-01-01 00:00"),]
 
 # 6. Replace "Silver" by "silver" in life stage ####
 unique(eels$life_stage)
@@ -53,7 +53,19 @@ eels <- eels %>%
 eels <- eels %>%                               
   mutate(sex = replace(sex, sex == "unknown", "female"))  # 'unknown' had TL > 45 cm, so considered female
 
-eels$sex <- ifelse(eels$animal_project_code == 'SEMP' & is.na(eels$sex), "female", eels$sex) # SEMP eels > 45 cm, so considered female
+#eels$sex <- ifelse(eels$animal_project_code == "SEMP" & is.na(eels$sex), "female", eels$sex) # SEMP eels > 45 cm, so considered female
+
+# For SEMP consider males < 46 cm and females > 46 cm
+# SEMP eels > 45 cm, so all considered female
+for (i in 1:dim(eels)[1]){
+  if (eels$animal_project_code[i] == "SEMP" & eels$length1[i] < 46.0){
+    eels$sex[i] = "male"
+  } else if (eels$animal_project_code[i] == "SEMP" & eels$length1[i] > 46.0){
+    eels$sex[i] = "female"
+  } else{
+    eels$sex[i] = eels$sex[i]
+  }}
+
 
 # For 2014_Frome consider males < 46 cm and females > 46 cm
 for (i in 1:dim(eels)[1]){
@@ -64,6 +76,13 @@ for (i in 1:dim(eels)[1]){
   } else{
     eels$sex[i] = eels$sex[i]
   }}
+
+
+# Check there are no NAs or unknown
+sum(is.na(eels$sex))
+unique(eels$sex)
+table(eels$sex)
+
 
 
 # 8. Consistent use of weight units ####
