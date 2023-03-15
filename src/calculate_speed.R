@@ -41,7 +41,7 @@ residency <- subset(residency, station_name != "rel_albertkanaal2")
 
 # Load distance matrix
 # Make sure the first column is not containing the station names
-distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_2013_albertkanaal.csv",  row.names = 1, check.names=FALSE)
+distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_2011_warnow.csv",  row.names = 1, check.names=FALSE)
 
 # Calculate speed without taking into account different tag_id
 #speed <- movementSpeeds(residency, "last to first", distance_matrix)
