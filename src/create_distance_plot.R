@@ -8,7 +8,7 @@ library(tidyquant)
 
 
 # Upload dataset
-data <- read_csv('./data/interim/speed/speed_dak_markiezaatsmeer.csv') 
+data <- read_csv('./data/interim/speed/speed_2015_phd_verhelst_eel.csv') 
 data$...1 <- NULL
 data$...2 <- NULL
 data$acoustic_tag_id <- factor(data$acoustic_tag_id)
@@ -22,7 +22,7 @@ max(data$distance_to_source_m)  # Identify the max limit for the y-axis
 
 
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/distance_tracks_dak_markiezaatsmeer.pdf") # Create pdf
+pdf("./figures/distance_tracks/distance_tracks_2015_phd_verhelst_eel.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
@@ -34,7 +34,7 @@ for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
   g <- g + geom_line(aes(arrival, -1*distance_to_source_m), data = mydfnew.temp, colour = "black", size = 1)
   g <- g + geom_point(aes(arrival, -1*distance_to_source_m), data = mydfnew.temp, shape = 1, size = 5, colour = "black")
   g <- g + theme(plot.title = element_text(lineheight=.8, face="bold", size=20))
-  g <- g + scale_y_continuous(limit = c(-140000, 5000),breaks = c(-140000,-135000,-130000,-125000,-120000,-115000,-110000,-105000,-100000,-95000,-90000,-85000, -80000, -75000, -70000, -65000, -60000, -55000, -50000, -45000, -40000, -35000, -30000, -25000, -20000, -15000, -10000, -5000, 0, 5000), labels = c(-140,-135,-130,-125,-120,-115,-110,-105,-100,-95,-90,-85,-80,-75,-70,-65,-60,-55,-50,-45,-40,-35,-30,-25,-20,-15,-10,-5,0,5))
+  g <- g + scale_y_continuous(limit = c(-240000, 15000),breaks = c(-240000, -220000, -200000, -180000, -160000, -140000,-135000,-130000,-125000,-120000,-115000,-110000,-105000,-100000,-95000,-90000,-85000, -80000, -75000, -70000, -65000, -60000, -55000, -50000, -45000, -40000, -35000, -30000, -25000, -20000, -15000, -10000, -5000, 0, 5000, 10000, 15000), labels = c(-240, -220, -200, -180, -160, -140,-135,-130,-125,-120,-115,-110,-105,-100,-95,-90,-85,-80,-75,-70,-65,-60,-55,-50,-45,-40,-35,-30,-25,-20,-15,-10,-5,0,5,10,15))
   g <- g + labs(title = mydfnew.temp$acoustic_tag_id, subtitle = mydfnew.temp$catch_year) 
   g <- g + ylab("Distance (km)")
   g <- g + xlab("Date")
