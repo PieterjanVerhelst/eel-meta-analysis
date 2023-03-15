@@ -19,6 +19,7 @@ source("./src/calculate_sourcedistance_function.R")
 residency <- read_csv("./data/interim/residencies/residency_2013_stour.csv")
 residency$...1 <- NULL
 
+
 # Remove false detections 
 
 
