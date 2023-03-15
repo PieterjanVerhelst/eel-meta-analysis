@@ -16,7 +16,7 @@ source("./src/calculate_speed_function.R")
 source("./src/calculate_sourcedistance_function.R")
 
 # Read residency dataset per animal project
-animal_project_id <- "2012_leopoldkanaal"
+animal_project_id <- "nedap_meuse"
 residency <- read_csv(
   sprintf("./data/interim/residencies/residency_%s.csv", animal_project_id)
 )
