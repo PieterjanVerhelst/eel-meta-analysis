@@ -16,7 +16,10 @@ source("./src/calculate_speed_function.R")
 source("./src/calculate_sourcedistance_function.R")
 
 # Read residency dataset per animal project
-residency <- read_csv("./data/interim/residencies/residency_2011_warnow.csv")
+animal_project_id <- "2012_leopoldkanaal"
+residency <- read_csv(
+  sprintf("./data/interim/residencies/residency_%s.csv", animal_project_id)
+)
 residency$...1 <- NULL
 residency$acoustic_tag_id <- factor(residency$acoustic_tag_id)
 
@@ -41,7 +44,12 @@ residency <- subset(residency, station_name != "rel_albertkanaal2")
 
 # Load distance matrix
 # Make sure the first column is not containing the station names
-distance_matrix <- read.csv("./data/external/distance_matrices/distancematrix_2013_albertkanaal.csv",  row.names = 1, check.names=FALSE)
+distance_matrix <- read.csv(
+  sprintf("./data/external/distance_matrices/distancematrix_%s.csv",
+          animal_project_id),
+  row.names = 1, 
+  check.names=FALSE
+)
 
 # Calculate speed without taking into account different tag_id
 #speed <- movementSpeeds(residency, "last to first", distance_matrix)
@@ -124,6 +132,6 @@ speed <- speed %>%
                      
 
 # Write csv
-write.csv(speed, "./data/interim/speed/speed_2013_albertkanaal.csv")
+write.csv(speed, sprintf("./data/interim/speed/speed_%s.csv",animal_project_id))
 
 
