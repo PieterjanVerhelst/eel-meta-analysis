@@ -16,13 +16,17 @@ source("./src/calculate_speed_function.R")
 source("./src/calculate_sourcedistance_function.R")
 
 # Read residency dataset per animal project
-residency <- read_csv("./data/interim/residencies/residency_2013_stour.csv")
+residency <- read_csv("./data/interim/residencies/residency_esgl.csv")
 residency$...1 <- NULL
+residency$acoustic_tag_id <- factor(residency$acoustic_tag_id)
 
 
 # Remove false detections 
-
-
+# False detection in project ESGL after 2016-02-15 and the detection of eel A69-1601-38319 at station A on 2016-01-02 06:59:09
+residency <- residency[!(residency$animal_project_code == "ESGL" & residency$arrival >= '2016-02-15 00:00:00'),]
+residency <-residency[!(residency$animal_project_code == "ESGL" & residency$acoustic_tag_id == "A69-1601-38319" &
+                        residency$arrival >= '2016-01-02 06:59:09' &
+                          residency$arrival <= '2016-01-02 07:59:09'),]
 
 # Remove wrong release location in 2013_albertkanaal
 # No need to adjust exact release location, since eels were released next to receiver, leading to detection right after release
