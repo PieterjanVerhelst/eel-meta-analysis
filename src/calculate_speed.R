@@ -16,8 +16,20 @@ source("./src/calculate_speed_function.R")
 source("./src/calculate_sourcedistance_function.R")
 
 # Read residency dataset per animal project
-residency <- read_csv("./data/interim/residencies/residency_2013_albertkanaal.csv")
+residency <- read_csv("./data/interim/residencies/residency_2013_stour.csv")
 residency$...1 <- NULL
+
+# Remove false detections 
+
+
+
+# Remove wrong release location in 2013_albertkanaal
+# No need to adjust exact release location, since eels were released next to receiver, leading to detection right after release
+# --> exact release positions was HH5 instead of rel_albertkanaal2
+residency <- subset(residency, station_name != "rel_albertkanaal2")
+
+
+
 
 # Load distance matrix
 # Make sure the first column is not containing the station names
