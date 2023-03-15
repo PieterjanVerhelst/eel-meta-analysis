@@ -27,9 +27,11 @@ distanceSource <- function(movements,
   
   # initialize distance with sign
   dist.mat_sign <- dist.mat
-  for (stat in upstream_stations) {
-    dist.mat_sign[stat, release_stat] <- dist.mat[stat, release_stat]*(-1)
-    dist.mat_sign[release_stat, stat] <- dist.mat[release_stat, stat]*(-1)
+  if (all(!is.na(upstream_stations))) {
+    for (stat in upstream_stations) {
+      dist.mat_sign[stat, release_stat] <- dist.mat[stat, release_stat]*(-1)
+      dist.mat_sign[release_stat, stat] <- dist.mat[release_stat, stat]*(-1)
+    }
   }
   rm(dist.mat)
   
