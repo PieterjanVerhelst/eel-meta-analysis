@@ -87,12 +87,12 @@ speed$totaldistance_m <- zoo::na.locf(speed$totaldistance_m)
 # Get upstream stations for each releasing station
 upstream_stations <- read_csv(here("data", "external", "station_order.csv"))
 upstream_stations_tidy <- upstream_stations %>%
-  separate_rows(.data$upstream_stations, sep = ", ")
 
 # check upstream stations 
 walk(unique(upstream_stations_tidy$upstream_stations), ~ 
        assert_that(. %in% names(distance_matrix),
                    msg = paste(., "is not present in the distance matrix."))
+  separate_rows(upstream_stations, sep = ", ")
 )
 
 # Get release station for each fish
