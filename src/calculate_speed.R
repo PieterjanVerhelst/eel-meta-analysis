@@ -24,7 +24,7 @@ residency$acoustic_tag_id <- factor(residency$acoustic_tag_id)
 # Remove false detections 
 # False detection in project ESGL after 2016-02-15 and the detection of eel A69-1601-38319 at station A on 2016-01-02 06:59:09
 residency <- residency[!(residency$animal_project_code == "ESGL" & residency$arrival >= '2016-02-15 00:00:00'),]
-residency <-residency[!(residency$animal_project_code == "ESGL" & residency$acoustic_tag_id == "A69-1601-38319" &
+residency <- residency[!(residency$animal_project_code == "ESGL" & residency$acoustic_tag_id == "A69-1601-38319" &
                         residency$arrival >= '2016-01-02 06:59:09' &
                           residency$arrival <= '2016-01-02 07:59:09'),]
 
