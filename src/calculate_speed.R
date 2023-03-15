@@ -16,7 +16,7 @@ source("./src/calculate_speed_function.R")
 source("./src/calculate_sourcedistance_function.R")
 
 # Read residency dataset per animal project
-residency <- read_csv("./data/interim/residencies/residency_esgl.csv")
+residency <- read_csv("./data/interim/residencies/residency_2011_warnow.csv")
 residency$...1 <- NULL
 residency$acoustic_tag_id <- factor(residency$acoustic_tag_id)
 
@@ -27,6 +27,9 @@ residency <- residency[!(residency$animal_project_code == "ESGL" & residency$arr
 residency <- residency[!(residency$animal_project_code == "ESGL" & residency$acoustic_tag_id == "A69-1601-38319" &
                         residency$arrival >= '2016-01-02 06:59:09' &
                           residency$arrival <= '2016-01-02 07:59:09'),]
+# False detections of station W3 in 2011 warnow project: detections at W3 same day as release, while W3 is ca. 25 km downstream of release
+# see github issue https://github.com/PieterjanVerhelst/eel-meta-analysis/issues/20
+residency$date <- as.Date(residency$arrival)
 
 # Remove wrong release location in 2013_albertkanaal
 # No need to adjust exact release location, since eels were released next to receiver, leading to detection right after release
