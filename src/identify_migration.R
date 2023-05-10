@@ -19,7 +19,7 @@ library(plotly)     # to make ggplot plots interactive
 
 
 # read input data
-eel_df <- read_csv("./data/interim/speed/speed_2013_albertkanaal.csv")
+eel_df <- read_csv("./data/interim/speed/speed_2019_grotenete.csv")
 eel_df <- eel_df %>%
   rename(row_id = "...1")
 
@@ -74,7 +74,7 @@ eel_df <- eel_df %>%
 View(eel_df)
 
 # select one eel
-acoustic_tag_id_example <- "A69-1601-26515"
+acoustic_tag_id_example <- "A69-9006-4038"
 eel_example <- eel_df %>%
   filter(acoustic_tag_id == acoustic_tag_id_example)
 # plot
