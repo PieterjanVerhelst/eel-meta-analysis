@@ -26,7 +26,6 @@ eel_df <- eel_df %>%
 # define thresholds
 dist_for_speed <- 10000 # threshold in meter
 migration_speed_threshold <- 0.1 # speed threshold in m/s
-# t_threshold <- lubridate::dhours(x = 24) # 24 hours
 
 # customized `min()` function to avoid warning while calculating min() of empty
 # vectors
