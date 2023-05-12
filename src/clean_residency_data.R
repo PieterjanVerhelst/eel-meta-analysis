@@ -3,8 +3,6 @@
 # pieterjan.verhelst@inbo.be
 
 
-animal_project_id <- "2011_warnow"
-
 
 # ESGL ####
 # False detection in project ESGL after 2016-02-15 and the detection of eel A69-1601-38319 at station A on 2016-01-02 06:59:09
@@ -32,14 +30,42 @@ residency$start_date <- NULL
 #Seven eels within the 2011_warnow project had dubious detections at station W3. They seem to 'jump' from upper stations to W3 and back, spanning over 20 km over very short time periods which is highly unlikely for eels. Hence, these detections at station W3 are considered false detections and need to be removed. The eels having such false detections are 539, 542, 555, 570, 620, 633 and 649.
 #https://github.com/PieterjanVerhelst/eel-meta-analysis/issues/25
 
+residency$arrival_numeric <- as.numeric(residency$arrival)  # Set numeric: works easier to remove line
 
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-539" &
+                           residency$arrival_numeric == 1309160880),]
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-542" &
+                           residency$station_name == "W3"),]
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-555" &
+                           residency$arrival_numeric > 1309812238 &
+                           residency$arrival_numeric < 1310376350),]
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-570" &
+                           residency$arrival_numeric == 1311038460),]
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-570" &
+                           residency$arrival_numeric == 1311053160),]
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-570" &
+                           residency$arrival_numeric == 1311064800),]
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-570" &
+                           residency$arrival_numeric > 1311064899 &
+                           residency$arrival_numeric < 1311282481),]
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-620" &
+                           residency$arrival_numeric == 1319453082),]
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-633" &
+                           residency$arrival_numeric == 1319043271),]
+residency <- residency[!(residency$animal_project_code == "2011_Warnow" & residency$acoustic_tag_id == "A69-1601-649" &
+                           residency$arrival_numeric > 1319670143 &
+                           residency$arrival_numeric < 1319732079),]
+
+residency$arrival_numeric <- NULL # Remove column
 
 
 # Remove three eels that identified as American eel (Anguilla rostrata)
-residency2 <- residency %>%
-  filter(acoustic_tag_id != "A69-1601-582",
-         acoustic_tag_id != "A69-1601-632",
-         acoustic_tag_id != "A69-1601-634")
+residency <- residency %>%
+  filter(animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-582",
+         animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-632",
+         animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-634")
+
+
 
 
 # 2013_albertkanaal ####
