@@ -73,3 +73,12 @@ residency <- residency %>%
 # No need to adjust exact release location, since eels were released next to receiver, leading to detection right after release
 # --> exact release positions was HH5 instead of rel_albertkanaal2
 residency <- subset(residency, station_name != "rel_albertkanaal2")
+
+
+
+# nedap_meuse ####
+# For 24 eels from the NEDAP Meuse project tagged in 2013 the release date is wrong: this should be 2013-09-11 instead of 2013-11-09.
+#IDs: 12263, 12266, 12271, 12287, 12292, 12295, 12299, 12300, 12333, 12347, 12349, 12357, 12361, 12365, 12372, 12379, 12380, 12382, 12387, 12391, 12393, 12395, 12399 and 12409.
+
+eel <- filter(residency, acoustic_tag_id == "12263")
+
