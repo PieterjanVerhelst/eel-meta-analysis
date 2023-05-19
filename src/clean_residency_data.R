@@ -77,8 +77,20 @@ residency <- subset(residency, station_name != "rel_albertkanaal2")
 
 
 # nedap_meuse ####
-# For 24 eels from the NEDAP Meuse project tagged in 2013 the release date is wrong: this should be 2013-09-11 instead of 2013-11-09.
-#IDs: 12263, 12266, 12271, 12287, 12292, 12295, 12299, 12300, 12333, 12347, 12349, 12357, 12361, 12365, 12372, 12379, 12380, 12382, 12387, 12391, 12393, 12395, 12399 and 12409.
+# For 58 eels from the NEDAP Meuse project tagged in 2013 the release date is wrong: this should be 2013-09-11 instead of 2013-11-09.
 
-eel <- filter(residency, acoustic_tag_id == "12263")
+residency$arrival_numeric <- as.numeric(residency$arrival)  # Set arrival to numeric as this makes filtering/subsetting easier
+
+wrong_release_dates <- residency[(residency$station_name == "rel_nedap_meuse" & residency$arrival_numeric == 1383951600),] # Isolate  records with wrong release dates
+unique(wrong_release_dates$acoustic_tag_id)   # Gives number of unique tag IDs
+wrong_release_dates$arrival <- '2013-09-11 00:00:00'  # Correct release date
+wrong_release_dates$departure <- '2013-09-11 00:00:00'  # Correct release date
+
+
+residency <- residency[!(residency$station_name == "rel_nedap_meuse" & residency$arrival_numeric == 1383951600),]  # Remove records with wrong release dates
+residency <- rbind(residency, wrong_release_dates)  # Bind records with correct release dates
+
+residency$arrival_numeric <- NULL   # Remove column with arrival numeric which became now redundant
+
+
 
