@@ -64,7 +64,7 @@ get_migrations <- function(df,
                                         df$arrival[row_first_dist_to_use],
                                         NA)) %>%
     mutate(delta_totdist = first_dist_to_use - totaldistance_m) %>%
-    mutate(delta_t = as.numeric(as.duration(time_first_dist_to_use - departure))) %>%
+    mutate(delta_t = as.numeric(as.duration(time_first_dist_to_use - arrival))) %>%
     mutate(migration_speed = (delta_totdist / delta_t)) %>%
     mutate(downstream_migration = migration_speed >= speed_threshold)
 }
