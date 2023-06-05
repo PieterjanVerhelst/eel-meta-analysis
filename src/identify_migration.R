@@ -94,7 +94,13 @@ eel_example <- eel_df %>%
 plot_example <- ggplot(eel_example, aes(x = arrival, y = totaldistance_m)) +
   geom_point(aes(color = downstream_migration), size = 3) +
   geom_line() + 
-  scale_y_reverse()
+  scale_y_reverse() +
+  ggplot2::labs(title = sprintf("%s, speed: %s, min dist for speed calc: %s", 
+                                acoustic_tag_id_example,
+                                migration_speed_threshold,
+                                dist_for_speed)
+  )
+                                
 plot_example
 
 # interactive plot version
