@@ -51,7 +51,8 @@ get_migrations <- function(df,
   assertthat::assert_that("arrival" %in% names(df),
                           msg = "Column `arrival` not found in df."
   )
-  df %>%
+  df <- 
+    df %>%
     rowwise() %>%
     mutate(first_dist_to_use = custom_min(
       df$totaldistance_m[df$totaldistance_m >= dist_threshold])) %>%
@@ -67,6 +68,16 @@ get_migrations <- function(df,
     mutate(delta_t = as.numeric(as.duration(time_first_dist_to_use - arrival))) %>%
     mutate(migration_speed = (delta_totdist / delta_t)) %>%
     mutate(downstream_migration = migration_speed >= speed_threshold)
+  # avoid starting downstream migrations with a stationary phase
+  df <-
+    df %>%
+    mutate(distance_to_next = lead(totaldistance_m)) %>%
+    mutate(downstream_migration = if_else(
+      downstream_migration == TRUE & distance_to_next != totaldistance_m,
+      TRUE,
+      FALSE)) %>%
+    select(-distance_to_next)
+  return(df)
 }
 
 # calculate dist + dist_for_speed
