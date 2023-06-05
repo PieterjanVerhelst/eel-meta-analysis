@@ -37,6 +37,20 @@ custom_min <- function(x) {
 get_migrations <- function(df, 
                            dist_threshold = dist_for_speed, 
                            speed_threshold = migration_speed_threshold) {
+  ## check inputs
+  # df is a data.frame
+  assertthat::assert_that(is.data.frame(df))
+  # dist_threshold is a number
+  assertthat::assert_that(is.numeric(dist_threshold))
+  # speed_threshold is a number
+  assertthat::assert_that(is.numeric(speed_threshold))
+  # we make use of some columns in df. So, they need to be present in df
+  assertthat::assert_that("totaldistance_m" %in% names(df),
+                          msg = "Column `totaldistance_m` not found in df."
+  )
+  assertthat::assert_that("arrival" %in% names(df),
+                          msg = "Column `arrival` not found in df."
+  )
   df %>%
     rowwise() %>%
     mutate(first_dist_to_use = custom_min(
