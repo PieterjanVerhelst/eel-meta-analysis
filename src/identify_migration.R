@@ -24,8 +24,8 @@ eel_df <- eel_df %>%
   rename(row_id = "...1")
 
 # define thresholds
-dist_for_speed <- 5000 # threshold in meter
-migration_speed_threshold <- 0.1 # speed threshold in m/s
+dist_for_speed <- 1000 # threshold in meter
+migration_speed_threshold <- 0.05 # speed threshold in m/s
 
 # customized `min()` function to avoid warning while calculating min() of empty
 # vectors
