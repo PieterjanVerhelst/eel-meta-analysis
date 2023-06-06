@@ -45,8 +45,8 @@ get_migrations <- function(df,
   # speed_threshold is a number
   assertthat::assert_that(is.numeric(speed_threshold))
   # we make use of some columns in df. So, they need to be present in df
-  assertthat::assert_that("totaldistance_m" %in% names(df),
-                          msg = "Column `totaldistance_m` not found in df."
+  assertthat::assert_that("distance_to_source_m" %in% names(df),
+                          msg = "Column `distance_to_source_m` not found in df."
   )
   assertthat::assert_that("arrival" %in% names(df),
                           msg = "Column `arrival` not found in df."
@@ -55,25 +55,25 @@ get_migrations <- function(df,
     df %>%
     rowwise() %>%
     mutate(first_dist_to_use = custom_min(
-      df$totaldistance_m[df$totaldistance_m >= dist_threshold])) %>%
+      df$distance_to_source_m[df$distance_to_source_m >= dist_threshold])) %>%
     mutate(row_first_dist_to_use = if_else(
       !is.na(first_dist_to_use),
-      which(df$totaldistance_m == first_dist_to_use)[1],
+      which(df$distance_to_source_m == first_dist_to_use)[1],
       NA)) %>%
     ungroup() %>%
     mutate(time_first_dist_to_use = if_else(!is.na(row_first_dist_to_use),
-                                        df$arrival[row_first_dist_to_use],
-                                        NA)) %>%
-    mutate(delta_totdist = first_dist_to_use - totaldistance_m) %>%
+                                            df$arrival[row_first_dist_to_use],
+                                            NA)) %>%
+    mutate(delta_totdist = first_dist_to_use - distance_to_source_m) %>%
     mutate(delta_t = as.numeric(as.duration(time_first_dist_to_use - arrival))) %>%
     mutate(migration_speed = (delta_totdist / delta_t)) %>%
     mutate(downstream_migration = migration_speed >= speed_threshold)
   # avoid starting downstream migrations with a stationary phase
   df <-
     df %>%
-    mutate(distance_to_next = lead(totaldistance_m)) %>%
+    mutate(distance_to_next = lead(distance_to_source_m)) %>%
     mutate(downstream_migration = if_else(
-      downstream_migration == TRUE & distance_to_next != totaldistance_m,
+      downstream_migration == TRUE & distance_to_next != distance_to_source_m,
       TRUE,
       FALSE)) %>%
     select(-distance_to_next)
@@ -82,7 +82,7 @@ get_migrations <- function(df,
 
 # calculate dist + dist_for_speed
 eel_df <- eel_df %>%
-  mutate(dist_threshold = totaldistance_m + dist_for_speed)
+  mutate(dist_threshold = distance_to_source_m + dist_for_speed)
 
 # Apply get_migrations to each eel
 eel_df <- eel_df %>%
@@ -92,13 +92,13 @@ eel_df <- eel_df %>%
     get_migrations(x, 
                    dist_threshold = dist_for_speed, 
                    migration_speed_threshold)
-    }), .keep = "none") %>%
+  }), .keep = "none") %>%
   unnest(migration_infos)
 
 View(eel_df)
 
 # select one eel
-acoustic_tag_id_example <- "A69-1602-11949"
+acoustic_tag_id_example <- "A69-9006-3966"
 eel_example <- eel_df %>%
   filter(acoustic_tag_id == acoustic_tag_id_example)
 # plot
@@ -111,7 +111,7 @@ plot_example <- ggplot(eel_example, aes(x = arrival, y = distance_to_source_m)) 
                                 migration_speed_threshold,
                                 dist_for_speed)
   )
-                                
+
 plot_example
 
 # interactive plot version
