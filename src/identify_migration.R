@@ -98,11 +98,11 @@ eel_df <- eel_df %>%
 View(eel_df)
 
 # select one eel
-acoustic_tag_id_example <- "A69-9006-4038"
+acoustic_tag_id_example <- "A69-1602-11949"
 eel_example <- eel_df %>%
   filter(acoustic_tag_id == acoustic_tag_id_example)
 # plot
-plot_example <- ggplot(eel_example, aes(x = arrival, y = totaldistance_m)) +
+plot_example <- ggplot(eel_example, aes(x = arrival, y = distance_to_source_m)) +
   geom_point(aes(color = downstream_migration), size = 3) +
   geom_line() + 
   scale_y_reverse() +
