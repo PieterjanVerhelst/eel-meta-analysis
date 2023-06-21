@@ -149,5 +149,12 @@ get_migrations <- function(df,
       FALSE)) %>%
     select(-distance_to_next)
   
+  # add column flagging when very start of the migration process
+  first_true <- which(df$downstream_migration == TRUE)[1]
+  df$has_migration_started <- FALSE
+  if (!is.na(first_true)) {
+    df$has_migration_started[first_true:nrow(df)] <- TRUE
+  }
+  
   return(df)
 }
