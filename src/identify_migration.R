@@ -12,11 +12,10 @@ library(dplyr)      # to do data wrangling
 library(tidyr)      # to organize tabular data
 library(tidylog)    # to get useful messages about dplyr and tidyr operations
 library(purrr)      # to do functional programming
-library(assertthat) # to declare the conditions the code should satisfy
-library(lubridate)  # to work with datetime
 library(ggplot2)    # to create plots
 library(plotly)     # to make ggplot plots interactive
 
+source("src/identify_migration_functions.R")
 
 # read input data
 eel_df <- read_csv("./data/interim/speed/speed_2019_grotenete.csv")
@@ -27,71 +26,14 @@ eel_df <- eel_df %>%
 dist_for_speed <- 1000 # threshold in meter
 migration_speed_threshold <- 0.05 # speed threshold in m/s
 
-# customized `min()` function to avoid warning while calculating min() of empty
-# vectors
-custom_min <- function(x) {
-  if (length(x)>0) min(x) else NA
-}
-
-# define core function to find migration periods
-get_migrations <- function(df, 
-                           dist_threshold = dist_for_speed, 
-                           speed_threshold = migration_speed_threshold) {
-  ## check inputs
-  # df is a data.frame
-  assertthat::assert_that(is.data.frame(df))
-  # dist_threshold is a number
-  assertthat::assert_that(is.numeric(dist_threshold))
-  # speed_threshold is a number
-  assertthat::assert_that(is.numeric(speed_threshold))
-  # we make use of some columns in df. So, they need to be present in df
-  assertthat::assert_that("distance_to_source_m" %in% names(df),
-                          msg = "Column `distance_to_source_m` not found in df."
-  )
-  assertthat::assert_that("arrival" %in% names(df),
-                          msg = "Column `arrival` not found in df."
-  )
-  df <- 
-    df %>%
-    rowwise() %>%
-    mutate(first_dist_to_use = custom_min(
-      df$distance_to_source_m[df$distance_to_source_m >= dist_threshold])) %>%
-    mutate(row_first_dist_to_use = if_else(
-      !is.na(first_dist_to_use),
-      which(df$distance_to_source_m == first_dist_to_use)[1],
-      NA)) %>%
-    ungroup() %>%
-    mutate(time_first_dist_to_use = if_else(!is.na(row_first_dist_to_use),
-                                            df$arrival[row_first_dist_to_use],
-                                            NA)) %>%
-    mutate(delta_totdist = first_dist_to_use - distance_to_source_m) %>%
-    mutate(delta_t = as.numeric(as.duration(time_first_dist_to_use - arrival))) %>%
-    mutate(migration_speed = (delta_totdist / delta_t)) %>%
-    mutate(downstream_migration = migration_speed >= speed_threshold)
-  # avoid starting downstream migrations with a stationary phase
-  df <-
-    df %>%
-    mutate(distance_to_next = lead(distance_to_source_m)) %>%
-    mutate(downstream_migration = if_else(
-      downstream_migration == TRUE & distance_to_next != distance_to_source_m,
-      TRUE,
-      FALSE)) %>%
-    select(-distance_to_next)
-  return(df)
-}
-
-# calculate dist + dist_for_speed
-eel_df <- eel_df %>%
-  mutate(dist_threshold = distance_to_source_m + dist_for_speed)
-
 # Apply get_migrations to each eel
 eel_df <- eel_df %>%
   group_by(acoustic_tag_id) %>%
   nest() %>%
   mutate(migration_infos = map(data, function(x) {
     get_migrations(x, 
-                   dist_threshold = dist_for_speed, 
-                   migration_speed_threshold)
+                   dist_threshold = dist_for_speed,
+                   speed_threshold = migration_speed_threshold)
   }), .keep = "none") %>%
   unnest(migration_infos)
 
