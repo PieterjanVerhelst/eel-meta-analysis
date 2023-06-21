@@ -42,6 +42,14 @@ eel_df <- eel_df %>%
 
 #View(eel_df)
 
+# Define start migration from a record with 'downstream_migration == TRUE'
+first_true <- which(eel_df$downstream_migration == TRUE)[1]
+eel_df$has_migration_started <- FALSE
+eel_df$has_migration_started[first_true:nrow(eel_df)] <- TRUE
+
+  
+  
+
 # select one eel
 acoustic_tag_id_example <- "A69-9006-3970"
 eel_example <- eel_df %>%
