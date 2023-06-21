@@ -39,6 +39,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ `/receivernetworks`: folder containing the generated files with the receiver networks per project
 	+ `/residencies`: folder containing the residency datasets, calculated via the `smooth_eel_tracks.R` code
 	+ `/speed`: folder containing the speed datasets, calculated via the `calculate_speed.R` code
+	+ `/migration`: folder containing the datasets with records flagged as migration or not, calculated via the `identify_migration.R` code
 
 * `/external:`
 	+ `release_locations_stations.csv`: file with the release locations and the abbreviated release station names.
@@ -70,8 +71,9 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ 10a. `calculate_speed_function.R`: function to calculate speed between consecutive displacements; based on a function in Hugo Flavio's `actel` package
 	+ 10b. `calculate_sourcedistance_function.R`: function to calculate the station distance from a 'source' station; based on a function in Hugo Flavio's `actel` package
 		- --> Generate speed datasets per project and store them in `/interim/speed`
-	+ 10c. `clean_residency_data.R`: remove false detections, redundant eels and correct dates that came apparent through distance plots
-11. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
+11. `identify_migration.R`: Code that identifies records as migration based on a speed and distance threshold.
+	+ 11a. `identify_migration_functions.R`: functions to identify migration.
+12. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
 
 
 
