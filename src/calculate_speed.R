@@ -17,7 +17,7 @@ source("./src/calculate_sourcedistance_function.R")
 source("./src/clean_residency_data_functions.R")
 
 # Read residency dataset per animal project
-animal_project_id <- "ESGL"
+animal_project_id <- "2019_grotenete"
 residency <- read_csv(
   sprintf("./data/interim/residencies/residency_%s.csv", animal_project_id)
 )
@@ -25,6 +25,11 @@ residency$...1 <- NULL
 residency$acoustic_tag_id <- factor(residency$acoustic_tag_id)
 
 # Clean residency data according to 'animal_project_code'
+# projects:
+# 2011_warnow
+# 2013_albertkanaal
+# esgl
+# nedap_meuse
 residency <- clean_df(residency, animal_project_id)
 
 
