@@ -71,6 +71,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ 10a. `calculate_speed_function.R`: function to calculate speed between consecutive displacements; based on a function in Hugo Flavio's `actel` package
 	+ 10b. `calculate_sourcedistance_function.R`: function to calculate the station distance from a 'source' station; based on a function in Hugo Flavio's `actel` package
 		- --> Generate speed datasets per project and store them in `/interim/speed`
+	+ 10c. `clean_residency_data_functions.R`: functions to clean residency datasets of specific projects (false and incorrect detections that came to light via the distance plots. 
 11. `identify_migration.R`: Code that identifies records as migration based on a speed and distance threshold.
 	+ 11a. `identify_migration_functions.R`: functions to identify migration.
 12. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
