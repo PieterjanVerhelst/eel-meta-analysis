@@ -30,6 +30,8 @@ residency$acoustic_tag_id <- factor(residency$acoustic_tag_id)
 # 2013_albertkanaal
 # esgl
 # nedap_meuse
+# !IMPORTANT!
+# When 'Error: Invalid value for `animal_project_code`.', it means that the animal_project_id is not in the residency dataset and does not require cleaning. Hence, the error can be ignored and running script can continue.
 residency <- clean_df(residency, animal_project_id)
 
 
