@@ -24,10 +24,9 @@ residency <- read_csv(
 residency$...1 <- NULL
 residency$acoustic_tag_id <- factor(residency$acoustic_tag_id)
 
-# Clean residency data according to 'animal_project_code' ####
+# Clean residency data according to 'animal_project_code'
 residency <- clean_df(residency, animal_project_id)
 
-#####
 
 # Load distance matrix
 # Make sure the first column is not containing the station names
