@@ -23,7 +23,7 @@ max(data$distance_to_source_m)  # Identify the max limit for the y-axis
 
 
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/distance_tracks_2019_grotenete_migration.pdf") # Create pdf
+pdf("./figures/distance_tracks/migration/distance_tracks_2019_grotenete_migration.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
