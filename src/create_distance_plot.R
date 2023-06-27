@@ -8,7 +8,7 @@ library(tidyquant)
 
 
 # Upload dataset
-data <- read_csv('./data/interim/migration/migration_2015_phd_verhelst_eel.csv') 
+data <- read_csv('./data/interim/migration/migration_noordzeekanaal.csv') 
 data$...1 <- NULL
 data$...2 <- NULL
 data$acoustic_tag_id <- factor(data$acoustic_tag_id)
@@ -41,7 +41,7 @@ data$acoustic_tag_id <- factor(data$acoustic_tag_id)
 
 
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/migration_1000m_0.01ms_total3000m/2015_phd_verhelst_eel_migrants.pdf") # Create pdf
+pdf("./figures/distance_tracks/migration_1000m_0.01ms_total3000m/noordzeekanaal_migrants.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
