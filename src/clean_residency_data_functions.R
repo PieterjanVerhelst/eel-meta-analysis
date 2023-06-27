@@ -183,6 +183,43 @@ clean_df_nedap_meuse <- function(df) {
   return(df)
 }
 
+
+#' Clean df data for 2015_phd_verhelst_eel animal project
+#' 
+#' @param df A data.frame with df data
+#' 
+#' @return A data.frame with clean data, same columns as input `df`
+clean_df_2015_phd_verhelst_eel <- function(df) {
+  # Check inputs
+  assertthat::assert_that(is.data.frame(df))
+  assertthat::assert_that(
+    "animal_project_code" %in% names(df),
+    msg = "Column `animal_project_code` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "arrival" %in% names(df),
+    msg = "Column `arrival` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "acoustic_tag_id" %in% names(df),
+    msg = "Column `acoustic_tag_id` is used and must be present in df."
+  )
+  
+  # Clean data
+  # Eels tagged in the Dijle did not lead to long, qualitative tracks. Hence, remove these eels from the data
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58623"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58618"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58613"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58612"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58617"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58622"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58621"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58616"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58611"),]
+  return(df)
+}
+
+
 #' Generic clean function.
 #'
 #' This function calls under the hood the specific cleaning function written for
@@ -190,7 +227,7 @@ clean_df_nedap_meuse <- function(df) {
 #' 
 #' @param df A data.frame
 #' @param animal_project_code A string with the animal project code. It must be
-#'   one of: `"ESGL"`, `"2011_warnow"`, `"2013_albertkanaal"`, `"nedap_meuse"`.
+#'   one of: `"ESGL"`, `"2011_warnow"`, `"2013_albertkanaal"`, `"nedap_meuse"`, `"2015_phd_verhelst_eel"`.
 #'   
 #' @return A cleaned data.frame
 clean_df <- function(df, animal_project_code) {
@@ -201,7 +238,8 @@ clean_df <- function(df, animal_project_code) {
     "ESGL",
     "2011_warnow",
     "2013_albertkanaal",
-    "nedap_meuse"
+    "nedap_meuse",
+    "2015_phd_verhelst_eel"
   )
   assertthat::assert_that(
     animal_project_code %in% animal_project_codes,
