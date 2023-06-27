@@ -44,7 +44,7 @@ eel_df <- eel_df %>%
 
 
 # select one eel
-acoustic_tag_id_example <- "A69-1008-187"
+acoustic_tag_id_example <- "A69-1008-101"
 eel_example <- eel_df %>%
   filter(acoustic_tag_id == acoustic_tag_id_example)
 # plot
