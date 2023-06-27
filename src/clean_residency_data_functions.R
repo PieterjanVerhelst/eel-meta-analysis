@@ -257,6 +257,36 @@ clean_df_2004_gudena <- function(df) {
 }
 
 
+#' Clean df data for 2012_leopoldkanaal animal project
+#' 
+#' @param df A data.frame with df data
+#' 
+#' @return A data.frame with clean data, same columns as input `df`
+clean_df_2012_leopoldkanaal <- function(df) {
+  # Check inputs
+  assertthat::assert_that(is.data.frame(df))
+  assertthat::assert_that(
+    "animal_project_code" %in% names(df),
+    msg = "Column `animal_project_code` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "arrival" %in% names(df),
+    msg = "Column `arrival` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "acoustic_tag_id" %in% names(df),
+    msg = "Column `acoustic_tag_id` is used and must be present in df."
+  )
+  
+  # Clean data
+  # Doubtfull detections of eel A69-1601-29959: after it reached the Scheldt Estuary (ws2) it kept on being detected for 3 years. The eel might have died or predated. Yet, the uncertainty if this eel was still alive, makes me decide to remove those detections
+  
+  df <- df[!(df$animal_project_code == "2012_leopoldkanaal" & df$acoustic_tag_id == "A69-1601-29959" &
+               df$arrival > '2013-07-21 00:00:00'),]
+  return(df)
+}
+
+
 #' Generic clean function.
 #'
 #' This function calls under the hood the specific cleaning function written for
@@ -264,7 +294,7 @@ clean_df_2004_gudena <- function(df) {
 #' 
 #' @param df A data.frame
 #' @param animal_project_code A string with the animal project code. It must be
-#'   one of: `"ESGL"`, `"2011_warnow"`, `"2013_albertkanaal"`, `"nedap_meuse"`, `"2015_phd_verhelst_eel"`, `"2004_gudena"`.
+#'   one of: `"ESGL"`, `"2011_warnow"`, `"2013_albertkanaal"`, `"nedap_meuse"`, `"2015_phd_verhelst_eel"`, `"2004_gudena"`, `"2012_leopoldkanaal"`.
 #'   
 #' @return A cleaned data.frame
 clean_df <- function(df, animal_project_code) {
@@ -277,7 +307,8 @@ clean_df <- function(df, animal_project_code) {
     "2013_albertkanaal",
     "nedap_meuse",
     "2015_phd_verhelst_eel",
-    "2004_gudena"
+    "2004_gudena",
+    "2012_leopoldkanaal"
   )
   assertthat::assert_that(
     animal_project_code %in% animal_project_codes,
