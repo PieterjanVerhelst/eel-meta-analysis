@@ -85,7 +85,9 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 * `/figures:`
 	+ `/html_interactive_maps`: interactive html widget maps per project
 	+ `/distance_tracks`: pdf-files with traveled distances per project
-
+		+`/raw`: distance tracks of the raw data
+		+`/migration_1000m_0.01ms`: distance tracks with arrivals records flagged as migratory vs non-migratory based on a distance threshold of 1000 m and speed threshold of 0.01 m/s
+		+`/migration_1000m_0.01ms_total4000m`: distance tracks with arrivals records flagged as migratory vs non-migratory based on a distance threshold of 1000 m and speed threshold of 0.01 m/s and with eels having a trajectory of over 4000 m
 
 
 

@@ -18,7 +18,7 @@ library(plotly)     # to make ggplot plots interactive
 source("src/identify_migration_functions.R")
 
 # read input data
-animal_project_id <- "2019_grotenete"
+animal_project_id <- "2004_gudena"
 eel_df <- read_csv(
   sprintf("./data/interim/speed/speed_%s.csv", animal_project_id)
 )
@@ -26,8 +26,8 @@ eel_df <- eel_df %>%
   rename(row_id = "...1")
 
 # define thresholds
-dist_for_speed <- 5000 # threshold in meter
-migration_speed_threshold <- 0.05 # speed threshold in m/s
+dist_for_speed <- 1000 # threshold in meter
+migration_speed_threshold <- 0.01 # speed threshold in m/s
 
 # Apply get_migrations to each eel
 eel_df <- eel_df %>%
@@ -44,7 +44,7 @@ eel_df <- eel_df %>%
 
 
 # select one eel
-acoustic_tag_id_example <- "A69-9006-3966"
+acoustic_tag_id_example <- "A69-1008-101"
 eel_example <- eel_df %>%
   filter(acoustic_tag_id == acoustic_tag_id_example)
 # plot
