@@ -280,9 +280,11 @@ clean_df_2012_leopoldkanaal <- function(df) {
   
   # Clean data
   # Doubtfull detections of eel A69-1601-29959: after it reached the Scheldt Estuary (ws2) it kept on being detected for 3 years. The eel might have died or predated. Yet, the uncertainty if this eel was still alive, makes me decide to remove those detections
-  
+  # The same is true for eel A69-1601-29956
   df <- df[!(df$animal_project_code == "2012_leopoldkanaal" & df$acoustic_tag_id == "A69-1601-29959" &
                df$arrival > '2013-07-21 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2012_leopoldkanaal" & df$acoustic_tag_id == "A69-1601-29956" &
+               df$arrival > '2012-10-28 12:00:00'),]
   return(df)
 }
 
