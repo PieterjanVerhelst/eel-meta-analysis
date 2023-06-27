@@ -220,6 +220,43 @@ clean_df_2015_phd_verhelst_eel <- function(df) {
 }
 
 
+#' Clean df data for 2004_gudena animal project
+#' 
+#' @param df A data.frame with df data
+#' 
+#' @return A data.frame with clean data, same columns as input `df`
+clean_df_2004_gudena <- function(df) {
+  # Check inputs
+  assertthat::assert_that(is.data.frame(df))
+  assertthat::assert_that(
+    "animal_project_code" %in% names(df),
+    msg = "Column `animal_project_code` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "arrival" %in% names(df),
+    msg = "Column `arrival` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "acoustic_tag_id" %in% names(df),
+    msg = "Column `acoustic_tag_id` is used and must be present in df."
+  )
+  
+  # Clean data
+  # False detections in project 2004_gudena for the following eels after a certain date:
+  # A69-1008-101: arrival > 2004-05-14  00:00:00
+  # A69-1008-185: arrival > 2006-03-10  00:00:00
+  # A69-1008-200: arrival > 2005-09-12  00:00:00
+  
+  df <- df[!(df$animal_project_code == "2004_Gudena" & df$acoustic_tag_id == "A69-1008-101" &
+               df$arrival > '2004-05-14 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2004_Gudena" & df$acoustic_tag_id == "A69-1008-185" &
+               df$arrival > '2006-03-10 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2004_Gudena" & df$acoustic_tag_id == "A69-1008-200" &
+               df$arrival > '2005-09-12 00:00:00'),]
+  return(df)
+}
+
+
 #' Generic clean function.
 #'
 #' This function calls under the hood the specific cleaning function written for
@@ -227,7 +264,7 @@ clean_df_2015_phd_verhelst_eel <- function(df) {
 #' 
 #' @param df A data.frame
 #' @param animal_project_code A string with the animal project code. It must be
-#'   one of: `"ESGL"`, `"2011_warnow"`, `"2013_albertkanaal"`, `"nedap_meuse"`, `"2015_phd_verhelst_eel"`.
+#'   one of: `"ESGL"`, `"2011_warnow"`, `"2013_albertkanaal"`, `"nedap_meuse"`, `"2015_phd_verhelst_eel"`, `"2004_gudena"`.
 #'   
 #' @return A cleaned data.frame
 clean_df <- function(df, animal_project_code) {
@@ -239,7 +276,8 @@ clean_df <- function(df, animal_project_code) {
     "2011_warnow",
     "2013_albertkanaal",
     "nedap_meuse",
-    "2015_phd_verhelst_eel"
+    "2015_phd_verhelst_eel",
+    "2004_gudena"
   )
   assertthat::assert_that(
     animal_project_code %in% animal_project_codes,
