@@ -115,9 +115,11 @@ clean_df_2011_warnow <- function(df) {
   
   # Step 3. Remove three eels that identified as American eel (Anguilla rostrata)
   df <- df %>%
-    filter(animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-582",
-           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-632",
-           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-634")
+    filter(animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-582", # American eel
+           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-632", # American eel
+           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-634", # American eel
+           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-542", # Eel was recaptured twice so unrealistic track
+           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-645") # Very short track of only 5 km at one receiver
   
   return(df)
 }
