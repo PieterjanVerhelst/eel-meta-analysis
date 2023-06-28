@@ -39,11 +39,11 @@ data <- data %>% mutate(animal_project_code=recode(animal_project_code,
                                                    "PTN-Silver-eel-Mondego" = "mondego",
                                                    "SEMP" = "semp"))
 
-# Make sub projects for project DAK: dak_markiezaatsmeer and dak_superpolder
-# add level "B" to column project
+# Change factor level from eels that are now under project `dak_markiezaatsmeer`, but should be under project `dak_superpolder`
+# Create levels with all project code names
 levels(data$animal_project_code) <- c("2004_gudena","2011_loire","2011_warnow","2012_leopoldkanaal","2013_albertkanaal","2013_stour","2014_frome","2014_nene","2015_phd_verhelst_eel","2017_fremur","2019_grotenete","dak_markiezaatsmeer","emmn","esgl","mondego","nedap_meuse","noordzeekanaal","semp")
 
-# change project 
+# Change project code name for relevant eels
 data %>%
   mutate(animal_project_code = if_else(condition = acoustic_tag_id %in% c("A69-1602-10817",
                                                                           "A69-1602-10818",
@@ -72,8 +72,6 @@ data %>%
                                                                           "A69-1602-10866"),
                            true = "dak_superpolder",
                            false = animal_project_code))
-
-
 
 
 

@@ -75,6 +75,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 11. `identify_migration.R`: Code that identifies records as migration based on a speed and distance threshold.
 	+ 11a. `identify_migration_functions.R`: functions to identify migration.
 12. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
+12. `process_migration_data.R`: process migration data by combining the datasets of the different studies and calculate the number of migratory eels per study
 
 
 
