@@ -27,10 +27,12 @@ clean_df_esgl <- function(df) {
   # Clean data
   # False detection in project ESGL after 2016-02-15 and the detection of eel
   # A69-1601-38319 at station A on 2016-01-02 06:59:09
+  # A69-1601-38358 is not a migratory eel based on expert judgement. The release location may not be entirely correct and since its track is borderline 4000 m, I decide to remove it from the dataset.
   df <- df[!(df$animal_project_code == "ESGL" & df$arrival >= '2016-02-15 00:00:00'),]
   df <- df[!(df$animal_project_code == "ESGL" & df$acoustic_tag_id == "A69-1601-38319" &
                              df$arrival >= '2016-01-02 06:59:09' &
                              df$arrival <= '2016-01-02 07:59:09'),]
+  df <- df[!(df$animal_project_code == "ESGL" & df$acoustic_tag_id == 'A69-1601-38358'),]
   return(df)
 }
 
