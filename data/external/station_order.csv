@@ -8,7 +8,7 @@ animal_project_code,release_station,upstream_stations
 2014_Nene,rel_nene,Nene1
 2017_Fremur,rel_fremur,"F9, F8, F7, F6, F5, F4, F3, F2, F1"
 2011_Warnow,rel_warnow,W1
-nedap_meuse,rel_nedap_meuse,GrensMaas_Bharen_vis
+nedap_meuse,rel_nedap_meuse,"GrensMaas_Bharen_vis, Maas_Maastricht"
 life4fish,rel_life4fish1,
 life4fish,rel_life4fish2,
 life4fish,rel_life4fish3,
