@@ -66,7 +66,7 @@ eel <- eel %>%
   mutate_at(c('acoustic_tag_id', 'animal_project_code', 'sex', 'life_stage'), as.factor)
 eel$length1 <- as.numeric(eel$length1)
 eel$weight <- as.numeric(eel$weight)
-
+eel <- eel[!(eel$animal_project_code == "life4fish" & eel$acoustic_tag_id == "7422"),]# Remove eel with ID 7422 from project (life4fish)
 eel <- select(eel, 
               animal_project_code, 
               release_date_time, 
@@ -79,4 +79,48 @@ eel <- select(eel,
               release_longitude)
 
 eel <- subset(eel, acoustic_tag_id %in% migrants$acoustic_tag_id)
+
+migration_speed <- left_join(migration_speed, eel, by = "acoustic_tag_id")
+
+
+# Create boxplot with speeds in relation to sex
+par(mar=c(10,4,2,1))
+migration_speed_plot <- ggplot(migration_speed, aes(x=sex, y=speed_ms)) + 
+  geom_boxplot() +
+  ylab("Migration speed (m/s)") + 
+  xlab("Sex") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+
+migration_speed_plot
+
+
+# Create dotplot with speeds in relation to total length and colour according to sex
+par(mar=c(10,4,2,1))
+migration_speed_plot <- ggplot(migration_speed, aes(x=length1, y=speed_ms)) + 
+  geom_point(alpha = 1.0, aes(color = sex)) +
+  ylab("Migration speed (m/s)") + 
+  xlab("Total length (mm)") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+
+migration_speed_plot
 
