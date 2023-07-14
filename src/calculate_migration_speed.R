@@ -80,7 +80,7 @@ eel <- select(eel,
 
 eel <- subset(eel, acoustic_tag_id %in% migrants$acoustic_tag_id)
 
-migration_speed <- left_join(migration_speed, eel, by = "acoustic_tag_id")
+migration_speed <- left_join(migration_speed, eel, by = c("animal_project_code","acoustic_tag_id"))
 
 
 # 4. Create boxplot with speeds in relation to sex ####
