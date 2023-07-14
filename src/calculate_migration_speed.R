@@ -55,7 +55,6 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=animal_project_code, y=spe
     axis.title.x = element_text(size = 22),
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22))
-
 migration_speed_plot
 
 
@@ -100,7 +99,6 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=sex, y=speed_ms)) +
     axis.title.x = element_text(size = 22),
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22))
-
 migration_speed_plot
 
 
@@ -121,6 +119,5 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=length1, y=speed_ms)) +
     axis.title.x = element_text(size = 22),
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22))
-
 migration_speed_plot
 
