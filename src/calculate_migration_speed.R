@@ -5,7 +5,7 @@
 
 source("src/process_migration_data.R")
 
-# Calculate overall migration speed: speed between first and last detection as 'has_migration_started == TRUE'
+# 1. Calculate overall migration speed: speed between first and last detection as 'has_migration_started == TRUE' ####
 migration_speed <- data %>%
   group_by(animal_project_code, acoustic_tag_id) %>%
   mutate(time = max(departure)-min(arrival),
@@ -18,7 +18,7 @@ migration_speed$speed_ms <- migration_speed$distance / migration_speed$time
 summary(migration_speed$speed_ms)
 boxplot(migration_speed$speed_ms, ylab = "Migration speed (m/s)")
 
-# Create boxplot with speeds per project in geographical order from west to east
+# 2. Create boxplot with speeds per project in geographical order from west to east ####
 migration_speed$animal_project_code <- factor(migration_speed$animal_project_code, 
                                               levels = c("mondego",
                                                          "esgl",
@@ -60,7 +60,7 @@ migration_speed_plot
 
 
 
-# Link sex and size to the dataset
+# 3. Link sex and size to the dataset  ####
 eel <- read_csv("./data/interim/eel_meta_data.csv")
 eel <- eel %>%
   mutate_at(c('acoustic_tag_id', 'animal_project_code', 'sex', 'life_stage'), as.factor)
@@ -83,7 +83,7 @@ eel <- subset(eel, acoustic_tag_id %in% migrants$acoustic_tag_id)
 migration_speed <- left_join(migration_speed, eel, by = "acoustic_tag_id")
 
 
-# Create boxplot with speeds in relation to sex
+# 4. Create boxplot with speeds in relation to sex ####
 par(mar=c(10,4,2,1))
 migration_speed_plot <- ggplot(migration_speed, aes(x=sex, y=speed_ms)) + 
   geom_boxplot() +
@@ -103,7 +103,7 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=sex, y=speed_ms)) +
 migration_speed_plot
 
 
-# Create dotplot with speeds in relation to total length and colour according to sex
+# 5. Create dotplot with speeds in relation to total length and colour according to sex ####
 par(mar=c(10,4,2,1))
 migration_speed_plot <- ggplot(migration_speed, aes(x=length1, y=speed_ms)) + 
   geom_point(alpha = 1.0, aes(color = sex)) +
