@@ -61,5 +61,22 @@ migration_speed_plot
 
 
 # Link sex and size to the dataset
+eel <- read_csv("./data/interim/eel_meta_data.csv")
+eel <- eel %>%
+  mutate_at(c('acoustic_tag_id', 'animal_project_code', 'sex', 'life_stage'), as.factor)
+eel$length1 <- as.numeric(eel$length1)
+eel$weight <- as.numeric(eel$weight)
 
+eel <- select(eel, 
+              animal_project_code, 
+              release_date_time, 
+              acoustic_tag_id,
+              length1,
+              weight,
+              sex,
+              life_stage,
+              release_latitude, 
+              release_longitude)
+
+eel <- subset(eel, acoustic_tag_id %in% migrants$acoustic_tag_id)
 
