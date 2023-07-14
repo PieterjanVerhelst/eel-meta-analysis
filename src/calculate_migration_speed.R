@@ -16,6 +16,7 @@ migration_speed <- data %>%
 migration_speed$time <- as.numeric(migration_speed$time)
 migration_speed$speed_ms <- migration_speed$distance / migration_speed$time
 summary(migration_speed$speed_ms)
+boxplot(migration_speed$speed_ms, ylab = "Migration speed (m/s)")
 
 # Create boxplot with speeds per project in geographical order from west to east
 migration_speed$animal_project_code <- factor(migration_speed$animal_project_code, 
@@ -121,3 +122,21 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=length1, y=speed_ms)) +
     axis.title.y = element_text(size = 22))
 migration_speed_plot
 
+# Create dotplot with speeds in relation to release longitude and colour according to sex
+par(mar=c(10,4,2,1))
+migration_speed_plot <- ggplot(migration_speed, aes(x=release_longitude, y=speed_ms)) + 
+  geom_point(size = 3, alpha = 1.0, aes(color = sex)) +
+  ylab("Migration speed (m/s)") + 
+  xlab("Total length (mm)") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+migration_speed_plot
