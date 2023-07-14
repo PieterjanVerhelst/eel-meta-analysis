@@ -8,7 +8,7 @@ library(tidyquant)
 
 
 # Upload dataset
-data <- read_csv('./data/interim/migration/migration_noordzeekanaal.csv') 
+data <- read_csv('./data/interim/migration/migration_2004_gudena.csv') 
 data$...1 <- NULL
 data$...2 <- NULL
 data$acoustic_tag_id <- factor(data$acoustic_tag_id)
@@ -24,7 +24,7 @@ max(data$distance_to_source_m)  # Identify the max limit for the y-axis
 
 # Select eels considered migratory
 # 'has_migration_started' == TRUE
-# total distance > 3000 m
+# total distance > 4000 m
 data <- filter(data, has_migration_started == "TRUE")
 
 migrants <- data %>%
@@ -40,8 +40,9 @@ data<- subset(data, acoustic_tag_id %in% migrants$acoustic_tag_id)
 data$acoustic_tag_id <- factor(data$acoustic_tag_id)
 
 
+# Create pdf with distance tracks
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/migration_1000m_0.01ms_total3000m/noordzeekanaal_migrants.pdf") # Create pdf
+pdf("./figures/distance_tracks/migration_1000m_0.01ms_total4000m/2004_gudena_migrants.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters

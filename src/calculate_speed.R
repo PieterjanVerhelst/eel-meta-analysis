@@ -17,7 +17,7 @@ source("./src/calculate_sourcedistance_function.R")
 source("./src/clean_residency_data_functions.R")
 
 # Read residency dataset per animal project
-animal_project_id <- "2019_grotenete"
+animal_project_id <- "nedap_meuse"
 residency <- read_csv(
   sprintf("./data/interim/residencies/residency_%s.csv", animal_project_id)
 )
@@ -30,9 +30,15 @@ residency$acoustic_tag_id <- factor(residency$acoustic_tag_id)
 # 2013_albertkanaal
 # esgl
 # nedap_meuse
+# 2015_phd_verhelst_eel
+# 2004_gudena
+# 2012_leopoldkanaal
 # !IMPORTANT!
 # When 'Error: Invalid value for `animal_project_code`.', it means that the animal_project_id is not in the residency dataset and does not require cleaning. Hence, the error can be ignored and running script can continue.
 residency <- clean_df(residency, animal_project_id)
+
+# Chronologically arrange dataset
+residency <- residency %>% arrange(acoustic_tag_id, arrival)
 
 
 # Load distance matrix

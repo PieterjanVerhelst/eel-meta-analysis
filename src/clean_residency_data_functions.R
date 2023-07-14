@@ -27,10 +27,12 @@ clean_df_esgl <- function(df) {
   # Clean data
   # False detection in project ESGL after 2016-02-15 and the detection of eel
   # A69-1601-38319 at station A on 2016-01-02 06:59:09
+  # A69-1601-38358 is not a migratory eel based on expert judgement. The release location may not be entirely correct and since its track is borderline 4000 m, I decide to remove it from the dataset.
   df <- df[!(df$animal_project_code == "ESGL" & df$arrival >= '2016-02-15 00:00:00'),]
   df <- df[!(df$animal_project_code == "ESGL" & df$acoustic_tag_id == "A69-1601-38319" &
                              df$arrival >= '2016-01-02 06:59:09' &
                              df$arrival <= '2016-01-02 07:59:09'),]
+  df <- df[!(df$animal_project_code == "ESGL" & df$acoustic_tag_id == 'A69-1601-38358'),]
   return(df)
 }
 
@@ -113,9 +115,11 @@ clean_df_2011_warnow <- function(df) {
   
   # Step 3. Remove three eels that identified as American eel (Anguilla rostrata)
   df <- df %>%
-    filter(animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-582",
-           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-632",
-           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-634")
+    filter(animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-582", # American eel
+           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-632", # American eel
+           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-634", # American eel
+           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-542", # Eel was recaptured twice so unrealistic track
+           animal_project_code == "2011_Warnow" & acoustic_tag_id != "A69-1601-645") # Very short track of only 5 km at one receiver
   
   return(df)
 }
@@ -183,6 +187,112 @@ clean_df_nedap_meuse <- function(df) {
   return(df)
 }
 
+
+#' Clean df data for 2015_phd_verhelst_eel animal project
+#' 
+#' @param df A data.frame with df data
+#' 
+#' @return A data.frame with clean data, same columns as input `df`
+clean_df_2015_phd_verhelst_eel <- function(df) {
+  # Check inputs
+  assertthat::assert_that(is.data.frame(df))
+  assertthat::assert_that(
+    "animal_project_code" %in% names(df),
+    msg = "Column `animal_project_code` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "arrival" %in% names(df),
+    msg = "Column `arrival` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "acoustic_tag_id" %in% names(df),
+    msg = "Column `acoustic_tag_id` is used and must be present in df."
+  )
+  
+  # Clean data
+  # Eels tagged in the Dijle did not lead to long, qualitative tracks. Hence, remove these eels from the data
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58623"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58618"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58613"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58612"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58617"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58622"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58621"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58616"),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58611"),]
+  return(df)
+}
+
+
+#' Clean df data for 2004_gudena animal project
+#' 
+#' @param df A data.frame with df data
+#' 
+#' @return A data.frame with clean data, same columns as input `df`
+clean_df_2004_gudena <- function(df) {
+  # Check inputs
+  assertthat::assert_that(is.data.frame(df))
+  assertthat::assert_that(
+    "animal_project_code" %in% names(df),
+    msg = "Column `animal_project_code` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "arrival" %in% names(df),
+    msg = "Column `arrival` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "acoustic_tag_id" %in% names(df),
+    msg = "Column `acoustic_tag_id` is used and must be present in df."
+  )
+  
+  # Clean data
+  # False detections in project 2004_gudena for the following eels after a certain date:
+  # A69-1008-101: arrival > 2004-05-14  00:00:00
+  # A69-1008-185: arrival > 2006-03-10  00:00:00
+  # A69-1008-200: arrival > 2005-09-12  00:00:00
+  
+  df <- df[!(df$animal_project_code == "2004_Gudena" & df$acoustic_tag_id == "A69-1008-101" &
+               df$arrival > '2004-05-14 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2004_Gudena" & df$acoustic_tag_id == "A69-1008-185" &
+               df$arrival > '2006-03-10 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2004_Gudena" & df$acoustic_tag_id == "A69-1008-200" &
+               df$arrival > '2005-09-12 00:00:00'),]
+  return(df)
+}
+
+
+#' Clean df data for 2012_leopoldkanaal animal project
+#' 
+#' @param df A data.frame with df data
+#' 
+#' @return A data.frame with clean data, same columns as input `df`
+clean_df_2012_leopoldkanaal <- function(df) {
+  # Check inputs
+  assertthat::assert_that(is.data.frame(df))
+  assertthat::assert_that(
+    "animal_project_code" %in% names(df),
+    msg = "Column `animal_project_code` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "arrival" %in% names(df),
+    msg = "Column `arrival` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "acoustic_tag_id" %in% names(df),
+    msg = "Column `acoustic_tag_id` is used and must be present in df."
+  )
+  
+  # Clean data
+  # Doubtfull detections of eel A69-1601-29959: after it reached the Scheldt Estuary (ws2) it kept on being detected for 3 years. The eel might have died or predated. Yet, the uncertainty if this eel was still alive, makes me decide to remove those detections
+  # The same is true for eel A69-1601-29956
+  df <- df[!(df$animal_project_code == "2012_leopoldkanaal" & df$acoustic_tag_id == "A69-1601-29959" &
+               df$arrival > '2013-07-21 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2012_leopoldkanaal" & df$acoustic_tag_id == "A69-1601-29956" &
+               df$arrival > '2012-10-28 12:00:00'),]
+  return(df)
+}
+
+
 #' Generic clean function.
 #'
 #' This function calls under the hood the specific cleaning function written for
@@ -190,7 +300,7 @@ clean_df_nedap_meuse <- function(df) {
 #' 
 #' @param df A data.frame
 #' @param animal_project_code A string with the animal project code. It must be
-#'   one of: `"ESGL"`, `"2011_warnow"`, `"2013_albertkanaal"`, `"nedap_meuse"`.
+#'   one of: `"ESGL"`, `"2011_warnow"`, `"2013_albertkanaal"`, `"nedap_meuse"`, `"2015_phd_verhelst_eel"`, `"2004_gudena"`, `"2012_leopoldkanaal"`.
 #'   
 #' @return A cleaned data.frame
 clean_df <- function(df, animal_project_code) {
@@ -201,7 +311,10 @@ clean_df <- function(df, animal_project_code) {
     "ESGL",
     "2011_warnow",
     "2013_albertkanaal",
-    "nedap_meuse"
+    "nedap_meuse",
+    "2015_phd_verhelst_eel",
+    "2004_gudena",
+    "2012_leopoldkanaal"
   )
   assertthat::assert_that(
     animal_project_code %in% animal_project_codes,
