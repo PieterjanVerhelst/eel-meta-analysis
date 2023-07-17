@@ -122,12 +122,12 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=length1, y=speed_ms)) +
     axis.title.y = element_text(size = 22))
 migration_speed_plot
 
-# Create dotplot with speeds in relation to release longitude and colour according to sex
+# 6. Create dotplot with speeds in relation to release longitude and colour according to sex ####
 par(mar=c(10,4,2,1))
 migration_speed_plot <- ggplot(migration_speed, aes(x=release_longitude, y=speed_ms)) + 
   geom_point(size = 3, alpha = 1.0, aes(color = sex)) +
   ylab("Migration speed (m/s)") + 
-  xlab("Total length (mm)") +
+  xlab("Release longitude") +
   #stat_summary(fun = "mean", geom = "point", #shape = 8,
   #             size = 4, color = "blue") +
   theme( 
@@ -140,3 +140,28 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=release_longitude, y=speed
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22))
 migration_speed_plot
+
+
+# 7. Merge migration barrier qualification to the dataset and plot speed in relation to those barrier qualification ####
+migrationbarriers <- read_csv("./data/external/migrationbarriers.csv")
+migrationbarriers <- migrationbarriers %>%
+  mutate_at(c('animal_project_code', 'barrier_impact', 'weir', 'sluice_gate', 'shipping_lock', 'hydropower', 'pump'), as.factor)
+migration_speed <- left_join(migration_speed, migrationbarriers, by = "animal_project_code")
+
+migration_speed_plot <- ggplot(migration_speed, aes(x=barrier_impact, y=speed_ms)) + 
+  geom_boxplot() +
+  ylab("Migration speed (m/s)") + 
+  xlab("Qualitative migration barrier impact") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+migration_speed_plot
+
