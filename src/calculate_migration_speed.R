@@ -16,6 +16,8 @@ migration_speed <- data %>%
 migration_speed$time <- as.numeric(migration_speed$time)
 migration_speed$speed_ms <- migration_speed$distance / migration_speed$time
 summary(migration_speed$speed_ms)
+migration_speed$time_days <- migration_speed$time / (60*60*24)
+summary(migration_speed$time_days)
 boxplot(migration_speed$speed_ms, ylab = "Migration speed (m/s)")
 
 # 2. Create boxplot with speeds per project in geographical order from west to east ####
