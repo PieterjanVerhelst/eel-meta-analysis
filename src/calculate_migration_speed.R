@@ -80,7 +80,7 @@ eel <- select(eel,
               release_latitude, 
               release_longitude)
 
-eel <- subset(eel, acoustic_tag_id %in% migrants$acoustic_tag_id)
+eel <- subset(eel, acoustic_tag_id %in% migration_speed$acoustic_tag_id)
 
 migration_speed <- left_join(migration_speed, eel, by = "acoustic_tag_id")
 migration_speed <- rename(migration_speed, animal_project_code = animal_project_code.x)
