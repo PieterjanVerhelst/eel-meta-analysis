@@ -289,6 +289,8 @@ clean_df_2012_leopoldkanaal <- function(df) {
                df$arrival > '2013-07-21 00:00:00'),]
   df <- df[!(df$animal_project_code == "2012_leopoldkanaal" & df$acoustic_tag_id == "A69-1601-29956" &
                df$arrival > '2012-10-28 12:00:00'),]
+  # Remove detections in bpns
+  df <- df[!(df$animal_project_code == "2012_leopoldkanaal" & df$station_name == "bpns-O6"),]
   return(df)
 }
 
