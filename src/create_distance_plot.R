@@ -42,7 +42,7 @@ data$acoustic_tag_id <- factor(data$acoustic_tag_id)
 
 # Create pdf with distance tracks
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/migration/2012_leopoldkanaal_migration_4000m_0.01ms.pdf") # Create pdf
+pdf("./figures/distance_tracks/migration/2012_leopoldkanaal_migration_4000m_0.01ms2.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
