@@ -143,6 +143,14 @@ clean_df_2013_albertkanaal <- function(df) {
   # detection right after release
   # --> exact release positions was HH5 instead of rel_albertkanaal2
   df <- subset(df, station_name != "rel_albertkanaal2")
+  
+  # Remove two false detections of eels in 2013_albertkanaal
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26516" &
+               df$arrival > '2016-10-23 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26476" &
+               df$arrival > '2016-10-23 00:00:00'),]
+  
+  
   return(df)
 }
 
