@@ -46,7 +46,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ `/distance_matrices`: folder containing the distance matrices with the distances between detection stations per receiver network (matrices are created at https://github.com/inbo/fish-tracking).
 	+ `station_order.csv`: file containing the stations upstream the release location. This file is needed in `calculate_speed.R`
 	+ `habitats.csv`: file with the classification of the habitats linked to the detections stations, i.e. freshwater, tidal freshwater, tidal brackish, marine barrier and marine.
-	+ `migrationbarriers.csv`: file containing whether or not a project/river has a migration barrier and if so, which type and where (coordinates).
+	+ `migrationbarriers.csv`: qualification of barrier impact per project/river. The impact was scored with 0 (no impact), 1 (minimal impact) and 2 (severe impact). This scoring was based on the type of barriers on the migration route of the eels: weirs (1), sluice gates (1), shipping locks (2), hydropower (2) and pumps (2).
 
 ### Scripts
 
@@ -76,7 +76,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ 11a. `identify_migration_functions.R`: functions to identify migration.
 12. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
 13. `process_migration_data.R`: Process migration data by combining the datasets of the different studies and calculate the number of migratory eels per study
-14. `calculate_migration_speed.R`: Calculate the migration speed as the speed between the first and last detection
+14. `calculate_migration_speed.R`: Calculate the migration speed as the speed between the first and last detection and relate it to geographical position, size and sex
 
 
 

@@ -8,7 +8,7 @@ library(tidyquant)
 
 
 # Upload dataset
-data <- read_csv('./data/interim/migration/migration_2004_gudena.csv') 
+data <- read_csv('./data/interim/migration/migration_2013_albertkanaal.csv') 
 data$...1 <- NULL
 data$...2 <- NULL
 data$acoustic_tag_id <- factor(data$acoustic_tag_id)
@@ -24,25 +24,26 @@ max(data$distance_to_source_m)  # Identify the max limit for the y-axis
 
 # Select eels considered migratory
 # 'has_migration_started' == TRUE
-# total distance > 4000 m
 data <- filter(data, has_migration_started == "TRUE")
 
-migrants <- data %>%
-  select(acoustic_tag_id, distance_to_source_m) %>%
-  group_by(acoustic_tag_id) %>%
-  mutate(total_distance = max(distance_to_source_m)-min(distance_to_source_m)) %>%
-  select(-distance_to_source_m) %>%
-  distinct()
+# In case a movement range is used.
+# Here we only select eels that had a movement range of minimum 4000 m
+#migrants <- data %>%
+#  select(acoustic_tag_id, distance_to_source_m) %>%
+#  group_by(acoustic_tag_id) %>%
+#  mutate(total_distance = max(distance_to_source_m)-min(distance_to_source_m)) %>%
+#  select(-distance_to_source_m) %>%
+#  distinct()
 
-migrants <- filter(migrants, total_distance > 4000)
+#migrants <- filter(migrants, total_distance > 4000)
 
-data<- subset(data, acoustic_tag_id %in% migrants$acoustic_tag_id)
-data$acoustic_tag_id <- factor(data$acoustic_tag_id)
+#data<- subset(data, acoustic_tag_id %in% migrants$acoustic_tag_id)
+#data$acoustic_tag_id <- factor(data$acoustic_tag_id)
 
 
 # Create pdf with distance tracks
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/migration_1000m_0.01ms_total4000m/2004_gudena_migrants.pdf") # Create pdf
+pdf("./figures/distance_tracks/migration/2013_albertkanaal_migration_4000m_0.01ms.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters

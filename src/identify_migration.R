@@ -25,8 +25,9 @@ eel_df <- read_csv(
 eel_df <- eel_df %>%
   rename(row_id = "...1")
 
+
 # define thresholds
-dist_for_speed <- 1000 # threshold in meter
+dist_for_speed <- 4000 # threshold in meter
 migration_speed_threshold <- 0.01 # speed threshold in m/s
 
 # Apply get_migrations to each eel
@@ -44,7 +45,7 @@ eel_df <- eel_df %>%
 
 
 # select one eel
-acoustic_tag_id_example <- "12387"
+acoustic_tag_id_example <- "A69-1601-18213"
 eel_example <- eel_df %>%
   filter(acoustic_tag_id == acoustic_tag_id_example)
 # plot

@@ -143,6 +143,14 @@ clean_df_2013_albertkanaal <- function(df) {
   # detection right after release
   # --> exact release positions was HH5 instead of rel_albertkanaal2
   df <- subset(df, station_name != "rel_albertkanaal2")
+  
+  # Remove two false detections of eels in 2013_albertkanaal
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26516" &
+               df$arrival > '2016-10-23 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26476" &
+               df$arrival > '2016-10-23 00:00:00'),]
+  
+  
   return(df)
 }
 
@@ -289,8 +297,53 @@ clean_df_2012_leopoldkanaal <- function(df) {
                df$arrival > '2013-07-21 00:00:00'),]
   df <- df[!(df$animal_project_code == "2012_leopoldkanaal" & df$acoustic_tag_id == "A69-1601-29956" &
                df$arrival > '2012-10-28 12:00:00'),]
+  # Remove detections in bpns
+  df <- df[!(df$animal_project_code == "2012_leopoldkanaal" & df$station_name == "bpns-O6"),]
   return(df)
 }
+
+
+#' Clean df data for noordzeekanaal animal project
+#' 
+#' @param df A data.frame with df data
+#' 
+#' @return A data.frame with clean data, same columns as input `df`
+clean_df_noordzeekanaal <- function(df) {
+  # Check inputs
+  assertthat::assert_that(is.data.frame(df))
+  assertthat::assert_that(
+    "animal_project_code" %in% names(df),
+    msg = "Column `animal_project_code` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "arrival" %in% names(df),
+    msg = "Column `arrival` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "acoustic_tag_id" %in% names(df),
+    msg = "Column `acoustic_tag_id` is used and must be present in df."
+  )
+  
+  # Clean data
+  # Detections at sea are not taken into account in this study. Hence, remove detections at marine stations but also at Scheldt Estuary stations because for this project it means the eel migrated through the North Sea to reach these stations
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "bpns-O6"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "bpns-Kilmore"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "bpns-WK14"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "bpns-Whitley"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "bpns-WENDUINEBANKW"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "bpns-W1"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "bpns-Trapegeer"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "bpns-WK12"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "bpns-nieuwpoortbank"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "PC4C-C05-2"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "ws-TRAWL"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "ws-W6"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "ws-DL12"),]
+  df <- df[!(df$animal_project_code == "Noordzeekanaal" & df$station_name == "ws-STEEN"),]
+
+  return(df)
+}
+
 
 
 #' Generic clean function.
@@ -314,7 +367,8 @@ clean_df <- function(df, animal_project_code) {
     "nedap_meuse",
     "2015_phd_verhelst_eel",
     "2004_gudena",
-    "2012_leopoldkanaal"
+    "2012_leopoldkanaal",
+    "noordzeekanaal"
   )
   assertthat::assert_that(
     animal_project_code %in% animal_project_codes,

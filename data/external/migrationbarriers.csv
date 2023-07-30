@@ -1,128 +1,20 @@
-project_name,system,country,migration_barrier,migration_barrier_type,migration_barrier_lon,migration_barrier_lat,height_m,additional_info
-2015 PhD Verhelst,Schelde Estuary,Belgium,0,,,,,
-2019_Grotenete,Grote Nete,Belgium,0,,,,,
-2013 Albertkanaal,Albert Canal,Belgium,1,shipping lock,51.275508,4.331163,,albert canal - scheldt estuary
-,,,1,shipping lock,51.344157,4.283479,,albert canal - scheldt estuary
-,,,1,shipping lock,51.241214,4.402342,,albert canal - scheldt estuary
-,,,1,shipping lock,51.226704,4.538034,,in albert canal
-,,,1,shipping lock,51.159053,4.860317,,in albert canal
-,,,1,shipping lock,51.097783,5.107369,,in albert canal
-,,,1,shipping lock,50.940471,5.368631,,in albert canal
-,,,1,shipping lock,50.940471,5.368631,,in albert canal
-,,,1,shipping lock,50.93584,5.491127,,in albert canal
-,,,1,shipping lock,50.794029,5.689641,,albert canal - meuse
-,,,1,shipping lock,50.744228,5.679644,,albert canal - meuse
-,,,1,shipping lock,50.664781,5.63918,,albert canal - meuse
-,,,1,hydropower weir,50.65152,5.630806,,in meuse
-,,,1,hydropower weir,50.75164,5.686046,,in meuse
-,,,1,hydropower weir,50.868948,5.697015,,in meuse
-,,,1,hydropower weir,51.168172,5.922557,,in meuse
-,,,1,shipping lock,51.175653,5.919392,,in meuse
-,,,1,shipping lock - hydropower weir,51.210861,5.983226,,in meuse
-,,,1,shipping lock - hydropower weir,51.320453,6.112197,,in meuse
-,,,1,shipping lock - hydropower weir,51.640558,5.982587,,in meuse
-,,,1,shipping lock - hydropower weir,51.769306,5.737132,,in meuse
-,,,1,shipping lock - hydropower weir,51.809246,5.454109,,in meuse
-,,,1,shipping lock - hydropower weir,51.692367,4.402124,,in meuse
-,,,1,tidal weir,51.833703,4.051266,,in meuse
-2012 Leopoldkanaal,Polder,Belgium,1,archimedes pumping station,51.271545,3.712177,,
-,,,1,tidal weir,51.335953,3.769375,,
-,,,1,weir,51.250384,3.543559,1,
-,,,1,tidal weir,51.339732,3.217422,,
-life4fish,Maas,Belgium,1,hydropower weir,50.65152,5.630806,,in meuse
-,,,1,hydropower weir,50.75164,5.686046,,in meuse
-,,,1,shipping lock - hydropower weir,50.592234,5.461189,,in meuse
-,,,1,shipping lock - hydropower weir,50.532875,5.294861,,in meuse
-,,,1,shipping lock - hydropower weir,50.492769,5.070065,,in meuse
-,,,1,shipping lock - hydropower weir,50.46667,4.899511,,in meuse
-Semp Lithuania,Nemunas River basin,Lithuania,1,hydropower weir,54.87432124,23.99967775,,4 large kaplan turbines
-,,,1,hydropower weir,55.43850711,24.94255043,,2 small kaplan turbines
-DAK 2018-2019,Markiezaatsmeer,The Netherlands,1,shipping_lock,51.510206,4.173663,,
-,,,1,sluice,51.483743,4.227738,,
-,,,1,shipping_lock,51.447712,4.230595,,
-,,,1,sluice,51.393111,4.234592,,
-,,,1,sluice,47.23898,-1.870012,,
-,,,1,shipping_lock,47.268039,-1.947538,,
-DAK 2018-2019,Suderpolder,The Netherlands,1,shipping_lock,53.178946,5.419531,,
-EMMN,Alta River and Fjord,Norway,0,,,,,
-2011_Warnow,Warnow catchment,Germany,1,weir,54.084726,12.150941,,separation between freshwater and brackish part of the migration route
-ESGL,Grand Lieu Lake,France,1,weir,47.13248,-1.6983,,
-,,,1,weir,47.210195,-1.826652,,
-,,,1,sluice,47.214297,-1.823127,,
-,,,1,shipping_lock,47.207915,-1.784841,,
-2011_Loire,Loire Estuary,France,0,,,,,
-2017_Fremur,Frémur River,France,1,hydropower dam,48.573076,-2.094801,,
-,,,1,hydropower dam,48.577767,-2.103174,,
-,,,1,hydropower dam,48.588962,-2.122839,,
-2004_Gudena,Gudena River,Denmark,0,,,,,
-2013_Stour,Stour River,UK,1,weir,51.96742,0.971334,,overshot fixed weir and undershot sluice gate
-,,,1,weir,51.961737,0.993189,,"This is a set of undershot penstock sluice gates and beside it a lock, but only for very small boats and it is nearly always closed. In the middle of the lock there is an overshot radial weir structure. In high winter flow they open the lock gates and just control flow/water level with this radial gate as it is much quicker and easier."
-,,,1,shipping_lock,51.959035,1.020553,,
-,,,1,water_mill,51.958678,1.021743,,
-,,,1,weir,51.954879,1.025664,,
-,,,1,weir,51.953042,1.053925,,probably only in emergency
-,,,1,weir,51.955673,1.05817,,
-2014_Frome,Frome River,UK,1,weir,50.68141,-2.20815,,
-,,,1,water_mill,50.68132,-2.20806,,
-,,,1,weir,50.68099,-2.18916,,
-,,,1,weir,50.68024,-2.18455,,
-,,,1,weir,50.67955,-2.18212,,
-2014_Nene,Nene River,UK,1,weir,52.51823,-0.462661,1.176,
-,,,1,shipping lock,52.518431,-0.462212,2.442,
-,,,1,weir,52.516035,-0.459156,1.158,
-,,,1,weir,52.512948,-0.424088,1.893,
-,,,1,weir,52.512686,-0.422639,2.848,
-,,,1,shipping_lock,52.516205,-0.420847,2.751,
-,,,1,weir,52.516112,-0.420659,1.932,
-,,,1,weir,52.531587,-0.408708,1.792,
-,,,1,shipping-lock,52.532473,-0.40466166,,
-,,,1,weir,52.562297,-0.416537,2.461,
-,,,1,shipping_lock,52.562089,-0.416427,2.418,
-,,,1,weir,52.550036,-0.411344,0.718,
-,,,1,shipping_lock,52.571535,-0.415585,1.968,
-,,,1,weir,52.571646,-0.415079,2.018,
-,,,1,weir,52.566381,-0.372923,1.525,
-,,,1,shipping_lock,52.563117,-0.36446178,,
-,,,1,weir,52.557908,-0.340326,1.334,
-,,,1,weir,52.558004,-0.340706,1.609,
-,,,1,weir,52.557263,-0.340438,1.607,
-,,,1,shipping_lock,52.552981,-0.33472252,,
-,,,1,shipping_lock_weir,52.560115,-0.281984,1.733,
-,,,1,shipping_lock_weir,52.576532,-0.124373,,
-PTN-Silver eel-Mondego,Mondego River,Portugal,1,weir,40.274467,-8.273369,4,"in Mondego - Penacova weir. A rockfill weir, with ca. 4,0 m height and 111 m of crowning/crest"
-,,,1,weir,40.260211,-8.279341,3,"in Mondego - Reconquinho weir. A concrete weir, with ca. 3,0 m height and 100 m of crowning/crest"
-,,,1,weir,40.239865,-8.289252,3,"in Mondego - Louredo weir. A concrete weir, with ca. 3,0 m height and 74 m of crowning/crest"
-,,,1,weir,40.202316,-8.366318,2,"in Mondego - Palheiros weir. A rockfill and concrete weir, with ca. 2,0 m height and 97 m of crowning/crest"
-,,,1,weir,40.215458,-8.440334,6.2,"in Mondego - Açude-Ponte weir. A concrete weir, with ca. 6,2 m height and 202 m of crowning/crest"
-,,,1,weir,40.183047,-8.617038,3,"in Mondego - Formoselha weir. A loose concrete blocks weir, with ca. 3,0 m height and 107 m of crowning/crest"
-nedap_meuse,Maas,The Netherlands,1,hydropower weir,51.168172,5.922557,,
-,,,1,shipping lock,51.175653,5.919392,,
-,,,1,shipping lock - hydropower weir,51.210861,5.983226,,
-,,,1,shipping lock - hydropower weir,51.320453,6.112197,,
-,,,1,shipping lock - hydropower weir,51.640558,5.982587,,
-,,,1,shipping lock - hydropower weir,51.769306,5.737132,,
-,,,1,shipping lock - hydropower weir,51.809246,5.454109,,
-,,,1,shipping lock - hydropower weir,51.692367,4.402124,,
-,,,1,tidal weir,51.833703,4.051266,,
-,,,1,shipping_lock_weir,51.86551,4.306884,,
-Noordzeekanaal,Noordzeekanaal,The Netherlands,1,shipping_lock_sluice,52.467498,4.608642,,
-,,,1,shipping_lock,52.430665,4.783556,,
-,,,1,pumping_station,52.439326,4.825582,,
-,,,1,pumping_station,52.408762,4.909264,,
-,,,1,weir,52.408883,4.911605,,
-,,,1,shipping_lock,52.383895,4.908049,,
-,,,1,shipping_lock,52.381676,4.960651,,
-,,,1,shipping_lock_sluice,52.527364,5.430013,,
-,,,1,shipping_lock_sluice,52.692214,5.283584,,
-,,,1,shipping_lock,52.690808,5.295494,,
-,,,1,shipping_lock,52.338745,4.846808,,
-,,,1,shipping_lock,52.330185,5.069243,,
-,,,1,shipping_lock,52.243406,5.047814,,
-,,,1,shipping_lock,52.220539,4.972601,,
-,,,1,pumping_station,52.22026,4.97325,,
-,,,1,pumping_station,52.392409,4.77061,,
-,,,1,weir,52.385046,4.7497,,
-,,,1,pumping_station,52.411019,4.674245,,
-,,,1,shipping_lock,52.412942,4.681328,,
-,,,1,sluice,52.210701,4.400577,,
-,,,1,sluice,52.207867,4.406557,,
+animal_project_code,barrier_impact,weir,sluice_gate,shipping_lock,hydropower,pump
+mondego,1,1,,,,
+esgl,1,1,1,,,
+2011_loire,0,,,,,
+2017_fremur,2,,,,1,
+2014_frome,1,1,,,,
+2012_leopoldkanaal,2,1,1,,,1
+2015_phd_verhelst_eel,0,,,,,
+dak_markiezaatsmeer,2,,1,1,,
+2019_grotenete,0,,,,,
+2013_albertkanaal,2,,,1,,
+nedap_meuse,2,,,1,1,
+2013_stour,1,1,,,,
+noordzeekanaal,2,,,1,,1
+2014_nene,1,1,,,,
+dak_superpolder,2,,,1,,
+2004_gudena,0,,,,,
+2011_warnow,1,1,,,,
+semp,2,,,,1,
+emmn,0,,,,,

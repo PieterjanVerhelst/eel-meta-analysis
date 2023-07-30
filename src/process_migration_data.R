@@ -74,20 +74,7 @@ data <- data %>%
 # 2. Filter out migration data ####
 # Select eels considered migratory
 # 'has_migration_started' == TRUE
-# total distance > 4000 m
 data <- filter(data, has_migration_started == "TRUE")
-
-migrants <- data %>%
-  select(acoustic_tag_id, distance_to_source_m) %>%
-  group_by(acoustic_tag_id) %>%
-  mutate(total_distance = max(distance_to_source_m)-min(distance_to_source_m)) %>%
-  select(-distance_to_source_m) %>%
-  distinct()
-
-migrants <- filter(migrants, total_distance > 4000)
-
-data <- subset(data, acoustic_tag_id %in% migrants$acoustic_tag_id)
-data$acoustic_tag_id <- factor(data$acoustic_tag_id)
 
 
 # 3. Count number of eels per project ####
