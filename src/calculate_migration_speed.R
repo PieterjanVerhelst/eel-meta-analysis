@@ -42,6 +42,9 @@ migration_speed$animal_project_code <- factor(migration_speed$animal_project_cod
                                                          "semp",
                                                          "emmn"))
 
+aggregate(migration_speed$speed_ms, list(migration_speed$animal_project_code), mean)
+
+
 par(mar=c(10,4,2,1))
 migration_speed_plot <- ggplot(migration_speed, aes(x=animal_project_code, y=speed_ms)) + 
   geom_boxplot() +
