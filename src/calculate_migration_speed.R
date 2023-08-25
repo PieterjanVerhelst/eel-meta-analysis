@@ -154,9 +154,10 @@ migration_speed_plot
 # 7. Merge migration barrier qualification to the dataset and plot speed in relation to those barrier qualification ####
 migrationbarriers <- read_csv("./data/external/migrationbarriers.csv")
 migrationbarriers <- migrationbarriers %>%
-  mutate_at(c('animal_project_code', 'barrier_impact', 'weir', 'sluice_gate', 'shipping_lock', 'hydropower', 'pump'), as.factor)
+  mutate_at(c('animal_project_code', 'barrier_impact', 'weir', 'sluice_gate', 'shipping_lock', 'hydropower', 'pump', 'barrier_type'), as.factor)
 migration_speed <- left_join(migration_speed, migrationbarriers, by = "animal_project_code")
 aggregate(migration_speed$speed_ms, list(migration_speed$barrier_impact), mean)
+aggregate(migration_speed$speed_ms, list(migration_speed$barrier_type), mean)
 
 migration_speed_plot <- ggplot(migration_speed, aes(x=barrier_impact, y=speed_ms)) + 
   geom_boxplot() +
@@ -170,6 +171,44 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=barrier_impact, y=speed_ms
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+migration_speed_plot
+
+# Colour boxplots in relation to barrier impact
+migration_speed_plot <- ggplot(migration_speed, aes(x=animal_project_code, y=speed_ms, fill = barrier_impact)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette="Dark2") +
+  ylab("Migration speed (m/s)") + 
+  xlab("Animal project code") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue", show_guide = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+migration_speed_plot
+
+# Colour boxplots in relation to barrier type
+migration_speed_plot <- ggplot(migration_speed, aes(x=animal_project_code, y=speed_ms, fill = barrier_type)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette="Dark2") +
+  ylab("Migration speed (m/s)") + 
+  xlab("Animal project code") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue", show_guide = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
     axis.title.x = element_text(size = 22),
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22))
