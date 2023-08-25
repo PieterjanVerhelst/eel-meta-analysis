@@ -85,6 +85,10 @@ eel <- subset(eel, acoustic_tag_id %in% migration_speed$acoustic_tag_id)
 migration_speed <- left_join(migration_speed, eel, by = "acoustic_tag_id")
 migration_speed <- rename(migration_speed, animal_project_code = animal_project_code.x)
 
+aggregate(migration_speed$speed_ms, list(migration_speed$sex), mean)
+
+
+
 # 4. Create boxplot with speeds in relation to sex ####
 par(mar=c(10,4,2,1))
 migration_speed_plot <- ggplot(migration_speed, aes(x=sex, y=speed_ms)) + 
@@ -130,8 +134,8 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=release_longitude, y=speed
   geom_point(size = 3, alpha = 1.0, aes(color = sex)) +
   ylab("Migration speed (m/s)") + 
   xlab("Release longitude") +
-  #stat_summary(fun = "mean", geom = "point", #shape = 8,
-  #             size = 4, color = "blue") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue") +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
@@ -149,6 +153,7 @@ migrationbarriers <- read_csv("./data/external/migrationbarriers.csv")
 migrationbarriers <- migrationbarriers %>%
   mutate_at(c('animal_project_code', 'barrier_impact', 'weir', 'sluice_gate', 'shipping_lock', 'hydropower', 'pump'), as.factor)
 migration_speed <- left_join(migration_speed, migrationbarriers, by = "animal_project_code")
+aggregate(migration_speed$speed_ms, list(migration_speed$barrier_impact), mean)
 
 migration_speed_plot <- ggplot(migration_speed, aes(x=barrier_impact, y=speed_ms)) + 
   geom_boxplot() +
