@@ -183,7 +183,7 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=animal_project_code, y=spe
   ylab("Migration speed (m/s)") + 
   xlab("Animal project code") +
   stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue", show_guide = FALSE) +
+               size = 4, color = "blue", show.legend = FALSE) +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
@@ -202,7 +202,7 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=animal_project_code, y=spe
   ylab("Migration speed (m/s)") + 
   xlab("Animal project code") +
   stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue", show_guide = FALSE) +
+               size = 4, color = "blue", show.legend = FALSE) +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
