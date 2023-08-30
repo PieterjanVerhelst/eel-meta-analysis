@@ -5,6 +5,9 @@
 
 source("src/process_migration_data.R")
 
+# Remove data from the Fremur
+data <- data[!(data$animal_project_code == "2017_fremur"),]
+
 # 1. Calculate overall migration speed: speed between first and last detection as 'has_migration_started == TRUE' ####
 migration_speed <- data %>%
   group_by(animal_project_code, acoustic_tag_id) %>%
@@ -25,7 +28,7 @@ migration_speed$animal_project_code <- factor(migration_speed$animal_project_cod
                                               levels = c("mondego",
                                                          "esgl",
                                                          "2011_loire",
-                                                         "2017_fremur",
+                                                         #"2017_fremur",
                                                          "2014_frome",
                                                          "2012_leopoldkanaal",
                                                          "2015_phd_verhelst_eel",
