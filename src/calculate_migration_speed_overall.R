@@ -74,9 +74,21 @@ migration_speed_plot
 # 3. Link sex and size to the dataset  ####
 eel <- read_csv("./data/interim/eel_meta_data.csv")
 eel <- eel %>%
-  mutate_at(c('acoustic_tag_id', 'animal_project_code', 'sex', 'life_stage'), as.factor)
+  mutate_at(c('acoustic_tag_id', 'animal_project_code', 'life_stage'), as.factor)
 eel$length1 <- as.numeric(eel$length1)
 eel$weight <- as.numeric(eel$weight)
+eel$sex <- NA  # For some reason some eels identified as males while clearly female
+
+for (i in 1:dim(eel)[1]){
+  if (eel$length1[i] < 450 & !is.na(eel$length1[i])){
+    eel$sex[i] = "male"
+  } else if (eel$length1[i] > 450& !is.na(eel$length1[i])){
+    eel$sex[i] = "female"
+  } else{
+    eel$sex[i] = "unknown"
+  }}
+
+
 eel <- eel[!(eel$animal_project_code == "life4fish" & eel$acoustic_tag_id == "7422"),]# Remove eel with ID 7422 from project (life4fish)
 eel <- select(eel, 
               animal_project_code, 
