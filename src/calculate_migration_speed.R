@@ -8,6 +8,35 @@ source("src/process_migration_data.R")
 # Remove data from the Fremur
 data <- data[!(data$animal_project_code == "2017_fremur"),]
 
+# Remove data at bpns
+data <- data[!(data$station_name == "bpns-Whitley"),]
+data <- data[!(data$station_name == "bpns-D1"),]
+data <- data[!(data$station_name == "bpns-WK12"),]
+data <- data[!(data$station_name == "bpns-A1BIS"),]
+data <- data[!(data$station_name == "bpns-S4"),]
+data <- data[!(data$station_name == "bpns-WENDUINEBANKW"),]
+data <- data[!(data$station_name == "bpns-W1"),]
+data <- data[!(data$station_name == "bpns-Trapegeer"),]
+data <- data[!(data$station_name == "bpns-S7"),]
+data <- data[!(data$station_name == "bpns-O6"),]
+data <- data[!(data$station_name == "bpns-KB2"),]
+data <- data[!(data$station_name == "bpns-middelkerkebank"),]
+data <- data[!(data$station_name == "bpns-nieuwpoortbank"),]
+data <- data[!(data$station_name == "PC4C-C05-2"),]
+data <- data[!(data$station_name == "bpns-Cpowerreefballs-CPOD"),]
+data <- data[!(data$station_name == "bpns-zbe1"),]
+data <- data[!(data$station_name == "bpns-ZA2"),]
+data <- data[!(data$station_name == "bpns-F53"),]
+data <- data[!(data$station_name == "bpns-WK14"),]
+data <- data[!(data$station_name == "bpns-WZ"),]
+data <- data[!(data$station_name == "bpns-zbw2"),]
+data <- data[!(data$station_name == "bpns-Nauticaena"),]
+data <- data[!(data$station_name == "bpns-Faulbaums"),]
+data <- data[!(data$station_name == "bpns-Grafton"),]
+data <- data[!(data$station_name == "CP_100m_base"),]
+data <- data[!(data$station_name == "bpns-G-88"),]
+
+
 # 1. Calculate overall migration speed: speed between first and last detection as 'has_migration_started == TRUE' ####
 migration_speed <- data %>%
   group_by(animal_project_code, acoustic_tag_id) %>%
@@ -225,6 +254,34 @@ source("src/process_migration_data.R")
 
 # Remove data from the Fremur
 data <- data[!(data$animal_project_code == "2017_fremur"),]
+
+# Remove data at bpns
+data <- data[!(data$station_name == "bpns-Whitley"),]
+data <- data[!(data$station_name == "bpns-D1"),]
+data <- data[!(data$station_name == "bpns-WK12"),]
+data <- data[!(data$station_name == "bpns-A1BIS"),]
+data <- data[!(data$station_name == "bpns-S4"),]
+data <- data[!(data$station_name == "bpns-WENDUINEBANKW"),]
+data <- data[!(data$station_name == "bpns-W1"),]
+data <- data[!(data$station_name == "bpns-Trapegeer"),]
+data <- data[!(data$station_name == "bpns-S7"),]
+data <- data[!(data$station_name == "bpns-O6"),]
+data <- data[!(data$station_name == "bpns-KB2"),]
+data <- data[!(data$station_name == "bpns-middelkerkebank"),]
+data <- data[!(data$station_name == "bpns-nieuwpoortbank"),]
+data <- data[!(data$station_name == "PC4C-C05-2"),]
+data <- data[!(data$station_name == "bpns-Cpowerreefballs-CPOD"),]
+data <- data[!(data$station_name == "bpns-zbe1"),]
+data <- data[!(data$station_name == "bpns-ZA2"),]
+data <- data[!(data$station_name == "bpns-F53"),]
+data <- data[!(data$station_name == "bpns-WK14"),]
+data <- data[!(data$station_name == "bpns-WZ"),]
+data <- data[!(data$station_name == "bpns-zbw2"),]
+data <- data[!(data$station_name == "bpns-Nauticaena"),]
+data <- data[!(data$station_name == "bpns-Faulbaums"),]
+data <- data[!(data$station_name == "bpns-Grafton"),]
+data <- data[!(data$station_name == "CP_100m_base"),]
+data <- data[!(data$station_name == "bpns-G-88"),]
 
 # Load data with habitat info and joint to dataset
 habitats <- read_csv("./data/external/habitats.csv")
