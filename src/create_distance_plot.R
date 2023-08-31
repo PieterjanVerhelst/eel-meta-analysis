@@ -8,11 +8,16 @@ library(tidyquant)
 
 
 # Upload dataset
-data <- read_csv('./data/interim/migration/migration_2015_phd_verhelst_eel.csv') 
+data <- read_csv('./data/interim/migration/migration_noordzeekanaal.csv') 
 data$...1 <- NULL
 data$...2 <- NULL
 data$acoustic_tag_id <- factor(data$acoustic_tag_id)
 data$has_migration_started <- factor(data$has_migration_started)
+data$station_name <- factor(data$station_name)
+
+# Remove bpns data
+data <- data[!(data$station_name %in% c("bpns-Whitley","bpns-D1","bpns-WK12","bpns-A1BIS","bpns-S4","bpns-WENDUINEBANKW","bpns-W1","bpns-Trapegeer","bpns-S7","bpns-O6","bpns-KB2","bpns-middelkerkebank","bpns-nieuwpoortbank","PC4C-C05-2","bpns-Cpowerreefballs-CPOD","bpns-zbe1","bpns-ZA2","bpns-F53","bpns-WK14","bpns-WZ","bpns-zbw2","bpns-Nauticaena","bpns-Faulbaums","bpns-Grafton","CP_100m_base","bpns-G-88")),]
+
 
 # Create plot for all eels in single pdf
 #data$arrival <- ymd_hms(data$arrival)
@@ -43,7 +48,7 @@ max(data$distance_to_source_m)  # Identify the max limit for the y-axis
 
 # Create pdf with distance tracks
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/migration/2015_phd_verhelst_eel_4000m_0.01ms.pdf") # Create pdf
+pdf("./figures/distance_tracks/migration/noordzeekanaal_migration_4000m_0.01ms.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
