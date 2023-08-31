@@ -17,12 +17,16 @@ source("./src/calculate_sourcedistance_function.R")
 source("./src/clean_residency_data_functions.R")
 
 # Read residency dataset per animal project
-animal_project_id <- "2013_albertkanaal"
+animal_project_id <- "2015_phd_verhelst_eel"
 residency <- read_csv(
   sprintf("./data/interim/residencies/residency_%s.csv", animal_project_id)
 )
 residency$...1 <- NULL
 residency$acoustic_tag_id <- factor(residency$acoustic_tag_id)
+residency$station_name <- factor(residency$station_name)
+
+# Remove data at bpns
+residency <- residency[!(residency$station_name %in% c("bpns-Whitley","bpns-D1","bpns-WK12","bpns-A1BIS","bpns-S4","bpns-WENDUINEBANKW","bpns-W1","bpns-Trapegeer","bpns-S7","bpns-O6","bpns-KB2","bpns-middelkerkebank","bpns-nieuwpoortbank","PC4C-C05-2","bpns-Cpowerreefballs-CPOD","bpns-zbe1","bpns-ZA2","bpns-F53","bpns-WK14","bpns-WZ","bpns-zbw2","bpns-Nauticaena","bpns-Faulbaums","bpns-Grafton","CP_100m_base","bpns-G-88")),]
 
 # Clean residency data according to 'animal_project_code'
 # projects:
