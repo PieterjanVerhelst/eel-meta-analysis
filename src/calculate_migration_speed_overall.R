@@ -172,8 +172,45 @@ migration_speed_plot
 # 7. Merge migration barrier qualification to the dataset and plot speed in relation to those barrier qualification ####
 migrationbarriers <- read_csv("./data/external/migrationbarriers.csv")
 migrationbarriers <- migrationbarriers %>%
-  mutate_at(c('animal_project_code', 'barrier_impact', 'weir', 'sluice_gate', 'shipping_lock', 'hydropower', 'pump', 'barrier_type'), as.factor)
+  mutate_at(c('animal_project_code', 'barrier_impact', 'weir', 'sluice_gate', 'shipping_lock', 'hydropower', 'pump', 'barrier_type'), as.factor) %>%
+  select(-'barrier_type')
 migration_speed <- left_join(migration_speed, migrationbarriers, by = "animal_project_code")
+
+# Part of semp-eels had free migration route and another part went through hydropower
+semp_data <- read.csv('./data/interim/migration/migration_semp.csv')
+eel_semp_free <- semp_data %>%
+  mutate_at(c('acoustic_tag_id', 'animal_project_code', 'station_name'), as.factor) %>%
+  filter(station_name == "rel_semp1" |
+           station_name == "rel_semp2"|
+           station_name == "rel_semp3"|
+           station_name == "rel_semp5"|
+           station_name == "rel_semp6") %>%
+  select(animal_project_code, acoustic_tag_id, station_name)
+eel_semp_free <- eel_semp_free$acoustic_tag_id
+
+# Classify barrier type
+migration_speed$barrier_type <- NA
+migration_speed <- migration_speed %>%
+  mutate(barrier_type = case_when(animal_project_code == "semp" & acoustic_tag_id %in% eel_semp_free ~ "none",
+                                  animal_project_code == "semp" ~ "hydropower",
+                                  animal_project_code == "mondego" ~ "weir",
+                                  animal_project_code == "esgl" ~ "weir",
+                                  animal_project_code == "2011_loire" ~ "none",
+                                  animal_project_code == "2014_frome" ~ "weir",
+                                  animal_project_code == "2012_leopoldkanaal" ~ "pump",
+                                  animal_project_code == "2015_phd_verhelst_eel" ~ "none",
+                                  animal_project_code == "dak_markiezaatsmeer" ~ "sluice",
+                                  animal_project_code == "2019_grotenete" ~ "none",
+                                  animal_project_code == "2013_albertkanaal" ~ "shipping_lock",
+                                  animal_project_code == "nedap_meuse" ~ "hydropower",
+                                  animal_project_code == "2013_stour" ~ "weir",
+                                  animal_project_code == "noordzeekanaal" ~ "pump",
+                                  animal_project_code == "2014_nene" ~ "weir",
+                                  animal_project_code == "dak_superpolder" ~ "pump",
+                                  animal_project_code == "2004_gudena" ~ "none",
+                                  animal_project_code == "2011_warnow" ~ "weir",
+                                  animal_project_code == "emmn" ~ "none"))
+
 aggregate(migration_speed$speed_ms, list(migration_speed$barrier_impact), mean)
 aggregate(migration_speed$speed_ms, list(migration_speed$barrier_type), mean)
 
