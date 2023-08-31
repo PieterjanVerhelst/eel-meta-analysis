@@ -228,6 +228,16 @@ clean_df_2015_phd_verhelst_eel <- function(df) {
   df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58621"),]
   df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58616"),]
   df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-58611"),]
+  
+  # Remove data from first year with aborted migration
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-52636" &
+               df$arrival < '2017-08-01 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-52657" &
+               df$arrival < '2017-02-01 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-57475" &
+               df$arrival < '2016-08-01 00:00:00'),]
+  
+  
   return(df)
 }
 
