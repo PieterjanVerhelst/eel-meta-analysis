@@ -9,7 +9,13 @@ source("src/process_migration_data.R")
 data <- data[!(data$animal_project_code == "2017_fremur"),]
 
 # Remove data at bpns
-data <- data[!(data$station_name %in% c("bpns-Whitley","bpns-D1","bpns-WK12","bpns-A1BIS","bpns-S4","bpns-WENDUINEBANKW","bpns-W1","bpns-Trapegeer","bpns-S7","bpns-O6","bpns-KB2","bpns-middelkerkebank","bpns-nieuwpoortbank","PC4C-C05-2","bpns-Cpowerreefballs-CPOD","bpns-zbe1","bpns-ZA2","bpns-F53","bpns-WK14","bpns-WZ","bpns-zbw2","bpns-Nauticaena","bpns-Faulbaums","bpns-Grafton","CP_100m_base","bpns-G-88")),]
+data <- data[!(data$station_name %in% c("bpns-Whitley","bpns-D1","bpns-WK12","bpns-A1BIS","bpns-S4","bpns-WENDUINEBANKW","bpns-W1","bpns-Trapegeer","bpns-S7","bpns-O6","bpns-KB2","bpns-middelkerkebank","bpns-nieuwpoortbank","PC4C-C05-2","bpns-Cpowerreefballs-CPOD","bpns-zbe1","bpns-ZA2","bpns-F53","bpns-WK14","bpns-WZ","bpns-zbw2","bpns-Nauticaena","bpns-Faulbaums","bpns-Grafton","CP_100m_base","bpns-G-88","bpns-Kilmore","bpns-WK14")),]
+
+# Remove WS data from Noordzeekanaal eels (migrated into the sea and then detected at ws-receivers)
+data <- data[!(data$animal_project_code == "Noordzeekanaal" & data$station_name == "ws-TRAWL"),]
+data <- data[!(data$animal_project_code == "Noordzeekanaal" & data$station_name == "ws-W6"),]
+data <- data[!(data$animal_project_code == "Noordzeekanaal" & data$station_name == "ws-DL12"),]
+data <- data[!(data$animal_project_code == "Noordzeekanaal" & data$station_name == "ws-STEEN"),]
 
 
 # 1. Calculate overall migration speed: speed between first and last detection as 'has_migration_started == TRUE' ####

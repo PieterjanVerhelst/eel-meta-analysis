@@ -18,7 +18,7 @@ library(plotly)     # to make ggplot plots interactive
 source("src/identify_migration_functions.R")
 
 # read input data
-animal_project_id <- "nedap_meuse"
+animal_project_id <- "noordzeekanaal"
 eel_df <- read_csv(
   sprintf("./data/interim/speed/speed_%s.csv", animal_project_id)
 )
