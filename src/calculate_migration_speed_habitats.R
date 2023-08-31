@@ -8,6 +8,8 @@ source("src/process_migration_data.R")
 # Remove data from the Fremur
 data <- data[!(data$animal_project_code == "2017_fremur"),]
 
+# Remove bpns data
+residency <- residency[!(residency$station_name %in% c("bpns-Whitley","bpns-D1","bpns-WK12","bpns-A1BIS","bpns-S4","bpns-WENDUINEBANKW","bpns-W1","bpns-Trapegeer","bpns-S7","bpns-O6","bpns-KB2","bpns-middelkerkebank","bpns-nieuwpoortbank","PC4C-C05-2","bpns-Cpowerreefballs-CPOD","bpns-zbe1","bpns-ZA2","bpns-F53","bpns-WK14","bpns-WZ","bpns-zbw2","bpns-Nauticaena","bpns-Faulbaums","bpns-Grafton","CP_100m_base","bpns-G-88")),]
 
 # Load data with habitat info and joint to dataset
 habitats <- read_csv("./data/external/habitats.csv")
