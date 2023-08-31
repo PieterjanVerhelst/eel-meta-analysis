@@ -94,8 +94,8 @@ emmn,23,70.0849,23.0015,tidal_brackish,tidal_brackish,tidal
 emmn,17,70.209833,23.131167,tidal_brackish,tidal_brackish,tidal
 emmn,18,70.210833,23.140667,tidal_brackish,tidal_brackish,tidal
 emmn,20,70.213167,23.161,tidal_brackish,tidal_brackish,tidal
-emmn,rel_emmn1,69.95785,23.344467,freshwater,freshwater,freshwater
-emmn,rel_emmn2,69.968117,23.376517,freshwater,freshwater,freshwater
+emmn,rel_emmn1,69.95785,23.344467,freshwater,tidal_brackish,tidal
+emmn,rel_emmn2,69.968117,23.376517,freshwater,tidal_brackish,tidal
 2014_nene,Nene1,52.501359,-0.457504,freshwater,freshwater,freshwater
 2014_nene,Nene2,52.5181,-0.462327,freshwater,freshwater,freshwater
 2014_nene,Nene3,52.520948,-0.459427,freshwater,freshwater,freshwater
@@ -110,7 +110,7 @@ emmn,rel_emmn2,69.968117,23.376517,freshwater,freshwater,freshwater
 2014_nene,Nene27,52.576516,-0.125599,freshwater,freshwater,freshwater
 2014_nene,Nene28,52.576795,-0.123919,tidal_freshwater,tidal_freshwater,tidal
 2014_nene,Nene29,52.611081,0.066577,tidal_freshwater,tidal_freshwater,tidal
-2014_nene,Nene30,52.807336,0.213339,tidal_brackish,tidal_brackish,tidal
+2014_nene,Nene30,52.807336,0.213339,tidal_brackish,tidal_freshwater,tidal
 2014_nene,Nene4,52.516491,-0.458905,freshwater,freshwater,freshwater
 2014_nene,Nene5,52.516092,-0.421161,freshwater,freshwater,freshwater
 2014_nene,Nene20,52.553619,-0.337051,freshwater,freshwater,freshwater
@@ -765,9 +765,9 @@ dak_markiezaatsmeer,rel_markiezaat,51.485749,4.231882,freshwater,freshwater,fres
 2011_loire,85V,47.34021667,-1.29455,tidal_freshwater,tidal_freshwater,tidal
 2011_loire,90R,47.34115,-1.2926,tidal_freshwater,tidal_freshwater,tidal
 2011_loire,2R,47.20876667,-1.52168333,tidal_freshwater,tidal_freshwater,tidal
-2011_loire,rel_loire2,47.3664,-1.173,freshwater,freshwater,freshwater
+2011_loire,rel_loire2,47.3664,-1.173,freshwater,tidal_freshwater,tidal
 2011_loire,rel_loire1,47.3403,-1.255,tidal_freshwater,tidal_freshwater,tidal
-2011_loire,rel_loire3,47.364211,-1.012256,freshwater,freshwater,freshwater
+2011_loire,rel_loire3,47.364211,-1.012256,freshwater,tidal_freshwater,tidal
 2011_loire,rel_loire4,47.2828,-1.973,tidal_brackish,tidal_brackish,tidal
 nedap_meuse,BenMerwede_BHardinx,51.8163,4.77186,tidal_freshwater,tidal_freshwater,tidal
 nedap_meuse,BergscheMaas_CVeer,51.71876,4.98076,freshwater,freshwater,freshwater
