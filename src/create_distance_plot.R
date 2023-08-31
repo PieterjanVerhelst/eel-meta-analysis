@@ -24,7 +24,7 @@ max(data$distance_to_source_m)  # Identify the max limit for the y-axis
 
 # Select eels considered migratory
 # 'has_migration_started' == TRUE
-data <- filter(data, has_migration_started == "TRUE")
+#data <- filter(data, has_migration_started == "TRUE")
 
 # In case a movement range is used.
 # Here we only select eels that had a movement range of minimum 4000 m
