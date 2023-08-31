@@ -248,7 +248,7 @@ dak_superpolder,Suderpolder-5,53.178774,5.539683,freshwater,freshwater,freshwate
 dak_superpolder,Suderpolder-6,53.179885,5.425022,freshwater,freshwater,freshwater
 dak_superpolder,Suderpolder-4,53.158767,5.508119,freshwater,freshwater,freshwater
 dak_superpolder,Suderpolder-3,53.158511,5.508834,freshwater,freshwater,freshwater
-dak_superpolder,Suderpolder-7,53.175467,5.409132,marine_barrier,marine_barrier,marine_barrier
+dak_superpolder,Suderpolder-7,53.175467,5.409132,marine_barrier,freshwater,freshwater
 dak_superpolder,rel_suderpolder2,53.15667,5.505508,freshwater,freshwater,freshwater
 dak_superpolder,rel_suderpolder3,53.165164,5.552409,freshwater,freshwater,freshwater
 dak_superpolder,rel_suderpolder1,53.16028,5.535724,freshwater,freshwater,freshwater
@@ -692,7 +692,7 @@ dak_markiezaatsmeer,rel_markiezaat,51.485749,4.231882,freshwater,freshwater,fres
 2012_leopoldkanaal,bh-13,51.2664563,3.6608905,freshwater,freshwater,freshwater
 2012_leopoldkanaal,bh-6,51.2505032,3.544414,freshwater,freshwater,freshwater
 2012_leopoldkanaal,bh-5,51.2503008,3.5426743,freshwater,freshwater,freshwater
-2012_leopoldkanaal,bh-1,51.3412021,3.2162872,marine_barrier,marine_barrier,marine_barrier
+2012_leopoldkanaal,bh-1,51.3412021,3.2162872,marine_barrier,freshwater,freshwater
 2012_leopoldkanaal,bh-10,51.2596961,3.5803334,freshwater,freshwater,freshwater
 2012_leopoldkanaal,bh-8,51.265006,3.5547265,freshwater,freshwater,freshwater
 2012_leopoldkanaal,bh-20,51.269978,3.7030611,freshwater,freshwater,freshwater
@@ -776,9 +776,9 @@ nedap_meuse,DKil_s'Gravendeel,51.78401,4.62733,tidal_freshwater,tidal_freshwater
 nedap_meuse,GrensMaas_Bharen_vis,50.86738,5.69726,freshwater,freshwater,freshwater
 nedap_meuse,GrensMaas_Itteren,51.13185,5.8415,freshwater,freshwater,freshwater
 nedap_meuse,GrensMaas_Sweert,51.13185,5.8415,freshwater,freshwater,freshwater
-nedap_meuse,Hartelkanaal_Europoort,51.93726,4.10735,tidal_brackish,tidal_brackish,tidal
-nedap_meuse,HV_Stellendam_noord,51.83465,4.05227,marine_barrier,marine_barrier,marine_barrier
-nedap_meuse,HV_Stellendam_zuid,51.83102,4.04747,marine_barrier,marine_barrier,marine_barrier
+nedap_meuse,Hartelkanaal_Europoort,51.93726,4.10735,tidal_brackish,tidal_freshwater,tidal
+nedap_meuse,HV_Stellendam_noord,51.83465,4.05227,marine_barrier,freshwater,freshwater
+nedap_meuse,HV_Stellendam_zuid,51.83102,4.04747,marine_barrier,freshwater,freshwater
 nedap_meuse,Maas_Afferden,51.63281,6.00403,freshwater,freshwater,freshwater
 nedap_meuse,Maas_Alphen_wkc,51.81115,5.45427,freshwater,freshwater,freshwater
 nedap_meuse,Maas_Alphen_wkc_ben,51.81114,5.45302,freshwater,freshwater,freshwater
@@ -805,7 +805,7 @@ nedap_meuse,Maas_Roermond_vistra,51.21042,5.98233,freshwater,freshwater,freshwat
 nedap_meuse,Maas_Sambeek,51.64097,5.98515,freshwater,freshwater,freshwater
 nedap_meuse,Maas_Sambeek_ben_stu,51.6419,5.98526,freshwater,freshwater,freshwater
 nedap_meuse,Maas_Steyl,51.33536,6.11764,freshwater,freshwater,freshwater
-nedap_meuse,NieuweWaterweg_Europoort,51.95741,4.15233,tidal_brackish,tidal_brackish,tidal
+nedap_meuse,NieuweWaterweg_Europoort,51.95741,4.15233,tidal_brackish,tidal_freshwater,tidal
 nedap_meuse,OudeMaas_Spijkenisse,51.84173,4.41701,tidal_freshwater,tidal_freshwater,tidal
 nedap_meuse,Spui_Zuidland,51.80387,4.26537,tidal_freshwater,tidal_freshwater,tidal
 nedap_meuse,rel_nedap_meuse,51.10986,5.82025,freshwater,freshwater,freshwater
