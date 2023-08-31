@@ -9,32 +9,7 @@ source("src/process_migration_data.R")
 data <- data[!(data$animal_project_code == "2017_fremur"),]
 
 # Remove data at bpns
-data <- data[!(data$station_name == "bpns-Whitley"),]
-data <- data[!(data$station_name == "bpns-D1"),]
-data <- data[!(data$station_name == "bpns-WK12"),]
-data <- data[!(data$station_name == "bpns-A1BIS"),]
-data <- data[!(data$station_name == "bpns-S4"),]
-data <- data[!(data$station_name == "bpns-WENDUINEBANKW"),]
-data <- data[!(data$station_name == "bpns-W1"),]
-data <- data[!(data$station_name == "bpns-Trapegeer"),]
-data <- data[!(data$station_name == "bpns-S7"),]
-data <- data[!(data$station_name == "bpns-O6"),]
-data <- data[!(data$station_name == "bpns-KB2"),]
-data <- data[!(data$station_name == "bpns-middelkerkebank"),]
-data <- data[!(data$station_name == "bpns-nieuwpoortbank"),]
-data <- data[!(data$station_name == "PC4C-C05-2"),]
-data <- data[!(data$station_name == "bpns-Cpowerreefballs-CPOD"),]
-data <- data[!(data$station_name == "bpns-zbe1"),]
-data <- data[!(data$station_name == "bpns-ZA2"),]
-data <- data[!(data$station_name == "bpns-F53"),]
-data <- data[!(data$station_name == "bpns-WK14"),]
-data <- data[!(data$station_name == "bpns-WZ"),]
-data <- data[!(data$station_name == "bpns-zbw2"),]
-data <- data[!(data$station_name == "bpns-Nauticaena"),]
-data <- data[!(data$station_name == "bpns-Faulbaums"),]
-data <- data[!(data$station_name == "bpns-Grafton"),]
-data <- data[!(data$station_name == "CP_100m_base"),]
-data <- data[!(data$station_name == "bpns-G-88"),]
+data <- data[!(data$station_name %in% c("bpns-Whitley","bpns-D1","bpns-WK12","bpns-A1BIS","bpns-S4","bpns-WENDUINEBANKW","bpns-W1","bpns-Trapegeer","bpns-S7","bpns-O6","bpns-KB2","bpns-middelkerkebank","bpns-nieuwpoortbank","PC4C-C05-2","bpns-Cpowerreefballs-CPOD","bpns-zbe1","bpns-ZA2","bpns-F53","bpns-WK14","bpns-WZ","bpns-zbw2","bpns-Nauticaena","bpns-Faulbaums","bpns-Grafton","CP_100m_base","bpns-G-88")),]
 
 
 # 1. Calculate overall migration speed: speed between first and last detection as 'has_migration_started == TRUE' ####
@@ -256,47 +231,22 @@ source("src/process_migration_data.R")
 data <- data[!(data$animal_project_code == "2017_fremur"),]
 
 # Remove data at bpns
-data <- data[!(data$station_name == "bpns-Whitley"),]
-data <- data[!(data$station_name == "bpns-D1"),]
-data <- data[!(data$station_name == "bpns-WK12"),]
-data <- data[!(data$station_name == "bpns-A1BIS"),]
-data <- data[!(data$station_name == "bpns-S4"),]
-data <- data[!(data$station_name == "bpns-WENDUINEBANKW"),]
-data <- data[!(data$station_name == "bpns-W1"),]
-data <- data[!(data$station_name == "bpns-Trapegeer"),]
-data <- data[!(data$station_name == "bpns-S7"),]
-data <- data[!(data$station_name == "bpns-O6"),]
-data <- data[!(data$station_name == "bpns-KB2"),]
-data <- data[!(data$station_name == "bpns-middelkerkebank"),]
-data <- data[!(data$station_name == "bpns-nieuwpoortbank"),]
-data <- data[!(data$station_name == "PC4C-C05-2"),]
-data <- data[!(data$station_name == "bpns-Cpowerreefballs-CPOD"),]
-data <- data[!(data$station_name == "bpns-zbe1"),]
-data <- data[!(data$station_name == "bpns-ZA2"),]
-data <- data[!(data$station_name == "bpns-F53"),]
-data <- data[!(data$station_name == "bpns-WK14"),]
-data <- data[!(data$station_name == "bpns-WZ"),]
-data <- data[!(data$station_name == "bpns-zbw2"),]
-data <- data[!(data$station_name == "bpns-Nauticaena"),]
-data <- data[!(data$station_name == "bpns-Faulbaums"),]
-data <- data[!(data$station_name == "bpns-Grafton"),]
-data <- data[!(data$station_name == "CP_100m_base"),]
-data <- data[!(data$station_name == "bpns-G-88"),]
+data <- data[!(data$station_name %in% c("bpns-Whitley","bpns-D1","bpns-WK12","bpns-A1BIS","bpns-S4","bpns-WENDUINEBANKW","bpns-W1","bpns-Trapegeer","bpns-S7","bpns-O6","bpns-KB2","bpns-middelkerkebank","bpns-nieuwpoortbank","PC4C-C05-2","bpns-Cpowerreefballs-CPOD","bpns-zbe1","bpns-ZA2","bpns-F53","bpns-WK14","bpns-WZ","bpns-zbw2","bpns-Nauticaena","bpns-Faulbaums","bpns-Grafton","CP_100m_base","bpns-G-88")),]
 
 # Load data with habitat info and joint to dataset
 habitats <- read_csv("./data/external/habitats.csv")
 habitats <- habitats %>%
-  mutate_at(c('animal_project_code', 'station_name', 'habitat_type'), as.factor) %>%
-  select(animal_project_code, station_name, habitat_type)
+  mutate_at(c('animal_project_code', 'station_name', 'habitat_type', 'habitat_type2', 'habitat_type3'), as.factor) %>%
+  select(animal_project_code, station_name, habitat_type, habitat_type2, habitat_type3)
 
 data <- left_join(data, habitats, by = c("animal_project_code", "station_name"))
 
 # Calculate overall migration speed: speed between first and last detection as 'has_migration_started == TRUE' 
 migration_speed <- data %>%
-  group_by(animal_project_code, habitat_type, acoustic_tag_id) %>%
+  group_by(animal_project_code, habitat_type2, acoustic_tag_id) %>%
   mutate(time = max(departure)-min(arrival),
          distance = max(distance_to_source_m) - min(distance_to_source_m)) %>%
-  select(animal_project_code, habitat_type, acoustic_tag_id, time, distance) %>%
+  select(animal_project_code, habitat_type2, acoustic_tag_id, time, distance) %>%
   distinct()
 
 migration_speed$time <- as.numeric(migration_speed$time)
@@ -328,11 +278,11 @@ migration_speed$animal_project_code <- factor(migration_speed$animal_project_cod
                                                          "semp",
                                                          "emmn"))
 
-aggregate(migration_speed$speed_ms, list(migration_speed$animal_project_code, migration_speed$habitat_type), mean)
+aggregate(migration_speed$speed_ms, list(migration_speed$animal_project_code, migration_speed$habitat_type2), mean)
 
 
 par(mar=c(10,4,2,1))
-migration_speed_plot <- ggplot(migration_speed, aes(x=habitat_type, y=speed_ms)) + 
+migration_speed_plot <- ggplot(migration_speed, aes(x=habitat_type2, y=speed_ms)) + 
   geom_boxplot() +
   facet_wrap(~animal_project_code) +
   ylab("Migration speed (m/s)") + 
@@ -349,5 +299,5 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=habitat_type, y=speed_ms))
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22),
     strip.text = element_text(size=22)) +
-  coord_cartesian(ylim = c(0, 2))
+  coord_cartesian(ylim = c(0, 5))
 migration_speed_plot
