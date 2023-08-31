@@ -290,6 +290,7 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=habitat_type, y=speed_ms))
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
     axis.title.x = element_text(size = 22),
     axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22)) +
+    axis.title.y = element_text(size = 22),
+    strip.text = element_text(size=22)) +
   coord_cartesian(ylim = c(0, 2))
 migration_speed_plot
