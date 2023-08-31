@@ -1,7 +1,7 @@
 animal_project_code,station_name,latitude,longitude,habitat_type,habitat_type2,habitat_type3
 2004_gudena,GUD1,56.38230254,9.897962798,freshwater,freshwater,freshwater
 2004_gudena,GUD2,56.38312088,9.901577397,freshwater,freshwater,freshwater
-2004_gudena,RAN1,56.45735379,10.01770257,tidal_brackish,tidal_brackish,tidal
+2004_gudena,RAN1,56.45735379,10.01770257,tidal_brackish,freshwater,freshwater
 2004_gudena,RAN2,56.45552792,10.03316608,tidal_brackish,tidal_brackish,tidal
 2004_gudena,UGEL2,56.47968471,10.21517113,tidal_brackish,tidal_brackish,tidal
 2004_gudena,UGEL1,56.48324094,10.2181103,tidal_brackish,tidal_brackish,tidal
@@ -94,8 +94,8 @@ emmn,23,70.0849,23.0015,tidal_brackish,tidal_brackish,tidal
 emmn,17,70.209833,23.131167,tidal_brackish,tidal_brackish,tidal
 emmn,18,70.210833,23.140667,tidal_brackish,tidal_brackish,tidal
 emmn,20,70.213167,23.161,tidal_brackish,tidal_brackish,tidal
-emmn,rel_emmn1,69.95785,23.344467,freshwater,tidal_brackish,tidal
-emmn,rel_emmn2,69.968117,23.376517,freshwater,tidal_brackish,tidal
+emmn,rel_emmn1,69.95785,23.344467,freshwater,freshwater,freshwater
+emmn,rel_emmn2,69.968117,23.376517,freshwater,freshwater,freshwater
 2014_nene,Nene1,52.501359,-0.457504,freshwater,freshwater,freshwater
 2014_nene,Nene2,52.5181,-0.462327,freshwater,freshwater,freshwater
 2014_nene,Nene3,52.520948,-0.459427,freshwater,freshwater,freshwater
