@@ -88,6 +88,10 @@ for (i in 1:dim(eel)[1]){
     eel$sex[i] = "unknown"
   }}
 
+# Create length frequency distribution
+ggplot(data=eel,aes(x=length1)) +
+  geom_histogram(binwidth=25,boundary=0,closed="left",
+                 fill="gray80",color="black")
 
 eel <- eel[!(eel$animal_project_code == "life4fish" & eel$acoustic_tag_id == "7422"),]# Remove eel with ID 7422 from project (life4fish)
 eel <- select(eel, 
