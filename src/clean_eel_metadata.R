@@ -42,56 +42,14 @@ unique(eels$life_stage)
 eels <- eels %>%                               
   mutate(life_stage = replace(life_stage, life_stage == "Silver", "silver"))
 
-# 7. Consistent use of sex notation ####
-unique(eels$sex)
-eels <- eels %>%                               
-  mutate(sex = replace(sex, sex == "F", "female"))
 
-eels <- eels %>%                               
-  mutate(sex = replace(sex, sex == "M", "male"))
-
-eels <- eels %>%                               
-  mutate(sex = replace(sex, sex == "unknown", "female"))  # 'unknown' had TL > 45 cm, so considered female
-
-#eels$sex <- ifelse(eels$animal_project_code == "SEMP" & is.na(eels$sex), "female", eels$sex) # SEMP eels > 45 cm, so considered female
-
-# For SEMP consider males < 45 cm and females > 45 cm
-# SEMP eels > 45 cm, so all considered female
-for (i in 1:dim(eels)[1]){
-  if (eels$animal_project_code[i] == "SEMP" & eels$length1[i] < 45.0){
-    eels$sex[i] = "male"
-  } else if (eels$animal_project_code[i] == "SEMP" & eels$length1[i] > 45.0){
-    eels$sex[i] = "female"
-  } else{
-    eels$sex[i] = eels$sex[i]
-  }}
-
-
-# For 2014_Frome consider males < 46 cm and females > 46 cm
-for (i in 1:dim(eels)[1]){
-  if (eels$animal_project_code[i] == "2014_Frome" & eels$length1[i] < 45.0){
-    eels$sex[i] = "male"
-  } else if (eels$animal_project_code[i] == "2014_Frome" & eels$length1[i] > 45.0){
-    eels$sex[i] = "female"
-  } else{
-    eels$sex[i] = eels$sex[i]
-  }}
-
-
-# Check there are no NAs or unknown
-sum(is.na(eels$sex))
-unique(eels$sex)
-table(eels$sex)
-
-
-
-# 8. Consistent use of weight units ####
+# 7. Consistent use of weight units ####
 unique(eels$weight_unit)
 eels <- eels %>%                               
   mutate(weight_unit = replace(weight_unit, weight_unit == "grams", "g"))
 
 
-# 9. Consistent use of length type, units and values (mm) ####
+# 8. Consistent use of length type, units and values (mm) ####
 # Length type
 unique(eels$length1_type)
 eels <- eels %>%                               
@@ -124,6 +82,63 @@ summary(eels$length1)
 #check <- 
 #  eels %>% 
 #  filter(is.na(length1))
+
+
+
+# 9. Consistent use of sex notation ####
+#unique(eels$sex)
+#eels <- eels %>%                               
+#  mutate(sex = replace(sex, sex == "F", "female"))
+
+#eels <- eels %>%                               
+#  mutate(sex = replace(sex, sex == "M", "male"))
+
+#eels <- eels %>%                               
+#  mutate(sex = replace(sex, sex == "unknown", "female"))  # 'unknown' had TL > 45 cm, so considered female
+
+#eels$sex <- ifelse(eels$animal_project_code == "SEMP" & is.na(eels$sex), "female", eels$sex) # SEMP eels > 45 cm, so considered female
+
+# For SEMP consider males < 45 cm and females > 45 cm
+# SEMP eels > 45 cm, so all considered female
+#for (i in 1:dim(eels)[1]){
+#  if (eels$animal_project_code[i] == "SEMP" & eels$length1[i] < 45.0){
+#    eels$sex[i] = "male"
+#  } else if (eels$animal_project_code[i] == "SEMP" & eels$length1[i] > 45.0){
+#    eels$sex[i] = "female"
+#  } else{
+#    eels$sex[i] = eels$sex[i]
+#  }}
+
+
+# For 2014_Frome consider males < 46 cm and females > 46 cm
+#for (i in 1:dim(eels)[1]){
+#  if (eels$animal_project_code[i] == "2014_Frome" & eels$length1[i] < 45.0){
+#    eels$sex[i] = "male"
+#  } else if (eels$animal_project_code[i] == "2014_Frome" & eels$length1[i] > 45.0){
+#    eels$sex[i] = "female"
+#  } else{
+#    eels$sex[i] = eels$sex[i]
+#  }}
+
+
+
+# Classify sex: consider males < 45 cm and females > 45 cm
+eels$sex <- NA  
+
+for (i in 1:dim(eels)[1]){
+  if (eels$length1[i] <= 450 & !is.na(eels$length1[i])){
+    eels$sex[i] = "male"
+  } else if (eels$length1[i] > 450 & !is.na(eels$length1[i])){
+    eels$sex[i] = "female"
+  } else{
+    eels$sex[i] = "unknown"
+  }}
+
+
+# Check there are no NAs or unknown
+sum(is.na(eels$sex))
+unique(eels$sex)
+table(eels$sex)
 
 
 # 10. Return number of tagged eels per project ####
