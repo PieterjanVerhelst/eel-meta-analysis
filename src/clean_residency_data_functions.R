@@ -145,7 +145,21 @@ clean_df_2013_albertkanaal <- function(df) {
   df <- subset(df, station_name != "rel_albertkanaal2")
   
   # Remove eels that were translocated to the Ourthe
-  df <- subset(df, station_name != "rel_albertkanaal1")
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26509"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26510"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26528"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26439"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26440"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26441"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26442"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26443"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26444"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26445"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26446"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26447"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26448"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26524"),]
+  df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26525"),]
   
   # Remove two false detections of eels in 2013_albertkanaal
   df <- df[!(df$animal_project_code == "2013_albertkanaal" & df$acoustic_tag_id == "A69-1601-26516" &
