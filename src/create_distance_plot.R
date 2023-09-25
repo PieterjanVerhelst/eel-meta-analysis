@@ -83,13 +83,20 @@ dev.off()
 ## Create single plot
 
 # Select individual
-data2 <- data[which(data$acoustic_tag_id == "A69-1008-207"), ]
+data2 <- data[which(data$acoustic_tag_id == "A69-1602-30335"), ]
 #data2=data2[order(as.POSIXct(strptime(data2$Arrival,"%d/%m/%Y %H:%M"))),]
 data2 <- data2[order(as.POSIXct(strptime(data2$arrival,"%Y-%m-%d %H:%M:%S"))),]
 
 
 # Create plot
-ggplot() + geom_line(aes(arrival, distance_to_source_m), data = data2, colour = "black", size = 1) + geom_point(aes(arrival, distance_to_source_m), data = data2, shape = 1, size = 5, colour = "black") + ggtitle(data2$acoustic_tag_id) +  theme(plot.title = element_text(lineheight=.8, face="bold", size=20)) + ylab("Distance (m)") + xlab("Date") + 
+ggplot() + geom_line(aes(arrival, -1*distance_to_source_m/1000), data = data2, colour = "black", size = 1) + 
+  geom_point(aes(arrival, -1*distance_to_source_m/1000, colour = has_migration_started), data = data2, shape = 16, size = 5) +
+  scale_color_manual(values = c("FALSE" = "red",
+                                "TRUE" =  "green")) +
+  ggtitle(data2$acoustic_tag_id) +
+  theme(plot.title = element_text(lineheight=.8, face="bold", size=20)) +
+  ylab("Distance (km)") +
+  xlab("Date") + 
 #  scale_y_continuous(limit = c(0, 60000),breaks = c(0,10000, 20000, 30000, 40000, 50000, 60000), labels = c(0,10,20,30,40,50,60)) +
   theme( 
     panel.grid.major = element_blank(), 
@@ -100,9 +107,10 @@ ggplot() + geom_line(aes(arrival, distance_to_source_m), data = data2, colour = 
     axis.title.x = element_text(size = 22),
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22)) +
-  scale_x_datetime(date_breaks  ="5 days") + 
-  geom_hline(yintercept = data2$distance_to_source_m, colour = "gray", size = 0.5, linetype = "dashed") +
-  annotate("text",x = data2$arrival[1] - (300*60*60), y = data2$distance_to_source_m, label = data2$station_name, hjust=0, colour="red", size = 5)
+  scale_x_datetime(date_breaks  ="1 month") + 
+  geom_hline(yintercept = -1*data2$distance_to_source_m/1000, colour = "gray", size = 0.5, linetype = "dashed") +
+  #annotate("text",x = data2$arrival[1] - (300*60*60), y = data2$distance_to_source_m, label = data2$station_name, hjust=0, colour="red", size = 5) +
+  theme(legend.position="none")
 
 
 
