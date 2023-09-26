@@ -14,12 +14,12 @@ habitats <- habitats %>%
 
 data <- left_join(data, habitats, by = c("animal_project_code", "station_name"))
 
-# Calculate overall migration speed: speed between first and last detection as 'has_migration_started == TRUE' 
+# Calculate overall migration speed according to habitat type: speed between first and last detection as 'has_migration_started == TRUE' per habitat
 migration_speed <- data %>%
-  group_by(animal_project_code, habitat_type2, acoustic_tag_id) %>%
+  group_by(animal_project_code, habitat_type3, acoustic_tag_id) %>%
   mutate(time = max(departure)-min(arrival),
          distance = max(distance_to_source_m) - min(distance_to_source_m)) %>%
-  select(animal_project_code, habitat_type2, acoustic_tag_id, time, distance) %>%
+  select(animal_project_code, habitat_type3, acoustic_tag_id, time, distance) %>%
   distinct()
 
 migration_speed$time <- as.numeric(migration_speed$time)
@@ -51,11 +51,11 @@ migration_speed$animal_project_code <- factor(migration_speed$animal_project_cod
                                                          "semp",
                                                          "emmn"))
 
-aggregate(migration_speed$speed_ms, list(migration_speed$animal_project_code, migration_speed$habitat_type2), mean)
+aggregate(migration_speed$speed_ms, list(migration_speed$animal_project_code, migration_speed$habitat_type3), mean)
 
 
 par(mar=c(10,4,2,1))
-migration_speed_plot <- ggplot(migration_speed, aes(x=habitat_type2, y=speed_ms)) + 
+migration_speed_plot <- ggplot(migration_speed, aes(x=habitat_type3, y=speed_ms)) + 
   geom_boxplot() +
   facet_wrap(~animal_project_code) +
   ylab("Migration speed (m/s)") + 
