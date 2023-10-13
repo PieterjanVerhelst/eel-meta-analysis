@@ -81,10 +81,18 @@ get_migration <- function(df, row_idx, dist_threshold, speed_threshold) {
   return(first_value)
 }
 
-# Core function to find migration periods
+#' Core function to find migration periods
+#'
+#' @param df A data.frame with migration data. Next columns must be present:
+#' - `distance_to_source_m`
+#' - `arrival`
+#' @param dist_threshold A numeric value used as the minimum value to calculate the speed of the eel.
+#' @param speed_threshold A numeric value: only periods with speed above this value are flagged as migration. 
+#' @param smooth_threshold A numeric value: a threshold to avoid migration starts during a stationary phase.
 get_migrations <- function(df, 
                            dist_threshold, 
-                           speed_threshold) {
+                           speed_threshold,
+                           smooth_threshold) {
   ## check inputs
   # df is a data.frame
   assertthat::assert_that(is.data.frame(df))
@@ -144,7 +152,8 @@ get_migrations <- function(df,
     df %>%
     mutate(distance_to_next = lead(distance_to_source_m)) %>%
     mutate(downstream_migration = if_else(
-      downstream_migration == TRUE & distance_to_next != distance_to_source_m,
+      downstream_migration == TRUE & 
+        distance_to_next > (distance_to_source_m + smooth_threshold),
       TRUE,
       FALSE)) %>%
     select(-distance_to_next)
