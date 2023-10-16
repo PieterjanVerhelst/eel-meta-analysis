@@ -18,7 +18,7 @@ library(plotly)     # to make ggplot plots interactive
 source("src/identify_migration_functions.R")
 
 # read input data
-animal_project_id <- "noordzeekanaal"
+animal_project_id <- "semp"
 eel_df <- read_csv(
   sprintf("./data/interim/speed/speed_%s.csv", animal_project_id)
 )
@@ -29,7 +29,7 @@ eel_df <- eel_df %>%
 # define thresholds
 dist_for_speed <- 4000 # threshold in meter
 migration_speed_threshold <- 0.01 # speed threshold in m/s
-stationary_range <- 1000 #threshold in meter defining what we consider as "stationary"
+stationary_range <- 1005 #threshold in meter defining what we consider as "stationary"
 
 # Apply get_migrations to each eel
 eel_df <- eel_df %>%
