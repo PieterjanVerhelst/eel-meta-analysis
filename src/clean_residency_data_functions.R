@@ -253,10 +253,19 @@ clean_df_2015_phd_verhelst_eel <- function(df) {
                df$arrival < '2017-02-01 00:00:00'),]
   df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-57475" &
                df$arrival < '2016-08-01 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-57455" &
+               df$arrival < '2015-10-25 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1602-30338" &
+               df$arrival < '2019-06-01 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1602-30348" &
+               df$arrival < '2018-11-01 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1602-30358" &
+               df$arrival < '2019-09-01 00:00:00'),]
   df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1602-30359" &
                df$arrival < '2019-05-01 00:00:00'),]
   df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1602-30366" &
                df$arrival < '2019-08-01 00:00:00'),]
+
   
   
   return(df)
