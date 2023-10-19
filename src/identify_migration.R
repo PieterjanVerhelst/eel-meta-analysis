@@ -52,7 +52,7 @@ eel_example <- eel_df %>%
   filter(acoustic_tag_id == acoustic_tag_id_example)
 # plot
 plot_example <- ggplot(eel_example, aes(x = arrival, y = distance_to_source_m)) +
-  geom_point(aes(color = has_migration_started), size = 3) +     # color according to 'downstream_migration' or 'has_migration_started'
+  geom_point(aes(color = downstream_migration), size = 3) +     # color according to 'downstream_migration' or 'has_migration_started'
   geom_line() + 
   scale_y_reverse() +
   ggplot2::labs(title = sprintf("%s, speed: %s, min dist for speed calc: %s", 
