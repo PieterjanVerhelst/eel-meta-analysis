@@ -209,6 +209,15 @@ clean_df_nedap_meuse <- function(df) {
   
   df$arrival_numeric <- NULL   # Remove column with arrival numeric which became now redundant
   
+  # Remove four eels with ambiguous track which might be due to recapture and translocation upstream
+  df <- df[!(df$animal_project_code == "nedap_meuse" & df$acoustic_tag_id == "7340"),]
+  df <- df[!(df$animal_project_code == "nedap_meuse" & df$acoustic_tag_id == "7493"),]
+  df <- df[!(df$animal_project_code == "nedap_meuse" & df$acoustic_tag_id == "8385"),]
+  df <- df[!(df$animal_project_code == "nedap_meuse" & df$acoustic_tag_id == "15846"),]
+  
+  # Remove data after 2019 because of data crash in Nedap system and inactive antennas
+  df <- filter(df, arrival < '2019-01-01 00:00:00')
+  
   return(df)
 }
 
