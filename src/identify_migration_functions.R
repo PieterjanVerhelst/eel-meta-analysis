@@ -89,10 +89,13 @@ get_migration <- function(df, row_idx, dist_threshold, speed_threshold) {
 #' @param dist_threshold A numeric value used as the minimum value to calculate the speed of the eel.
 #' @param speed_threshold A numeric value: only periods with speed above this value are flagged as migration. 
 #' @param smooth_threshold A numeric value: a threshold to avoid migration starts during a stationary phase.
+#' @param fixed_end A boolean: Should the migration end at the first detection
+#'   of most downstream location? Default: `TRUE`.
 get_migrations <- function(df, 
                            dist_threshold, 
                            speed_threshold,
-                           smooth_threshold) {
+                           smooth_threshold,
+                           fixed_end = TRUE) {
   ## check inputs
   # df is a data.frame
   assertthat::assert_that(is.data.frame(df))
@@ -106,6 +109,9 @@ get_migrations <- function(df,
   )
   assertthat::assert_that("arrival" %in% names(df),
                           msg = "Column `arrival` not found in df."
+  )
+  assertthat::assert_that(isTRUE(fixed_end) | isFALSE(fixed_end),
+                          msg = "`fix_end` must be TRUE or FALSE."
   )
   
   ## set downstream_migration to FALSE if eel is swimming upstream
@@ -157,6 +163,24 @@ get_migrations <- function(df,
       TRUE,
       FALSE)) %>%
     select(-distance_to_next)
+  
+  # end migration
+  if (isTRUE(fixed_end)) {
+    last_distance_to_source_m <- max(df$distance_to_source_m, na.rm = TRUE)
+    last_arrival <- 
+      df %>%
+      filter(distance_to_source_m == last_distance_to_source_m) %>%
+      pull(arrival)
+    last_arrival <- last_arrival[1]
+    df <- df %>%
+      mutate(downstream_migration = if_else(
+        distance_to_source_m <= last_distance_to_source_m & 
+          arrival > last_arrival,
+        FALSE,
+        downstream_migration
+      )
+    )
+  }
   
   # add column flagging when very start of the migration process
   first_true <- which(df$downstream_migration == TRUE)[1]
