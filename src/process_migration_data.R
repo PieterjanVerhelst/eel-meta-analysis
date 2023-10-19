@@ -110,7 +110,7 @@ eels_per_project <- data %>%
 eels_per_project$eels <- as.numeric(eels_per_project$eels)
 
 par(mar=c(10,4,2,1))
-barplot(eels_per_project$eels, names.arg=eels_per_project$animal_project_code, ylim = c(0,700), cex.names=0.8, las=2)
+barplot(eels_per_project$eels, names.arg=eels_per_project$animal_project_code, ylim = c(0,600), cex.names=0.8, las=2)
 title(ylab="Number of eels", line = 3, cex.lab=1)
 title(xlab="Animal project code", line = 8, cex.lab=1)
 
