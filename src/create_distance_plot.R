@@ -83,7 +83,7 @@ dev.off()
 ## Create single plot
 
 # Select individual
-data2 <- data[which(data$acoustic_tag_id == "A69-1602-30335"), ]
+data2 <- data[which(data$acoustic_tag_id == "A69-1601-52628"), ]
 #data2=data2[order(as.POSIXct(strptime(data2$Arrival,"%d/%m/%Y %H:%M"))),]
 data2 <- data2[order(as.POSIXct(strptime(data2$arrival,"%Y-%m-%d %H:%M:%S"))),]
 
