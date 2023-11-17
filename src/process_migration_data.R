@@ -17,7 +17,7 @@ data <- files %>%
   reduce(rbind)
 
 data <- data %>%
-  mutate_at(c('acoustic_tag_id', 'animal_project_code', 'station_name'), as.factor)
+  mutate_at(c('acoustic_tag_id', 'animal_project_code', 'station_name', 'migration'), as.factor)
 
 # Remove redundant columns
 data <- select(data, -...1, -row_id, -first_dist_to_use, -first_dist_to_use_idx, -time_first_dist_to_use, -delta_totdist, -delta_t)
@@ -73,8 +73,8 @@ data <- data %>%
 
 # 2. Filter out migration data ####
 # Select eels considered migratory
-# 'has_migration_started' == TRUE
-data <- filter(data, has_migration_started == "TRUE")
+# 'migration' == TRUE
+data <- filter(data, migration == "TRUE")
 
 
 
