@@ -274,6 +274,8 @@ clean_df_2015_phd_verhelst_eel <- function(df) {
                df$arrival < '2019-05-01 00:00:00'),]
   df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1602-30366" &
                df$arrival < '2019-08-01 00:00:00'),]
+  df <- df[!(df$animal_project_code == "2015_phd_verhelst_eel" & df$acoustic_tag_id == "A69-1601-52628" &
+               df$arrival < '2018-04-10 00:00:00'),]
 
   
   

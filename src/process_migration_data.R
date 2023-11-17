@@ -85,18 +85,18 @@ data <- data[!(data$animal_project_code == "2017_fremur"),]
 # 4. Remove bpns data ####
 data <- data[!(data$station_name %in% c("bpns-Whitley","bpns-D1","bpns-WK12","bpns-A1BIS","bpns-S4","bpns-WENDUINEBANKW","bpns-W1","bpns-Trapegeer","bpns-S7","bpns-O6","bpns-KB2","bpns-middelkerkebank","bpns-nieuwpoortbank","PC4C-C05-2","bpns-Cpowerreefballs-CPOD","bpns-zbe1","bpns-ZA2","bpns-F53","bpns-WK14","bpns-WZ","bpns-zbw2","bpns-Nauticaena","bpns-Faulbaums","bpns-Grafton","CP_100m_base","bpns-G-88")),]
 
-# 5. Remove 12 eels from '2015_phd_verhelst_eel' project that are flagged as migratory, but based on expert judgement they weren't and hence left out of the analysis
-data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-28264"),]
+# 5. Remove 9 eels from '2015_phd_verhelst_eel' project that are flagged as migratory, but based on expert judgement they weren't and hence left out of the analysis
+#data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-28264"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-52624"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-57478"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-52630"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-52658"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-52650"),]
-data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-52628"),]
+#data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-52628"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-52652"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-57465"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-52665"),]
-data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-64883"),]
+#data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1601-64883"),]
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1602-30335"),]
 
 
