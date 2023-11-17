@@ -158,12 +158,15 @@ get_migrations <- function(df,
       FALSE)) %>%
     select(-distance_to_next)
   
-  # add column flagging when very start of the migration process
+  # add column flagging the general migration process from very first start to
+  # its very last end
+  df$migration <- FALSE # initialization
   first_true <- which(df$downstream_migration == TRUE)[1]
-  df$has_migration_started <- FALSE
-  if (!is.na(first_true)) {
-    df$has_migration_started[first_true:nrow(df)] <- TRUE
+  last_true <- which(
+    df$distance_to_source_m == max(df$distance_to_source_m, na.rm = TRUE)
+  )[1]
+  if (!is.na(first_true) & !is.na(last_true)) {
+    df$migration[first_true:last_true] <- TRUE
   }
-  
   return(df)
 }

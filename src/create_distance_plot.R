@@ -12,7 +12,7 @@ data <- read_csv('./data/interim/migration/migration_2015_phd_verhelst_eel.csv')
 data$...1 <- NULL
 data$...2 <- NULL
 data$acoustic_tag_id <- factor(data$acoustic_tag_id)
-data$has_migration_started <- factor(data$has_migration_started)
+data$migration <- factor(data$migration)
 data$station_name <- factor(data$station_name)
 
 # Remove bpns data
@@ -48,7 +48,7 @@ max(data$distance_to_source_m)  # Identify the max limit for the y-axis
 
 # Create pdf with distance tracks
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/migration/2015_phd_verhelst_eel_migration_4000m_0.01ms.pdf") # Create pdf
+pdf("./figures/distance_tracks/migration/4000m_0.01ms_16112023/2015_phd_verhelst_eel_migration_4000m_0.01ms.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
@@ -58,7 +58,7 @@ for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
   g <- g + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                  panel.background = element_blank(), axis.line = element_line(colour = "black"))
   g <- g + geom_line(aes(arrival, -1*distance_to_source_m), data = mydfnew.temp, colour = "black", linewidth = 1)
-  g <- g + geom_point(aes(arrival, -1*distance_to_source_m, colour = has_migration_started), data = mydfnew.temp, shape = 16, size = 5)
+  g <- g + geom_point(aes(arrival, -1*distance_to_source_m, colour = migration), data = mydfnew.temp, shape = 16, size = 5)
   g <- g + scale_color_manual(values = c("FALSE" = "red",
                                          "TRUE" =  "green"))
   g <- g + theme(plot.title = element_text(lineheight=.8, face="bold", size=20))
@@ -83,14 +83,14 @@ dev.off()
 ## Create single plot
 
 # Select individual
-data2 <- data[which(data$acoustic_tag_id == "A69-1602-30335"), ]
+data2 <- data[which(data$acoustic_tag_id == "A69-1601-52628"), ]
 #data2=data2[order(as.POSIXct(strptime(data2$Arrival,"%d/%m/%Y %H:%M"))),]
 data2 <- data2[order(as.POSIXct(strptime(data2$arrival,"%Y-%m-%d %H:%M:%S"))),]
 
 
 # Create plot
 ggplot() + geom_line(aes(arrival, -1*distance_to_source_m/1000), data = data2, colour = "black", size = 1) + 
-  geom_point(aes(arrival, -1*distance_to_source_m/1000, colour = has_migration_started), data = data2, shape = 16, size = 5) +
+  geom_point(aes(arrival, -1*distance_to_source_m/1000, colour = migration), data = data2, shape = 16, size = 5) +
   scale_color_manual(values = c("FALSE" = "red",
                                 "TRUE" =  "green")) +
   ggtitle(data2$acoustic_tag_id) +
