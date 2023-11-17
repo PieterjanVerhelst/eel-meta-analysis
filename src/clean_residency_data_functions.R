@@ -397,6 +397,36 @@ clean_df_noordzeekanaal <- function(df) {
 
 
 
+#' Clean df data for 2011_loire animal project
+#' 
+#' @param df A data.frame with df data
+#' 
+#' @return A data.frame with clean data, same columns as input `df`
+clean_df_2011_loire <- function(df) {
+  # Check inputs
+  assertthat::assert_that(is.data.frame(df))
+  assertthat::assert_that(
+    "animal_project_code" %in% names(df),
+    msg = "Column `animal_project_code` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "arrival" %in% names(df),
+    msg = "Column `arrival` is used and must be present in df."
+  )
+  assertthat::assert_that(
+    "acoustic_tag_id" %in% names(df),
+    msg = "Column `acoustic_tag_id` is used and must be present in df."
+  )
+  
+  # Clean data
+  # Remove station 31V
+  
+  df <- df[!(df$animal_project_code == "2011_Loire" & df$station_name == "31V"),]
+  return(df)
+}
+
+
+
 #' Generic clean function.
 #'
 #' This function calls under the hood the specific cleaning function written for
@@ -419,7 +449,8 @@ clean_df <- function(df, animal_project_code) {
     "2015_phd_verhelst_eel",
     "2004_gudena",
     "2012_leopoldkanaal",
-    "noordzeekanaal"
+    "noordzeekanaal",
+    "2011_loire"
   )
   assertthat::assert_that(
     animal_project_code %in% animal_project_codes,

@@ -18,7 +18,7 @@ library(plotly)     # to make ggplot plots interactive
 source("src/identify_migration_functions.R")
 
 # read input data
-animal_project_id <- "2015_phd_verhelst_eel"
+animal_project_id <- "2011_loire"
 eel_df <- read_csv(
   sprintf("./data/interim/speed/speed_%s.csv", animal_project_id)
 )
@@ -47,7 +47,7 @@ eel_df <- eel_df %>%
 
 
 # select one eel
-acoustic_tag_id_example <- "A69-1601-52628"
+acoustic_tag_id_example <- "A69-1206-159"
 eel_example <- eel_df %>%
   filter(acoustic_tag_id == acoustic_tag_id_example)
 # plot

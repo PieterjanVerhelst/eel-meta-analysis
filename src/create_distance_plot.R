@@ -8,7 +8,7 @@ library(tidyquant)
 
 
 # Upload dataset
-data <- read_csv('./data/interim/migration/migration_2015_phd_verhelst_eel.csv') 
+data <- read_csv('./data/interim/migration/migration_2011_loire.csv') 
 data$...1 <- NULL
 data$...2 <- NULL
 data$acoustic_tag_id <- factor(data$acoustic_tag_id)
@@ -48,7 +48,7 @@ max(data$distance_to_source_m)  # Identify the max limit for the y-axis
 
 # Create pdf with distance tracks
 mydfnew.split.eel <- split(data, data$acoustic_tag_id) # split dataset based on tag IDs
-pdf("./figures/distance_tracks/migration/4000m_0.01ms_16112023/2015_phd_verhelst_eel_migration_4000m_0.01ms.pdf") # Create pdf
+pdf("./figures/distance_tracks/migration/4000m_0.01ms_16112023/2011_loire_migration_4000m_0.01ms.pdf") # Create pdf
 
 
 for (i in 1:length(mydfnew.split.eel)){ #i van 1 tot aantal transmitters
