@@ -6,7 +6,7 @@
 source("src/process_migration_data.R")
 
 
-# 1. Calculate overall migration speed: speed between first and last detection as 'has_migration_started == TRUE' ####
+# 1. Calculate overall migration speed: speed between first and last detection as 'migration == TRUE' ####
 migration_speed <- data %>%
   group_by(animal_project_code, acoustic_tag_id) %>%
   mutate(time = max(departure)-min(arrival),
