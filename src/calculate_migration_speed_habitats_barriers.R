@@ -1,4 +1,4 @@
-# Calculate the migration speed according to different habitats and barriers
+# Calculate and analyse the migration speed according to different habitats and barriers
 # By Pieterjan Verhelst (INBO)
 # pieterjan.verhelst@inbo.be
 
