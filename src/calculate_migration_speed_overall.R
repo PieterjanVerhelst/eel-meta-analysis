@@ -6,8 +6,6 @@
 source("src/process_migration_data.R")
 
 # Load packages ####
-library(rstatix)
-library(ggpubr)
 library(car)
 
 
@@ -134,18 +132,37 @@ sex_project <- filter(migration_speed, animal_project_code == "2014_frome")
 sex_project$sex <-factor(sex_project$sex)
 
 aggregate(sex_project$speed_ms, list(sex_project$sex), mean)
+aggregate(sex_project$speed_ms, list(sex_project$sex), median)
 aggregate(sex_project$speed_ms, list(sex_project$sex), sd)
 aggregate(sex_project$speed_ms, list(sex_project$sex), min)
 aggregate(sex_project$speed_ms, list(sex_project$sex), max)
 
-# Apply parametric t-test or non-parametric Mann-Whitney U-test 
+
+ggplot(sex_project, aes(x=sex, y=speed_ms)) + 
+  geom_boxplot() +
+  ylab("Migration speed (m/s)") + 
+  xlab("Sex") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+
+
+# Apply parametric t-test or non-parametric Mann-Whitney-Wilcoxon Test 
 # (independent) two-sample t-test
 # For more info on different types of t-test, see https://www.jmp.com/en_be/statistics-knowledge-portal/t-test.html#:~:text=Types%20of%20t%2Dtests,and%20a%20paired%20t%2Dtest.
 
 # Check normality - Shapiro Wilk test
 sex_project %>%
   group_by(sex) %>%
-  shapiro_test(speed_ms)
+  rstatix::shapiro_test(speed_ms)
 
 shapiro.test(sex_project$speed_ms)
 
@@ -157,12 +174,14 @@ qqline(sex_project$speed_ms)
 # Check equality of variances - Levene test
 leveneTest(weight ~ group, PlantGrowth)
 
+# Perform (independent) two-sample t-test
+t.test(speed_ms ~ sex, data = sex_project)
+
+# Perform Mann-Whitney-Wilcoxon Test
+wilcox.test(speed_ms ~ sex, data = sex_project)
 
 
 
-
-sex_speed <- t.test(speed_ms ~ sex, data = sex_project)
-sex_speed
 
 
 
