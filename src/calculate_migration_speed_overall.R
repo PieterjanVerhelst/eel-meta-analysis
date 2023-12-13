@@ -5,6 +5,12 @@
 
 source("src/process_migration_data.R")
 
+# Load packages ####
+library(rstatix)
+library(ggpubr)
+library(car)
+
+
 
 # 1. Calculate overall migration speed: speed between first and last detection as 'migration == TRUE' ####
 migration_speed <- data %>%
@@ -66,7 +72,9 @@ migration_speed_plot
 
 
 
-# 3. Link sex and size to the dataset  ####
+# 3. Analyse migration speed in relation to sex ####
+
+# Link sex and size to the dataset  
 eel <- read_csv("./data/interim/eel_meta_data.csv")
 eel <- eel %>%
   mutate_at(c('acoustic_tag_id', 'animal_project_code', 'life_stage'), as.factor)
@@ -98,8 +106,7 @@ migration_speed <- rename(migration_speed, animal_project_code = animal_project_
 aggregate(migration_speed$speed_ms, list(migration_speed$sex), mean)
 
 
-
-# 4. Create boxplot with speeds in relation to sex ####
+# Create boxplot with speeds in relation to sex
 par(mar=c(10,4,2,1))
 migration_speed_plot <- ggplot(migration_speed, aes(x=sex, y=speed_ms)) + 
   geom_boxplot() +
@@ -117,6 +124,48 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=sex, y=speed_ms)) +
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22))
 migration_speed_plot
+
+
+# zoom in on specific projects ####
+
+sex_project <- filter(migration_speed, animal_project_code == "2014_frome")
+#sex_project <- filter(migration_speed, animal_project_code == "2019_grotenete")
+#sex_project <- filter(migration_speed, animal_project_code == "mondego")
+sex_project$sex <-factor(sex_project$sex)
+
+aggregate(sex_project$speed_ms, list(sex_project$sex), mean)
+aggregate(sex_project$speed_ms, list(sex_project$sex), sd)
+aggregate(sex_project$speed_ms, list(sex_project$sex), min)
+aggregate(sex_project$speed_ms, list(sex_project$sex), max)
+
+# Apply parametric t-test or non-parametric Mann-Whitney U-test 
+# (independent) two-sample t-test
+# For more info on different types of t-test, see https://www.jmp.com/en_be/statistics-knowledge-portal/t-test.html#:~:text=Types%20of%20t%2Dtests,and%20a%20paired%20t%2Dtest.
+
+# Check normality - Shapiro Wilk test
+sex_project %>%
+  group_by(sex) %>%
+  shapiro_test(speed_ms)
+
+shapiro.test(sex_project$speed_ms)
+
+# Draw a qq-plot by group
+qqnorm(sex_project$speed_ms)
+qqline(sex_project$speed_ms)
+
+
+# Check equality of variances - Levene test
+leveneTest(weight ~ group, PlantGrowth)
+
+
+
+
+
+sex_speed <- t.test(speed_ms ~ sex, data = sex_project)
+sex_speed
+
+
+
 
 
 # 5. Create dotplot with speeds in relation to total length and colour according to sex ####
