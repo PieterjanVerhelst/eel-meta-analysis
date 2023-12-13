@@ -52,10 +52,12 @@ migration_speed$animal_project_code <- factor(migration_speed$animal_project_cod
                                                          "semp",
                                                          "emmn"))
 
+aggregate(migration_speed$speed_ms, list(migration_speed$habitat_type3), mean)
 aggregate(migration_speed$speed_ms, list(migration_speed$animal_project_code, migration_speed$habitat_type3), mean)
 
 
 par(mar=c(10,4,2,1))
+# Plot with facets
 migration_speed_plot <- ggplot(migration_speed, aes(x=habitat_type3, y=speed_ms)) + 
   geom_boxplot() +
   facet_wrap(~animal_project_code) +
@@ -74,5 +76,24 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=habitat_type3, y=speed_ms)
     axis.title.y = element_text(size = 22),
     strip.text = element_text(size=22)) +
   coord_cartesian(ylim = c(0, 2))
+migration_speed_plot
+
+# Plot without facets
+migration_speed_plot <- ggplot(migration_speed, aes(x=animal_project_code, y=speed_ms, fill = habitat_type3)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette="Dark2") +
+  ylab("Migration speed (m/s)") + 
+  xlab("Animal project code") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue", show.legend = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
 migration_speed_plot
 
