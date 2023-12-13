@@ -5,7 +5,7 @@
 
 source("src/process_migration_data.R")
 
-
+# 1. Calculate migration speed according to habitat type ####
 # Load data with habitat info and join to dataset
 habitats <- read_csv("./data/external/habitats.csv")
 habitats <- habitats %>%
@@ -14,7 +14,7 @@ habitats <- habitats %>%
 
 data <- left_join(data, habitats, by = c("animal_project_code", "station_name"))
 
-# Calculate overall migration speed according to habitat type: speed between first and last detection as 'has_migration_started == TRUE' per habitat
+# Calculate overall migration speed according to habitat type: speed between first and last detection as 'migration == TRUE' per habitat
 migration_speed <- data %>%
   group_by(animal_project_code, habitat_type3, acoustic_tag_id) %>%
   mutate(time = max(departure)-min(arrival),
@@ -22,6 +22,7 @@ migration_speed <- data %>%
   select(animal_project_code, habitat_type3, acoustic_tag_id, time, distance) %>%
   distinct()
 
+migration_speed <- filter(migration_speed, distance > 0) # Remove records with zero distance
 migration_speed$time <- as.numeric(migration_speed$time)
 migration_speed$speed_ms <- migration_speed$distance / migration_speed$time
 summary(migration_speed$speed_ms)
@@ -29,7 +30,7 @@ migration_speed$time_days <- migration_speed$time / (60*60*24)
 summary(migration_speed$time_days)
 boxplot(migration_speed$speed_ms, ylab = "Migration speed (m/s)")
 
-# Create boxplot with speeds per project in geographical order from west to east 
+# Create boxplot with speeds according to habitat type per project in geographical order from west to east 
 migration_speed$animal_project_code <- factor(migration_speed$animal_project_code, 
                                               levels = c("mondego",
                                                          "esgl",
