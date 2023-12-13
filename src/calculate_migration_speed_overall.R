@@ -124,7 +124,7 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=sex, y=speed_ms)) +
 migration_speed_plot
 
 
-# zoom in on specific projects ####
+# zoom in on specific projects
 
 sex_project <- filter(migration_speed, animal_project_code == "2014_frome")
 #sex_project <- filter(migration_speed, animal_project_code == "2019_grotenete")
@@ -183,11 +183,7 @@ wilcox.test(speed_ms ~ sex, data = sex_project)
 
 
 
-
-
-
-
-# 5. Create dotplot with speeds in relation to total length and colour according to sex ####
+# Create dotplot with speeds in relation to total length and colour according to sex 
 par(mar=c(10,4,2,1))
 migration_speed_plot <- ggplot(migration_speed, aes(x=length1, y=speed_ms)) + 
   geom_point(alpha = 1.0, aes(color = sex)) +
@@ -206,7 +202,7 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=length1, y=speed_ms)) +
     axis.title.y = element_text(size = 22))
 migration_speed_plot
 
-# 6. Create dotplot with speeds in relation to release longitude and colour according to sex ####
+# Create dotplot with speeds in relation to release longitude and colour according to sex 
 par(mar=c(10,4,2,1))
 migration_speed_plot <- ggplot(migration_speed, aes(x=release_longitude, y=speed_ms)) + 
   geom_point(size = 3, alpha = 1.0, aes(color = sex)) +
@@ -226,7 +222,9 @@ migration_speed_plot <- ggplot(migration_speed, aes(x=release_longitude, y=speed
 migration_speed_plot
 
 
-# 7. Merge migration barrier qualification to the dataset and plot speed in relation to those barrier qualification ####
+
+# 4. Analyse migration speed in relation to migration barriers ####
+# Merge migration barrier qualification to the dataset
 migrationbarriers <- read_csv("./data/external/migrationbarriers.csv")
 migrationbarriers <- migrationbarriers %>%
   mutate_at(c('animal_project_code', 'barrier_impact', 'weir', 'sluice_gate', 'shipping_lock', 'hydropower', 'pump', 'barrier_type'), as.factor) %>%
@@ -271,6 +269,8 @@ migration_speed <- migration_speed %>%
 aggregate(migration_speed$speed_ms, list(migration_speed$barrier_impact), mean)
 aggregate(migration_speed$speed_ms, list(migration_speed$barrier_type), mean)
 
+
+#  Plot speed in relation to those barrier qualification
 migration_speed_plot <- ggplot(migration_speed, aes(x=barrier_impact, y=speed_ms)) + 
   geom_boxplot() +
   ylab("Migration speed (m/s)") + 
