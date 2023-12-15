@@ -133,15 +133,45 @@ wilcox.test(speed_ms ~ sex, data = sex_project)
 
 
 
-# 4. Geographical location analysis ####
-migration_speed_tidal <- filter(migration_speed, habitat_type3 == "tidal")
+# 5. Geographical location analysis ####
+# Add latitude to dataset
 lat <- read_csv("./data/external/project_geographical_location.csv")
 lat$animal_project_code <- factor(lat$animal_project_code)
 
 migration_speed_tidal <- left_join(migration_speed_tidal, lat, by = "animal_project_code")
-plot(migration_speed_tidal$speed_ms ~ migration_speed_tidal$latitude)
 
-migration_speed_tidal_plot <- ggplot(migration_speed_tidal, aes(x=animal_project_code, y=speed_ms)) + 
+# Plot
+ggplot(migration_speed_tidal, aes(x=latitude, y=speed_ms)) + 
+  geom_point() +
+  ylab("Migration speed (m/s)") + 
+  xlab("Latitude") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22)) +
+  geom_smooth(method='lm')
+
+# Linear regression
+lm_geo <- lm(speed_ms ~ latitude, data = migration_speed_tidal) # Create the linear regression
+summary(lm_geo)
+
+par(mfrow = c(2, 2))
+plot(lm_geo)
+dev.off()
+plot(lm_geo$residuals, pch = 16, col = "red")  # residuals should look random
+shapiro.test(residuals(lm_geo))
+
+
+# Approach to simply use projects as these have a specific geographical location
+# Plot
+ggplot(migration_speed_tidal, aes(x=animal_project_code, y=speed_ms)) + 
   geom_boxplot() +
   #scale_fill_brewer(palette="Dark2") +
   ylab("Migration speed (m/s)") + 
@@ -157,12 +187,11 @@ migration_speed_tidal_plot <- ggplot(migration_speed_tidal, aes(x=animal_project
     axis.title.x = element_text(size = 22),
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22))
-migration_speed_tidal_plot
+
 
 # Conduct ANOVA or non-parametric alternative
 
 # Check normality
-par(mfrow=c(4,2))
 qqnorm(migration_speed_tidal$speed_ms)
 qqline(migration_speed_tidal$speed_ms)
 
