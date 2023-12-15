@@ -79,7 +79,11 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 12. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
 13. `process_migration_data.R`: Process migration data by combining the datasets of the different studies and calculate the number of migratory eels per study
 14. `calculate_migration_speed_overall.R`: Calculate the migration speed as the speed between the first and last detection and relate it to geographical position, habitat, size and sex
-15. `calculate_migration_speed_habitats_barriers.R`: Calculate the migration speed according to habitat type and migration barriers
+15. `calculate_migration_speed_habitats.R`: Calculate the migration speed according to habitat type
+16. `analyse_migration_speed_tidal.R`: Analyse the migration speed in tidal areas according to size, sex and geographical location
+
+
+
 16. `migration_month.R`: Identify months when migration starts and ends
 
 
