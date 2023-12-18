@@ -184,102 +184,8 @@ wilcox.test(speed_ms ~ sex, data = sex_project)
 
 
 
-# 5. Geographical location analysis ####
-# Add latitude to dataset
-#lat <- read_csv("./data/external/project_geographical_location.csv")
-#lat$animal_project_code <- factor(lat$animal_project_code)
 
-#migration_speed_nontidal_nobarriers <- left_join(migration_speed_nontidal_nobarriers, lat, by = "animal_project_code")
-
-# Plot
-ggplot(migration_speed_nontidal, aes(x= release_latitude, y=speed_ms)) + 
-  geom_point() +
-  ylab("Migration speed (m/s)") + 
-  xlab("Latitude") +
-  #stat_summary(fun = "mean", geom = "point", #shape = 8,
-  #             size = 4, color = "blue") +
-  theme( 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(), 
-    axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle=360),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22)) +
-  geom_smooth(method='lm')
-
-# Linear regression
-lm_geo <- lm(speed_ms ~ release_latitude, data = migration_speed_nontidal) # Create the linear regression
-summary(lm_geo)
-
-par(mfrow = c(2, 2))
-plot(lm_geo)
-dev.off()
-plot(lm_geo$residuals, pch = 16, col = "red")  # residuals should look random
-shapiro.test(residuals(lm_geo))
-
-
-# Approach to simply use projects as these have a specific geographical location
-# Plot
-ggplot(migration_speed_nontidal, aes(x=animal_project_code, y=speed_ms)) + 
-  geom_boxplot() +
-  #scale_fill_brewer(palette="Dark2") +
-  ylab("Migration speed (m/s)") + 
-  xlab("Animal project code") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue", show.legend = FALSE) +
-  theme( 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(), 
-    axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
-
-
-# Conduct ANOVA or non-parametric alternative
-
-# Check normality
-qqnorm(migration_speed_nontidal_nobarriers$speed_ms)
-qqline(migration_speed_nontidal_nobarriers$speed_ms)
-
-shapiro.test(migration_speed_nontidal_nobarriers$speed_ms)
-
-# Check homogeneity of variances
-# Levene’s test
-# Levene’s test is used to assess whether the variances of two or more populations are equal.
-# https://www.datanovia.com/en/lessons/homogeneity-of-variance-test-in-r/
-# When p > 0.05, there is no significant difference between the two variances.
-car::leveneTest(speed_ms ~ animal_project_code, data = migration_speed_nontidal)
-
-## Conduct one-way ANOVA ####
-aov <- aov(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$animal_project_code)
-summary(aov)
-
-anova <- oneway.test(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$animal_project_code, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
-anova
-
-# Check assumptions
-par(mfrow=c(2,2))
-plot(aov)
-dev.off
-
-# Post-hoc test for equal variances
-TukeyHSD(aov)
-
-# Post-hoc test for unequal variances
-posthocTGH(migration_speed_nontidal_nobarriers$speed_ms, migration_speed_nontidal_nobarriers$animal_project_code, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
-
-## Kruskal-Wallis test when data is not normally distributed ####
-kruskal.test(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$animal_project_code)
-#posthoc.kruskal.dunn.test(x=migration_speed_nontidal$animal_project_code, g=migration_speed_nontidal$speed_ms, p.adjust.method="bonferroni")
-FSA::dunnTest(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$animal_project_code, data=migration_speed_nontidal, method="bonferroni")
-
-
-# 6. Migration barrier types analysis ####
+# 5. Migration barrier types analysis ####
 
 #  Plot speed in relation to those barrier qualification
 ggplot(migration_speed_nontidal, aes(x=barrier_impact, y=speed_ms)) + 
@@ -353,4 +259,148 @@ geom_boxplot() +
     axis.title.x = element_text(size = 22),
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22))
+
+
+# Conduct ANOVA or non-parametric alternative
+
+# Check normality
+qqnorm(migration_speed_nontidal$speed_ms)
+qqline(migration_speed_nontidal$speed_ms)
+
+shapiro.test(migration_speed_nontidal$speed_ms)
+
+# Check homogeneity of variances
+# Levene’s test
+# Levene’s test is used to assess whether the variances of two or more populations are equal.
+# https://www.datanovia.com/en/lessons/homogeneity-of-variance-test-in-r/
+# When p > 0.05, there is no significant difference between the two variances.
+car::leveneTest(speed_ms ~ animal_project_code, data = migration_speed_nontidal)
+
+# Conduct one-way ANOVA 
+aov <- aov(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$animal_project_code)
+summary(aov)
+
+anova <- oneway.test(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$animal_project_code, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
+anova
+
+# Check assumptions
+par(mfrow=c(2,2))
+plot(aov)
+dev.off
+
+# Post-hoc test for equal variances
+TukeyHSD(aov)
+
+# Post-hoc test for unequal variances
+posthocTGH(migration_speed_nontidal$speed_ms, migration_speed_nontidal$animal_project_code, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
+
+# Kruskal-Wallis test when data is not normally distributed
+kruskal.test(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$barrier_type)
+#posthoc.kruskal.dunn.test(x=migration_speed_nontidal$animal_project_code, g=migration_speed_nontidal$speed_ms, p.adjust.method="bonferroni")
+FSA::dunnTest(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$barrier_type, data=migration_speed_nontidal, method="bonferroni")
+
+
+
+
+
+# 6. Geographical location analysis ####
+# Add latitude to dataset
+#lat <- read_csv("./data/external/project_geographical_location.csv")
+#lat$animal_project_code <- factor(lat$animal_project_code)
+
+#migration_speed_nontidal_nobarriers <- left_join(migration_speed_nontidal_nobarriers, lat, by = "animal_project_code")
+
+geo <- filter(migration_speed_nontidal, barrier_type == "none" |
+              barrier_type == "hydropower" | 
+              barrier_type == "weir")
+
+
+# Plot
+ggplot(geo, aes(x= release_latitude, y=speed_ms)) + 
+  geom_point() +
+  ylab("Migration speed (m/s)") + 
+  xlab("Latitude") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22)) +
+  geom_smooth(method='lm')
+
+# Linear regression
+lm_geo <- lm(speed_ms ~ release_latitude, data = geo) # Create the linear regression
+summary(lm_geo)
+
+par(mfrow = c(2, 2))
+plot(lm_geo)
+dev.off()
+plot(lm_geo$residuals, pch = 16, col = "red")  # residuals should look random
+shapiro.test(residuals(lm_geo))
+
+
+# Approach to simply use projects as these have a specific geographical location
+# Plot
+ggplot(geo, aes(x=animal_project_code, y=speed_ms)) + 
+  geom_boxplot() +
+  #scale_fill_brewer(palette="Dark2") +
+  ylab("Migration speed (m/s)") + 
+  xlab("Animal project code") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue", show.legend = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+
+
+# Conduct ANOVA or non-parametric alternative
+
+# Check normality
+qqnorm(geo$speed_ms)
+qqline(geo$speed_ms)
+
+shapiro.test(geo$speed_ms)
+
+# Check homogeneity of variances
+# Levene’s test
+# Levene’s test is used to assess whether the variances of two or more populations are equal.
+# https://www.datanovia.com/en/lessons/homogeneity-of-variance-test-in-r/
+# When p > 0.05, there is no significant difference between the two variances.
+car::leveneTest(speed_ms ~ animal_project_code, data = geo)
+
+# Conduct one-way ANOVA
+aov <- aov(geo$speed_ms ~ geo$animal_project_code)
+summary(aov)
+
+anova <- oneway.test(geo$speed_ms ~ geo$animal_project_code, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
+anova
+
+# Check assumptions
+par(mfrow=c(2,2))
+plot(aov)
+dev.off
+
+# Post-hoc test for equal variances
+TukeyHSD(aov)
+
+# Post-hoc test for unequal variances
+posthocTGH(geo$speed_ms, geo$animal_project_code, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
+
+# Kruskal-Wallis test when data is not normally distributed
+kruskal.test(geo$speed_ms ~ geo$animal_project_code)
+#posthoc.kruskal.dunn.test(x=migration_speed_nontidal$animal_project_code, g=migration_speed_nontidal$speed_ms, p.adjust.method="bonferroni")
+FSA::dunnTest(geo$speed_ms ~ geo$animal_project_code, data=geo, method="bonferroni")
+
+
 
