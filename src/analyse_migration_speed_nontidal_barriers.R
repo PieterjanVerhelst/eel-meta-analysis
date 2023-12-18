@@ -1,0 +1,235 @@
+# Analyse the migration speed in non-tidal area with barriers according to size, sex, geographical location and migration barriers
+# By Pieterjan Verhelst (INBO)
+# pieterjan.verhelst@inbo.be
+
+
+source("src/calculate_migration_speed_habitats.R")
+
+# 1. Select data in non-tidal areas and free of barriers ####
+migration_speed_nontidal_nobarriers <- filter(migration_speed, habitat_type3 == "freshwater")
+migration_speed_nontidal_nobarriers <- filter(migration_speed_nontidal_nobarriers, animal_project_code == "Grote Nete" |
+                                                animal_project_code == "Nemunas" |
+                                                animal_project_code == "Gudena")
+migration_speed_nontidal_nobarriers <- migration_speed_nontidal_nobarriers %>%
+  mutate_at(c('acoustic_tag_id', 'animal_project_code', 'habitat_type3'), as.factor)
+
+summary(migration_speed_nontidal_nobarriers$speed_ms)
+sd(migration_speed_nontidal_nobarriers$speed_ms)
+aggregate(migration_speed_nontidal_nobarriers$speed_ms, list(migration_speed_nontidal_nobarriers$animal_project_code), mean)
+
+
+# 2. Link size and sex to the dataset  ####
+eel <- read_csv("./data/interim/eel_meta_data.csv")
+eel <- eel %>%
+  mutate_at(c('acoustic_tag_id', 'animal_project_code', 'life_stage'), as.factor)
+eel$length1 <- as.numeric(eel$length1)
+eel$weight <- as.numeric(eel$weight)
+
+# Create length frequency distribution
+ggplot(data=eel,aes(x=length1)) +
+  geom_histogram(binwidth=25,boundary=0,closed="left",
+                 fill="gray80",color="black")
+
+#eel <- eel[!(eel$animal_project_code == "life4fish" & eel$acoustic_tag_id == "7422"),]# Remove eel with ID 7422 from project (life4fish)
+eel <- select(eel, 
+              animal_project_code, 
+              release_date_time, 
+              acoustic_tag_id,
+              length1,
+              weight,
+              sex,
+              life_stage,
+              release_latitude, 
+              release_longitude)
+
+# Only keep eels in the tidal dataset
+eel <- subset(eel, acoustic_tag_id %in% migration_speed_nontidal_nobarriers$acoustic_tag_id)
+
+# Join eel metadata to tidal dataset
+migration_speed_nontidal_nobarriers <- left_join(migration_speed_nontidal_nobarriers, eel, by = "acoustic_tag_id")
+migration_speed_nontidal_nobarriers <- rename(migration_speed_nontidal_nobarriers, animal_project_code = animal_project_code.x)
+migration_speed_nontidal_nobarriers$animal_project_code.y <- NULL
+
+
+# 3. Size analysis  ####
+
+# Plot
+ggplot(migration_speed_nontidal_nobarriers, aes(x=length1, y=speed_ms)) + 
+  geom_point() +
+  ylab("Migration speed (m/s)") + 
+  xlab("Total length (mm)") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22)) +
+  geom_smooth(method='lm')
+
+# Linear regression
+lm_size <- lm(speed_ms ~ length1, data = migration_speed_nontidal_nobarriers) # Create the linear regression
+summary(lm_size)
+
+par(mfrow = c(2, 2))
+plot(lm_size)
+dev.off()
+plot(lm_size$residuals, pch = 16, col = "red")  # residuals should look random
+shapiro.test(residuals(lm_size))
+
+
+# 4. Sex analysis  ####
+# Filter on specific project
+sex_project <- filter(migration_speed_nontidal_nobarriers, animal_project_code == "Grote Nete") # Only free flowing project without barriers
+sex_project$sex <-factor(sex_project$sex)
+
+aggregate(sex_project$speed_ms, list(sex_project$sex), mean)
+aggregate(sex_project$speed_ms, list(sex_project$sex), median)
+aggregate(sex_project$speed_ms, list(sex_project$sex), sd)
+aggregate(sex_project$speed_ms, list(sex_project$sex), min)
+aggregate(sex_project$speed_ms, list(sex_project$sex), max)
+
+# Plot
+ggplot(sex_project, aes(x=sex, y=speed_ms)) + 
+  geom_boxplot() +
+  ylab("Migration speed (m/s)") + 
+  xlab("Sex") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+
+
+# Apply parametric t-test or non-parametric Mann-Whitney-Wilcoxon Test 
+# (independent) two-sample t-test
+# For more info on different types of t-test, see https://www.jmp.com/en_be/statistics-knowledge-portal/t-test.html#:~:text=Types%20of%20t%2Dtests,and%20a%20paired%20t%2Dtest.
+
+# Check normality - Shapiro Wilk test
+sex_project %>%
+  group_by(sex) %>%
+  rstatix::shapiro_test(speed_ms)
+
+shapiro.test(sex_project$speed_ms)
+
+# Draw a qq-plot by group
+qqnorm(sex_project$speed_ms)
+qqline(sex_project$speed_ms)
+
+# Check equality of variances - Levene test
+car::leveneTest(speed_ms ~ sex, sex_project)
+
+# Perform (independent) two-sample t-test
+t.test(speed_ms ~ sex, data = sex_project)
+
+# Perform Mann-Whitney-Wilcoxon Test
+wilcox.test(speed_ms ~ sex, data = sex_project)
+
+
+
+
+# 5. Geographical location analysis ####
+# Add latitude to dataset
+#lat <- read_csv("./data/external/project_geographical_location.csv")
+#lat$animal_project_code <- factor(lat$animal_project_code)
+
+#migration_speed_nontidal_nobarriers <- left_join(migration_speed_nontidal_nobarriers, lat, by = "animal_project_code")
+
+# Plot
+ggplot(migration_speed_nontidal_nobarriers, aes(x= release_latitude, y=speed_ms)) + 
+  geom_point() +
+  ylab("Migration speed (m/s)") + 
+  xlab("Latitude") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22)) +
+  geom_smooth(method='lm')
+
+# Linear regression
+lm_geo <- lm(speed_ms ~ release_latitude, data = migration_speed_nontidal_nobarriers) # Create the linear regression
+summary(lm_geo)
+
+par(mfrow = c(2, 2))
+plot(lm_geo)
+dev.off()
+plot(lm_geo$residuals, pch = 16, col = "red")  # residuals should look random
+shapiro.test(residuals(lm_geo))
+
+
+# Approach to simply use projects as these have a specific geographical location
+# Plot
+ggplot(migration_speed_nontidal_nobarriers, aes(x=animal_project_code, y=speed_ms)) + 
+  geom_boxplot() +
+  #scale_fill_brewer(palette="Dark2") +
+  ylab("Migration speed (m/s)") + 
+  xlab("Animal project code") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue", show.legend = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+
+
+# Conduct ANOVA or non-parametric alternative
+
+# Check normality
+qqnorm(migration_speed_nontidal_nobarriers$speed_ms)
+qqline(migration_speed_nontidal_nobarriers$speed_ms)
+
+shapiro.test(migration_speed_nontidal_nobarriers$speed_ms)
+
+# Check homogeneity of variances
+# Levene’s test
+# Levene’s test is used to assess whether the variances of two or more populations are equal.
+# https://www.datanovia.com/en/lessons/homogeneity-of-variance-test-in-r/
+# When p > 0.05, there is no significant difference between the two variances.
+car::leveneTest(speed_ms ~ animal_project_code, data = migration_speed_nontidal_nobarriers)
+
+## Conduct one-way ANOVA ####
+aov <- aov(migration_speed_nontidal_nobarriers$speed_ms ~ migration_speed_nontidal_nobarriers$animal_project_code)
+summary(aov)
+
+anova <- oneway.test(migration_speed_nontidal_nobarriers$speed_ms ~ migration_speed_nontidal_nobarriers$animal_project_code, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
+anova
+
+# Check assumptions
+par(mfrow=c(2,2))
+plot(aov)
+dev.off
+
+# Post-hoc test for equal variances
+TukeyHSD(aov)
+
+# Post-hoc test for unequal variances
+posthocTGH(migration_speed_nontidal_nobarriers$speed_ms, migration_speed_nontidal_nobarriers$animal_project_code, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
+
+## Kruskal-Wallis test when data is not normally distributed ####
+kruskal.test(migration_speed_nontidal_nobarriers$speed_ms ~ migration_speed_nontidal_nobarriers$animal_project_code)
+#posthoc.kruskal.dunn.test(x=migration_speed_nontidal_nobarriers$animal_project_code, g=migration_speed_nontidal_nobarriers$speed_ms, p.adjust.method="bonferroni")
+FSA::dunnTest(migration_speed_nontidal_nobarriers$speed_ms ~ migration_speed_nontidal_nobarriers$animal_project_code, data=migration_speed_nontidal_nobarriers, method="bonferroni")
+
+
