@@ -337,3 +337,20 @@ ggplot(migration_speed_nontidal, aes(x=animal_project_code, y=speed_ms, fill = b
     axis.title.y = element_text(size = 22))
 
 
+ggplot(migration_speed_nontidal, aes(x=barrier_type, y=speed_ms)) + 
+geom_boxplot() +
+  #scale_fill_brewer(palette="Dark2") +
+  ylab("Migration speed (m/s)") + 
+  xlab("Barrier type") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue", show.legend = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+
