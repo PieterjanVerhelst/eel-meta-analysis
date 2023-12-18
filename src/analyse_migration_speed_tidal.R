@@ -135,13 +135,13 @@ wilcox.test(speed_ms ~ sex, data = sex_project)
 
 # 5. Geographical location analysis ####
 # Add latitude to dataset
-lat <- read_csv("./data/external/project_geographical_location.csv")
-lat$animal_project_code <- factor(lat$animal_project_code)
+#lat <- read_csv("./data/external/project_geographical_location.csv")
+#lat$animal_project_code <- factor(lat$animal_project_code)
 
-migration_speed_tidal <- left_join(migration_speed_tidal, lat, by = "animal_project_code")
+#migration_speed_tidal <- left_join(migration_speed_tidal, lat, by = "animal_project_code")
 
 # Plot
-ggplot(migration_speed_tidal, aes(x=latitude, y=speed_ms)) + 
+ggplot(migration_speed_tidal, aes(x= release_latitude, y=speed_ms)) + 
   geom_point() +
   ylab("Migration speed (m/s)") + 
   xlab("Latitude") +
@@ -159,7 +159,7 @@ ggplot(migration_speed_tidal, aes(x=latitude, y=speed_ms)) +
   geom_smooth(method='lm')
 
 # Linear regression
-lm_geo <- lm(speed_ms ~ latitude, data = migration_speed_tidal) # Create the linear regression
+lm_geo <- lm(speed_ms ~ release_latitude, data = migration_speed_tidal) # Create the linear regression
 summary(lm_geo)
 
 par(mfrow = c(2, 2))
