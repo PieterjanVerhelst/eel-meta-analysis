@@ -1,0 +1,20 @@
+water_body,migrants,successful_migrants,successful_proportion,barrier_type,barrier_number
+Scheldt,86,78,91,none,0
+Leopold canal,56,36,64,pump,2
+Albert canal,132,26,20,shipping lock,8
+Grote Nete,34,34,100,none,0
+Gudena,59,20,34,none,0
+Grand Lieu Lake,12,10,83,weir,3
+Loire,50,50,100,none,0
+Warnow,107,86,80,weir,1
+Nemunas,23,10,43,none,0
+Nemunas,10,9,90,hydropower,1
+Alta,23,23,100,none,0
+Mondego,20,18,90,weir,6
+Noordzeekanaal,142,90,63,pump,tbd
+Meuse,584,283,48,hydropower,7
+Markiezaatsmeer,14,12,86,weir,2
+Suderpolder,3,0,0,shipping lock,1
+Stour,95,92,97,weir,5
+Frome,47,46,98,weir,2
+Nene,19,15,79,weir,9
