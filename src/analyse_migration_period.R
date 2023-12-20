@@ -1,0 +1,114 @@
+# Analyse period of migration
+# By Pieterjan Verhelst (INBO)
+# pieterjan.verhelst@inbo.be
+
+
+source("src/process_migration_data.R")
+
+
+# 1. Load data with habitat info and join to dataset ####
+habitats <- read_csv("./data/external/habitats.csv")
+habitats <- habitats %>%
+  mutate_at(c('animal_project_code', 'station_name', 'habitat_type', 'habitat_type2', 'habitat_type3'), as.factor) %>%
+  select(animal_project_code, station_name, habitat_type, habitat_type2, habitat_type3)
+
+data <- left_join(data, habitats, by = c("animal_project_code", "station_name"))
+
+
+# 2. Rename animal_project_code to river or estuary names ####
+data$animal_project_code <- recode_factor(data$animal_project_code, 
+                                                     'mondego' = "Mondego",
+                                                     'esgl' = "Grand Lieu Lake",
+                                                     '2011_loire' = "Loire",
+                                                     '2014_frome' = "Frome",
+                                                     '2012_leopoldkanaal' = "Leopold Canal",
+                                                     '2015_phd_verhelst_eel' = "Scheldt",
+                                                     'dak_markiezaatsmeer' = "Markiezaatsmeer",
+                                                     '2019_grotenete' = "Grote Nete",
+                                                     '2013_albertkanaal' = "Albert Canal",
+                                                     'nedap_meuse' = "Meuse",
+                                                     '2013_stour' = "Stour",
+                                                     'noordzeekanaal' = "Noordzeekanaal",
+                                                     '2014_nene' = "Nene",
+                                                     'dak_superpolder' = "Suderpolder",
+                                                     '2004_gudena' = "Gudena",
+                                                     '2011_warnow' = "Warnow",
+                                                     'semp' = "Nemunas",
+                                                     'emmn' = "Alta")
+
+
+
+
+
+# 3. Link size and sex to the dataset  ####
+eel <- read_csv("./data/interim/eel_meta_data.csv")
+eel <- eel %>%
+  mutate_at(c('acoustic_tag_id', 'animal_project_code', 'life_stage'), as.factor)
+eel$length1 <- as.numeric(eel$length1)
+eel$weight <- as.numeric(eel$weight)
+
+eel <- eel[!(eel$animal_project_code == "life4fish" & eel$acoustic_tag_id == "7422"),]# Remove eel with ID 7422 from project (life4fish) since there is another eel with same ID in project nedap_meuse (Meuse)
+eel <- select(eel, 
+              animal_project_code, 
+              release_date_time, 
+              acoustic_tag_id,
+              length1,
+              weight,
+              sex,
+              life_stage,
+              release_latitude, 
+              release_longitude)
+
+# Only keep eels in the dataset
+eel <- subset(eel, acoustic_tag_id %in% data$acoustic_tag_id)
+
+# Join eel metadata to tidal dataset
+data <- left_join(data, eel, by = "acoustic_tag_id")
+data <- rename(data, animal_project_code = animal_project_code.x)
+data$animal_project_code.y <- NULL
+
+
+# 4. Extract first record per migration == TRUE (= period of migration) ####
+period <- data%>%
+  group_by(acoustic_tag_id) %>%
+  arrange(arrival) %>%
+  filter(row_number()==1)
+
+# Identify day number of the year based on departure date (= when an eel migrated away from the station)
+period$daynumber <- yday(period$departure)
+period$daynumber <- factor(period$daynumber)
+
+# Calculate summary
+period_summary <- period %>%
+  #group_by(animal_project_code, daynumber) %>%
+  group_by(daynumber) %>%
+   count()
+
+# Create dataset for barplot
+plot_data <- data.frame (daynumber  = 1:366)
+plot_data$daynumber <- factor(plot_data$daynumber)
+plot_data <- left_join(plot_data, period_summary, by = "daynumber")
+plot_data <- replace(plot_data, is.na(plot_data), 0)  # Replace NAs with 0s
+
+
+# Create barplot with number of eels per day number
+ggplot(period_summary, aes(x=daynumber, y=n)) + 
+  geom_bar(stat="identity") +
+  ylab("Number of eels") + 
+  xlab("Day of the year") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+
+
+
+
+
+
+
