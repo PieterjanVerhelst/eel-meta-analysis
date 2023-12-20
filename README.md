@@ -84,9 +84,6 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 17. `analyse_migration_speed_nontidal.R`: Analyse the migration speed in **non-tidal areas** according to size, sex, geographical location, migration barrier number and type
 
 
-16. `migration_month.R`: Identify months when migration starts and ends
-
-
 
 
 ### Figures
