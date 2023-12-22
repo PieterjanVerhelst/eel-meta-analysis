@@ -79,7 +79,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ 11a. `identify_migration_functions.R`: functions to identify migration.
 12. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
 13. `process_migration_data.R`: Process migration data by combining the datasets of the different studies and calculate the number of migratory eels per study
-14. `identify_migration_success.R`: Identify migration success as successful escapement to the sea
+14. `identify_escapement_success.R`: Identify migration success as successful escapement to the sea
 		- --> Generate successful_migrants_final_detection.csv interim dataset with final record per eel that successfully escaped to the sea. This will be used in the script `analyse_migration_period.R`.
 15. `analyse_escapement_success.R`: Analyse the successful escapement to the sea according to migration barrier types, including fishing, and number
 16. `analyse_migration_period.R`: Analyse the moment (day of year) when eels started to migrate and the moment when they reached the sea in relation to size and geographical location
