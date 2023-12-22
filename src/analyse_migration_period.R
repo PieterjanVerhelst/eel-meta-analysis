@@ -68,6 +68,8 @@ data <- rename(data, animal_project_code = animal_project_code.x)
 data$animal_project_code.y <- NULL
 
 
+# FIRST RECORD ####
+
 # 4. Extract first record per migration == TRUE (= period of migration) ####
 period <- data%>%
   group_by(acoustic_tag_id) %>%
@@ -182,6 +184,31 @@ ggplot(period, aes(x= release_latitude , y=daynumber)) +
     axis.text.y = element_text(size = 12, colour = "black"),
     axis.title.y = element_text(size = 12)) +
   geom_smooth(method='lm')
+
+
+
+
+# FINAL RECORD OF MIGRATION SUCCESS ####
+
+# Identify for each project the final record of migration success
+subset <- filter(data, animal_project_code == "Warnow")
+period2 <- subset%>%
+  group_by(acoustic_tag_id) %>%
+  arrange(desc(arrival)) %>%
+  filter(row_number()==1)
+
+gudena_success <- filter(period2, distance_to_source_m > 47000)
+scheldt_success <- filter(period2, distance_to_source_m > 50000)
+leopold_success <- filter(period2, distance_to_source_m > 13000)
+albert_success <- filter(period2, distance_to_source_m > 110000)
+grotenete_success <- filter(period2, distance_to_source_m > 80000)
+grandlieulake_success <- filter(period2, distance_to_source_m > 20000)
+loire_success <- filter(period2, distance_to_source_m > 80000)
+warnow_success <- filter(period2, distance_to_source_m > 40000)
+
+
+
+
 
 
 
