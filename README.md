@@ -36,6 +36,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN, Stour project and NEDAP project
 	+ `eel_meta_data.csv`: cleaned dataset containing the eel meta data from ETN and Stour project
 	+ `detection_data.csv`: cleaned dataset containing the detection data from ETN and Stour project
+        + `successful_migrants_final_detection.csv`: file with last detections of successful migrants (= eels considered to escape to the sea)
 	+ `/receivernetworks`: folder containing the generated files with the receiver networks per project
 	+ `/residencies`: folder containing the residency datasets, calculated via the `smooth_eel_tracks.R` code
 	+ `/speed`: folder containing the speed datasets, calculated via the `calculate_speed.R` code
@@ -79,7 +80,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 12. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
 13. `process_migration_data.R`: Process migration data by combining the datasets of the different studies and calculate the number of migratory eels per study
 14. `identify_migration_success.R`: Identify migration success as successful escapement to the sea
-		- --> Generate interim dataset with final record per eel that successfully escaped to the sea. This will be used in the script `analyse_migration_period.R`.
+		- --> Generate successful_migrants_final_detection.csv interim dataset with final record per eel that successfully escaped to the sea. This will be used in the script `analyse_migration_period.R`.
 15. `analyse_escapement_success.R`: Analyse the successful escapement to the sea according to migration barrier types, including fishing, and number
 16. `analyse_migration_period.R`: Analyse the moment (day of year) when eels started to migrate and the moment when they reached the sea in relation to size and geographical location
 17. `calculate_migration_speed_overall.R`: Calculate the migration speed as the speed between the first and last detection and relate it to geographical position, habitat, size and sex
