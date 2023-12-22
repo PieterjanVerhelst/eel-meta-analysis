@@ -193,7 +193,7 @@ ggplot(period, aes(x= release_latitude , y=daynumber)) +
 # Identify for each project the final record of migration success
 # The number of lines in each 'waterbody'_success data set equals the number of successful migrants
 # This info is used to generate the file "./data/external/escapement_success.csv"
-subset <- filter(data, animal_project_code == "Albert Canal")
+subset <- filter(data, animal_project_code == "Nene")
 period2 <- subset%>%
   group_by(acoustic_tag_id) %>%
   arrange(desc(arrival)) %>%
