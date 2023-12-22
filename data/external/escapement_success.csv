@@ -3,7 +3,7 @@ Scheldt,86,76,88,none,no,0
 Leopold canal,56,36,64,pump,no,2
 Albert canal,132,25,19,shipping_lock,no,8
 Grote Nete,34,34,100,none,no,0
-Gudena,59,20,34,none_fishing,yes,0
+Gudena,59,20,34,none,yes,0
 Grand Lieu Lake,12,10,83,weir,yes,3
 Loire,50,50,100,none,yes,0
 Warnow,107,87,81,weir,yes,1
@@ -11,10 +11,10 @@ Nemunas,22,12,55,none,yes,0
 Nemunas,11,10,91,hydropower,yes,1
 Alta,23,23,100,none,no,0
 Mondego,20,18,90,weir,no,6
-Noordzeekanaal,142,86,61,pump_fishing,no,tbd
-Meuse,324,186,57,hydropower_fishing,yes,7
+Noordzeekanaal,142,86,61,pump,no,tbd
+Meuse,324,186,57,hydropower,yes,7
 ,260,97,37,hydropower,no,7
-Markiezaatsmeer,14,11,79,weir_fishing,yes,2
+Markiezaatsmeer,14,11,79,weir,yes,2
 Suderpolder,3,0,0,shipping_lock,no,1
 Stour,95,92,97,weir,,5
 Frome,47,46,98,weir,no,2
