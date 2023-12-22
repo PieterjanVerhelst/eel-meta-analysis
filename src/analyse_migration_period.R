@@ -192,16 +192,75 @@ ggplot(period, aes(x= release_latitude , y=daynumber)) +
 
 # Identify for each project the final record of migration success
 # The number of lines in each 'waterbody'_success data set equals the number of successful migrants
-subset <- filter(data, animal_project_code == "Nene")
+subset <- filter(data, animal_project_code == "Albert Canal")
 period2 <- subset%>%
   group_by(acoustic_tag_id) %>%
   arrange(desc(arrival)) %>%
   filter(row_number()==1)
 
 gudena_success <- filter(period2, distance_to_source_m > 47000)
-scheldt_success <- filter(period2, distance_to_source_m > 50000)  # to check
-leopold_success <- filter(period2, distance_to_source_m > 13000)  # to check
-albert_success <- filter(period2, distance_to_source_m > 110000)  # to check
+scheldt_success <- filter(period2, station_name == "ws-DL7"|
+                            station_name == "ws-2C"|
+                            station_name == "ws-TRAWL"|
+                            station_name == "ws-6"|
+                            station_name == "ws-25A"|
+                            station_name == "ws-11"|
+                            station_name == "ws-borssele"|
+                            station_name == "ws-WN2"|
+                            station_name == "ws-HW6"|
+                            station_name == "ws-PVTSS"|
+                            station_name == "ws-12A"|
+                            station_name == "ws-53A"|
+                            station_name == "ws-GVWSP"|
+                            station_name == "ws-55"|
+                            station_name == "ws-DL9"|
+                            station_name == "ws-42A"|
+                            station_name == "ws-W6"|
+                            station_name == "ws-13"|
+                            station_name == "ws-15A"|
+                            station_name == "ws-OG10"|
+                            station_name == "ws-SP3"|
+                            station_name == "ws-W7"|
+                            station_name == "ws-16"|
+                            station_name == "s-11"|
+                            station_name == "s-12"|
+                            station_name == "s-STD3")
+leopold_success <- filter(period2, station_name == "bh-1"|
+                            station_name == "ws-PPC"|
+                            station_name == "ws-A5"|
+                            station_name == "ws-4"|
+                            station_name == "ws-25"|
+                            station_name == "ws-11"|
+                            station_name == "ws-6"|
+                            station_name == "ws-15A"|
+                            station_name == "ws-18"|
+                            station_name == "ws-15"|
+                            station_name == "ws-25B"|
+                            station_name == "ws-PVTSS"|
+                            station_name == "ws-K"|
+                            station_name == "ws-A3"|
+                            station_name == "ws-2C"|
+                            station_name == "ws-13"|
+                            station_name == "ws-12A"|
+                            station_name == "ws-A1"|
+                            station_name == "ws-23")
+albert_success <- filter(period2, station_name == "s-12"|
+                            station_name == "ws-WN2"|
+                            station_name == "ws-PVTSS"|
+                            station_name == "ws-2C"|
+                            station_name == "ws-11"|
+                            station_name == "ws-HW6"|
+                            station_name == "ws-OGDL"|
+                            station_name == "ws-53A"|
+                            station_name == "ws-53"|
+                            station_name == "ws-DL9"|
+                            station_name == "ws-DL7"|
+                            station_name == "ws-GVWSP"|
+                            station_name == "ws-42A"|
+                            station_name == "ws-SP3"|
+                            station_name == "ws-TRAWL"|
+                            station_name == "ws-18"|
+                            station_name == "ws-STEEN")
 grotenete_success <- filter(period2, distance_to_source_m > 80000)
 grandlieulake_success <- filter(period2, distance_to_source_m > 20000)
 loire_success <- filter(period2, distance_to_source_m > 80000)
