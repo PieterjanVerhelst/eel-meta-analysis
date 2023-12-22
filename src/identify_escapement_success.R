@@ -34,14 +34,14 @@ data$animal_project_code <- recode_factor(data$animal_project_code,
 # 2. Identify for each project the final record of migration ####
 # The number of lines in each 'waterbody'_success data set equals the number of successful migrants
 # This info is used to generate the file "./data/external/escapement_success.csv"
-subset <- filter(data, animal_project_code == "Nene")
-period2 <- subset%>%
+subset <- filter(data, animal_project_code == "Grote Nete")
+period <- subset%>%
   group_by(acoustic_tag_id) %>%
   arrange(desc(arrival)) %>%
   filter(row_number()==1)
 
-gudena_success <- filter(period2, distance_to_source_m > 47000)
-scheldt_success <- filter(period2, station_name == "ws-DL7"|
+gudena_success <- filter(period, distance_to_source_m > 47000)
+scheldt_success <- filter(period, station_name == "ws-DL7"|
                             station_name == "ws-2C"|
                             station_name == "ws-TRAWL"|
                             station_name == "ws-6"|
@@ -67,7 +67,7 @@ scheldt_success <- filter(period2, station_name == "ws-DL7"|
                             station_name == "s-11"|
                             station_name == "s-12"|
                             station_name == "s-STD3")
-leopold_success <- filter(period2, station_name == "bh-1"|
+leopold_success <- filter(period, station_name == "bh-1"|
                             station_name == "ws-PPC"|
                             station_name == "ws-A5"|
                             station_name == "ws-4"|
@@ -86,7 +86,7 @@ leopold_success <- filter(period2, station_name == "bh-1"|
                             station_name == "ws-12A"|
                             station_name == "ws-A1"|
                             station_name == "ws-23")
-albert_success <- filter(period2, station_name == "s-12"|
+albert_success <- filter(period, station_name == "s-12"|
                            station_name == "ws-WN2"|
                            station_name == "ws-PVTSS"|
                            station_name == "ws-2C"|
@@ -103,17 +103,17 @@ albert_success <- filter(period2, station_name == "s-12"|
                            station_name == "ws-TRAWL"|
                            station_name == "ws-18"|
                            station_name == "ws-STEEN")
-grotenete_success <- filter(period2, distance_to_source_m > 80000)
-grandlieulake_success <- filter(period2, distance_to_source_m > 40000)
-loire_success <- filter(period2, distance_to_source_m > 80000)
-warnow_success <- filter(period2, distance_to_source_m > 40000)
-nemunas_success <- filter(period2, station_name == "klaipeda-1"|
+grotenete_success <- filter(period, distance_to_source_m > 100000)
+grandlieulake_success <- filter(period, distance_to_source_m > 40000)
+loire_success <- filter(period, distance_to_source_m > 80000)
+warnow_success <- filter(period, distance_to_source_m > 40000)
+nemunas_success <- filter(period, station_name == "klaipeda-1"|
                             station_name == "klaipeda-2"|
                             station_name == "klaipeda-3"|
                             station_name == "klaipeda-4")
-alta_success <- filter(period2, distance_to_source_m > 6000)
-mondego_success <- filter(period2, distance_to_source_m > 65000)
-noordzeekanaal_success <- filter(period2, 
+alta_success <- filter(period, distance_to_source_m > 6000)
+mondego_success <- filter(period, distance_to_source_m > 65000)
+noordzeekanaal_success <- filter(period, 
                                  #station_name == "Grote sluis NZK"|
                                  #station_name == "Middensluis NZK"|
                                  station_name == "Grote sluis Noordzee"|
@@ -122,12 +122,12 @@ noordzeekanaal_success <- filter(period2,
                                    #station_name == "Spuisluis NZK"|
                                    #station_name == "Kleine sluis NZK"|
                                    station_name == "Middensluis Noordzee")
-meuse_success <- filter(period2, distance_to_source_m > 172500)
-markiezaatsmeer_success <- filter(period2, distance_to_source_m > 15000)
-suderpolder_success <- filter(period2, station_name == "Suderpolder-7")
-stour_success <- filter(period2, distance_to_source_m > 15000)
-frome_success <- filter(period2, distance_to_source_m > 12000)
-nene_success <- filter(period2, distance_to_source_m > 80000)
+meuse_success <- filter(period, distance_to_source_m > 172500)
+markiezaatsmeer_success <- filter(period, distance_to_source_m > 15000)
+suderpolder_success <- filter(period, station_name == "Suderpolder-7")
+stour_success <- filter(period, distance_to_source_m > 15000)
+frome_success <- filter(period, distance_to_source_m > 12000)
+nene_success <- filter(period, distance_to_source_m > 80000)
 
 
 # 3. Create file with final record per successful eel ####
