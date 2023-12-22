@@ -82,7 +82,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 14. `identify_escapement_success.R`: Identify migration success as successful escapement to the sea
 		- --> Generate successful_migrants_final_detection.csv interim dataset with final record per eel that successfully escaped to the sea. This will be used in the script `analyse_migration_period.R`.
 15. `analyse_escapement_success.R`: Analyse the successful escapement to the sea according to migration barrier types, including fishing, and number
-16. `analyse_migration_period.R`: Analyse the moment (day of year) when eels started to migrate and the moment when they reached the sea in relation to size and geographical location
+16. `analyse_migration_period.R`: Analyse the period of migration by relating the first day as migration and last day as (successul) migration to size and geographical location
 17. `calculate_migration_speed_overall.R`: Calculate the migration speed as the speed between the first and last detection and relate it to geographical position, habitat, size and sex
 18. `calculate_migration_speed_habitats.R`: Calculate the migration speed according to habitat type and analyse difference between tidal vs non-tidal habitats
 19. `analyse_migration_speed_tidal.R`: Analyse the migration speed in **tidal areas** according to size, sex and geographical location
