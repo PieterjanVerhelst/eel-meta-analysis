@@ -191,24 +191,42 @@ ggplot(period, aes(x= release_latitude , y=daynumber)) +
 # FINAL RECORD OF MIGRATION SUCCESS ####
 
 # Identify for each project the final record of migration success
-subset <- filter(data, animal_project_code == "Warnow")
+# The number of lines in each 'waterbody'_success data set equals the number of successful migrants
+subset <- filter(data, animal_project_code == "Nene")
 period2 <- subset%>%
   group_by(acoustic_tag_id) %>%
   arrange(desc(arrival)) %>%
   filter(row_number()==1)
 
 gudena_success <- filter(period2, distance_to_source_m > 47000)
-scheldt_success <- filter(period2, distance_to_source_m > 50000)
-leopold_success <- filter(period2, distance_to_source_m > 13000)
-albert_success <- filter(period2, distance_to_source_m > 110000)
+scheldt_success <- filter(period2, distance_to_source_m > 50000)  # to check
+leopold_success <- filter(period2, distance_to_source_m > 13000)  # to check
+albert_success <- filter(period2, distance_to_source_m > 110000)  # to check
 grotenete_success <- filter(period2, distance_to_source_m > 80000)
 grandlieulake_success <- filter(period2, distance_to_source_m > 20000)
 loire_success <- filter(period2, distance_to_source_m > 80000)
 warnow_success <- filter(period2, distance_to_source_m > 40000)
-
-
-
-
+nemunas_success <- filter(period2, station_name == "klaipeda-1"|
+                          station_name == "klaipeda-2"|
+                          station_name == "klaipeda-3"|
+                          station_name == "klaipeda-4")
+alta_success <- filter(period2, distance_to_source_m > 6000)
+mondego_success <- filter(period2, distance_to_source_m > 65000)
+noordzeekanaal_success <- filter(period2, 
+                            #station_name == "Grote sluis NZK"|
+                            #station_name == "Middensluis NZK"|
+                            station_name == "Grote sluis Noordzee"|
+                            station_name == "Spuisluis Noordzee"|
+                              station_name == "Kleine sluis Noordzee"|
+                              #station_name == "Spuisluis NZK"|
+                              #station_name == "Kleine sluis NZK"|
+                              station_name == "Middensluis Noordzee")
+meuse_success <- filter(period2, distance_to_source_m > 172500)
+markiezaatsmeer_success <- filter(period2, distance_to_source_m > 15000)
+suderpolder_success <- filter(period2, station_name == "Suderpolder-7")
+stour_success <- filter(period2, distance_to_source_m > 15000)
+frome_success <- filter(period2, distance_to_source_m > 12000)
+nene_success <- filter(period2, distance_to_source_m > 80000)
 
 
 
