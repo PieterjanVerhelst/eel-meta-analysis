@@ -112,9 +112,9 @@ ggplot(plot_data, aes(x=daynumber, y=n, fill = animal_project_code)) +
                              "pink",
                              "deeppink",
                              "#276DC2",
-                             "red",
-                             "black",
                              "honeydew3",
+                             "black",
+                             "red",
                              "magenta",
                              "lightcyan"
                              ),
@@ -237,9 +237,9 @@ ggplot(plot_data, aes(x=daynumber, y=n, fill = animal_project_code)) +
                              "pink",
                              "deeppink",
                              "#276DC2",
-                             #"red",   # One colour can be removed since Suderpolder is not in this graph
+                             #"honeydew3",   # One colour can be removed since Suderpolder is not in this graph
                              "black",
-                             "honeydew3", 
+                             "red", 
                              "magenta",
                              "lightcyan"
   ),
