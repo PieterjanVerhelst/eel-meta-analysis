@@ -337,12 +337,10 @@ period_duration$migration_period_duration <- as.numeric(period_duration$migratio
 boxplot(period_duration$migration_period_duration)
 
 
-# 12. Size analysis  ####
-
 # Plot
 ggplot(period_duration, aes(x=animal_project_code, y=migration_period_duration)) + 
   geom_boxplot() +
-  ylab("Migration speed (m/s)") + 
+  ylab("Migration period duration (days)") + 
   xlab("Water body") +
   stat_summary(fun = "mean", geom = "point", #shape = 8,
                size = 4, color = "blue", show.legend = FALSE) +
@@ -352,9 +350,9 @@ ggplot(period_duration, aes(x=animal_project_code, y=migration_period_duration))
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
 
 
 
