@@ -57,7 +57,7 @@ eel <- select(eel,
               release_latitude, 
               release_longitude)
 
-# Only keep eels in the dataset
+# Only keep eels in the dataset from the telemetry dataset
 eel <- subset(eel, acoustic_tag_id %in% data$acoustic_tag_id)
 
 # Join eel metadata to the dataset
