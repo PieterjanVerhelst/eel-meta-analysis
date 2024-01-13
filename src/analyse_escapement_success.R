@@ -31,8 +31,7 @@ ggplot(escape, aes(x=barrier_type, y=successful_proportion)) +
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16))
 
-
-# Plot
+# Plot also including fishing
 ggplot(escape, aes(x=barrier_type, y=successful_proportion, fill = fishing)) + 
   geom_boxplot() +
   scale_fill_brewer(palette="Dark2") +
@@ -49,7 +48,6 @@ ggplot(escape, aes(x=barrier_type, y=successful_proportion, fill = fishing)) +
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16))
-
 
 
 
