@@ -329,3 +329,32 @@ dim(end_period2)
 period_duration <- left_join(start_period, end_period2, by = "acoustic_tag_id")
 dim(period_duration)
 
+
+# 11. Calculate migration period duration ####
+period_duration$migration_period_duration <- difftime(period_duration$end_departure, period_duration$start_departure, units = "days")
+period_duration$migration_period_duration <- as.numeric(period_duration$migration_period_duration)
+
+boxplot(period_duration$migration_period_duration)
+
+
+# 12. Size analysis  ####
+
+# Plot
+ggplot(period_duration, aes(x=animal_project_code, y=migration_period_duration)) + 
+  geom_boxplot() +
+  ylab("Migration speed (m/s)") + 
+  xlab("Water body") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue", show.legend = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 22),
+    axis.text.y = element_text(size = 22, colour = "black"),
+    axis.title.y = element_text(size = 22))
+
+
+
