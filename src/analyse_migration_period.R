@@ -285,7 +285,7 @@ ggplot(end_period, aes(x= daynumber, y=length1)) +
 
 
 
-# 4. Geographical location analysis ####
+# 9. Geographical location analysis ####
 
 # Plot
 end_period$daynumber <- as.numeric(end_period$daynumber)
@@ -307,4 +307,25 @@ ggplot(end_period, aes(x= release_latitude , y=daynumber)) +
     axis.title.y = element_text(size = 12)) +
   geom_smooth(method='lm')
 
+
+# SUCCESSFUL MIGRATION PERIOD DURATION: DURATION PERIOD BETWEEN FIRST DAY OF MIGRATION AND FINAL DAY WHEN ESCAPED TO THE SEA ####
+
+# 10. Merge first stay with last day ####
+start_period <- period %>%
+  select(acoustic_tag_id, animal_project_code, arrival, departure, length1, weight, sex, release_latitude, release_longitude) %>%
+  rename(start_arrival = arrival,
+         start_departure = departure)
+
+end_period2 <- end_period %>%
+  select(acoustic_tag_id, arrival, departure) %>%
+  rename(end_arrival = arrival,
+         end_departure = departure)
+
+# Only keep eels in the start_period dataset that successfully reached the sea, so eels in end_period dataset
+start_period <- subset(start_period, acoustic_tag_id %in% end_period2$acoustic_tag_id)
+dim(start_period)
+dim(end_period2)
+
+period_duration <- left_join(start_period, end_period2, by = "acoustic_tag_id")
+dim(period_duration)
 
