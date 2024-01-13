@@ -36,6 +36,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN, Stour project and NEDAP project
 	+ `eel_meta_data.csv`: cleaned dataset containing the eel meta data from ETN and Stour project
 	+ `detection_data.csv`: cleaned dataset containing the detection data from ETN and Stour project
+        + `successful_migrants_final_detection.csv`: file with last detections of successful migrants (= eels considered to escape to the sea)
 	+ `/receivernetworks`: folder containing the generated files with the receiver networks per project
 	+ `/residencies`: folder containing the residency datasets, calculated via the `smooth_eel_tracks.R` code
 	+ `/speed`: folder containing the speed datasets, calculated via the `calculate_speed.R` code
@@ -48,6 +49,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ `habitats.csv`: file with the classification of the habitats linked to the detections stations, i.e. freshwater, tidal freshwater, tidal brackish, marine barrier and marine.
 	+ `migrationbarriers.csv`: qualification of barrier impact per project/river. The impact was scored with 0 (no impact), 1 (minimal impact) and 2 (severe impact). This scoring was based on the type of barriers on the migration route of the eels: weirs (1), sluice gates (1), shipping locks (2), hydropower (2) and pumps (2).
 	+ `eels_barrier_number.csv`: the number of barriers eels need to pass to reach the sea.
+	+ `project_geographical_location.csv`: latitude of the different projects
 
 ### Scripts
 
@@ -77,10 +79,14 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ 11a. `identify_migration_functions.R`: functions to identify migration.
 12. `create_distance_plot.R`: Create plots with travelled distance per eel and store as .pdf
 13. `process_migration_data.R`: Process migration data by combining the datasets of the different studies and calculate the number of migratory eels per study
-14. `calculate_migration_speed_overall.R`: Calculate the migration speed as the speed between the first and last detection and relate it to geographical position, habitat, size and sex
-15. `calculate_migration_speed_habitats.R`: Calculate the migration speed according to habitat type
-16. `migration_month.R`: Identify months when migration starts and ends
-
+14. `identify_escapement_success.R`: Identify migration success as successful escapement to the sea
+		- --> Generate successful_migrants_final_detection.csv interim dataset with final record per eel that successfully escaped to the sea. This will be used in the script `analyse_migration_period.R`.
+15. `analyse_escapement_success.R`: Analyse the successful escapement to the sea according to migration barrier types, including fishing, and number
+16. `analyse_migration_period.R`: Analyse the period of migration by relating the first day as migration and last day as (successul) migration to size and geographical location
+17. `calculate_migration_speed_overall.R`: Calculate the migration speed as the speed between the first and last detection and relate it to geographical position, habitat, size and sex
+18. `calculate_migration_speed_habitats.R`: Calculate the migration speed according to habitat type and analyse difference between tidal vs non-tidal habitats
+19. `analyse_migration_speed_tidal.R`: Analyse the migration speed in **tidal areas** according to size, sex and geographical location
+20. `analyse_migration_speed_nontidal.R`: Analyse the migration speed in **non-tidal areas** according to size, sex, geographical location, migration barrier number and type
 
 
 

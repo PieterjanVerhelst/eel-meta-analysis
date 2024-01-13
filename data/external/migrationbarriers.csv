@@ -1,19 +1,19 @@
 animal_project_code,barrier_impact,weir,sluice_gate,shipping_lock,hydropower,pump,barrier_type
-mondego,1,1,,,,,weir
-esgl,1,1,1,,,,weir
-2011_loire,0,,,,,,none
-2014_frome,1,1,,,,,weir
-2012_leopoldkanaal,2,1,1,,,1,pump
-2015_phd_verhelst_eel,0,,,,,,none
-dak_markiezaatsmeer,2,,1,1,,,weir
-2019_grotenete,0,,,,,,none
-2013_albertkanaal,2,,,1,,,shipping_lock
-nedap_meuse,2,,,1,1,,hydropower
-2013_stour,1,1,,,,,weir
-noordzeekanaal,2,,,1,,1,pump
-2014_nene,1,1,,,,,weir
-dak_superpolder,2,,,1,,,shipping_lock
-2004_gudena,0,,,,,,none
-2011_warnow,1,1,,,,,weir
-semp,2,,,,1,,hydropower
-emmn,0,,,,,,none
+Mondego,1,1,,,,,weir
+Grand Lieu Lake,1,1,1,,,,weir
+Loire,0,,,,,,none
+Frome,1,1,,,,,weir
+Leopold Canal,2,1,1,,,1,pump
+Scheldt,0,,,,,,none
+Markiezaatsmeer,2,,1,1,,,weir
+Grote Nete,0,,,,,,none
+Albert Canal,2,,,1,,,shipping_lock
+Meuse,2,,,1,1,,hydropower
+Stour,1,1,,,,,weir
+Noordzeekanaal,2,,,1,,1,pump
+Nene,1,1,,,,,weir
+Suderpolder,2,,,1,,,shipping_lock
+Gudena,0,,,,,,none
+Warnow,1,1,,,,,weir
+Nemunas,2,,,,1,,hydropower
+Alta,0,,,,,,none
