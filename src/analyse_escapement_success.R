@@ -9,8 +9,9 @@ library(tidyverse)
 escape <- read_csv("./data/external/escapement_success.csv")
 
 escape$barrier_type <- factor(escape$barrier_type)
+escape$fishing <- factor(escape$fishing)
 
-aggregate(escape$successful_proportion, list(escape$barrier_type), mean)
+aggregate(escape$successful_proportion, list(escape$fishing, escape$barrier_type), mean)
 
 # 2. Escapement success and barrier type analysis ####
 ggplot(escape, aes(x=barrier_type, y=successful_proportion)) + 
@@ -26,9 +27,31 @@ ggplot(escape, aes(x=barrier_type, y=successful_proportion)) +
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
+
+
+# Plot
+ggplot(escape, aes(x=barrier_type, y=successful_proportion, fill = fishing)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette="Dark2") +
+  ylab("Successful proportion") + 
+  xlab("Barrier type") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue", show.legend = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
+
+
+
 
 # Conduct ANOVA or non-parametric alternative
 
