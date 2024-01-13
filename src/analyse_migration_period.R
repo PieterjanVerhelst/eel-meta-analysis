@@ -1,4 +1,4 @@
-# Analyse period of migration by relating the first day as migration and last day as (successul) migration to size and geographical location
+# Analyse period of migration by relating the first day as migration and last day as (successful) migration to size and geographical location
 # By Pieterjan Verhelst (INBO)
 # pieterjan.verhelst@inbo.be
 
