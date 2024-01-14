@@ -10,7 +10,7 @@ Grote Nete,0,,,,,,none
 Albert Canal,2,,,1,,,shipping_lock
 Meuse,2,,,1,1,,hydropower
 Stour,1,1,,,,,weir
-Noordzeekanaal,2,,,1,,1,pump
+Noordzeekanaal,2,,,1,,1,shipping_lock
 Nene,1,1,,,,,weir
 Suderpolder,2,,,1,,,shipping_lock
 Gudena,0,,,,,,none
