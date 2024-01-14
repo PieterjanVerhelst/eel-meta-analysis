@@ -52,6 +52,17 @@ migration_speed_nontidal <- migration_speed_nontidal %>%
                                   animal_project_code == "Warnow" ~ "weir",
                                   animal_project_code == "Alta" ~ "none"))
 
+# Two eels from Leopold Canal migrated via a weir instead of a pumping station
+lc_weir_eels <- c("A69-1601-29919","A69-1601-29935")
+
+migration_speed_nontidal <- migration_speed_nontidal %>% mutate(barrier_type=replace(barrier_type, barrier_type=='pump' & acoustic_tag_id %in% lc_weir_eels, "weir"))
+
+# 42 eels from Noordzeekanaal migrated via a pump, followed by a shipping lock instead of only shipping locks
+nz_lock_pump_eels <- c("A69-1602-2973","A69-1602-2974","A69-1602-2975","A69-1602-2976","A69-1602-2980","A69-1602-2981","A69-1602-2983","A69-1602-2988","A69-1602-2989","A69-1602-2991","A69-1602-2996","A69-1602-3004","A69-1602-3023","A69-1602-3048","A69-1602-3067","A69-1602-3077","A69-1602-3079","A69-1602-3080","A69-1602-3083","A69-1602-3084","A69-1602-3086","A69-1602-3087","A69-1602-3091","A69-1602-3093","A69-1602-3095","A69-1602-3096","A69-1602-3097","A69-1602-3098","A69-1602-3099","A69-1602-3100","A69-1602-3101","A69-1602-3103","A69-1602-3104","A69-1602-3106","A69-1602-3108","A69-1602-3109","A69-1602-3110","A69-1602-3111","A69-1602-3115","A69-1602-3116","A69-1602-3117","A69-1602-3118")
+
+migration_speed_nontidal <- migration_speed_nontidal %>% mutate(barrier_type=replace(barrier_type, barrier_type=='shipping_lock' & acoustic_tag_id %in% nz_lock_pump_eels, "shipping_lock_pump"))
+
+
 migration_speed_nontidal <- migration_speed_nontidal %>%
   mutate_at(c('acoustic_tag_id', 'animal_project_code', 'habitat_type3'), as.factor)
 
