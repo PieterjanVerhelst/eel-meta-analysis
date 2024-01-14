@@ -96,10 +96,10 @@ eel <- select(eel,
               release_latitude, 
               release_longitude)
 
-# Only keep eels in the tidal dataset
+# Only keep eels in the non-tidal dataset
 eel <- subset(eel, acoustic_tag_id %in% migration_speed_nontidal$acoustic_tag_id)
 
-# Join eel metadata to tidal dataset
+# Join eel metadata to non-tidal dataset
 migration_speed_nontidal <- left_join(migration_speed_nontidal, eel, by = "acoustic_tag_id")
 migration_speed_nontidal <- rename(migration_speed_nontidal, animal_project_code = animal_project_code.x)
 migration_speed_nontidal$animal_project_code.y <- NULL
