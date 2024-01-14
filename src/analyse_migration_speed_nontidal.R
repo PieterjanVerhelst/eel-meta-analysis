@@ -45,7 +45,7 @@ migration_speed_nontidal <- migration_speed_nontidal %>%
                                   animal_project_code == "Albert Canal" ~ "shipping_lock",
                                   animal_project_code == "Meuse" ~ "hydropower",
                                   animal_project_code == "Stour" ~ "weir",
-                                  animal_project_code == "Noordzeekanaal" ~ "pump",
+                                  animal_project_code == "Noordzeekanaal" ~ "shipping_lock",
                                   animal_project_code == "Nene" ~ "weir",
                                   animal_project_code == "Suderpolder" ~ "shipping_lock",
                                   animal_project_code == "Gudena" ~ "none",
