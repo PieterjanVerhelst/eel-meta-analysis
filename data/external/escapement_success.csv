@@ -12,9 +12,9 @@ Nemunas,22,12,55,none,yes,0
 Nemunas,11,10,91,hydropower,yes,1
 Alta,23,23,100,none,no,0
 Mondego,20,18,90,weir,no,6
-Noordzeekanaal,100,69,69,pump,no,1_2
-Noordzeekanaal,42,21,50,shipping_lock,no,2
-Meuse,324,186,57,shipping_lock_pump,yes,7
+Noordzeekanaal,100,69,69,shipping_lock,no,1_2
+Noordzeekanaal,42,21,50,shipping_lock_pump,no,2
+Meuse,324,186,57,hydropower,yes,7
 Meuse,260,97,37,hydropower,no,7
 Markiezaatsmeer,14,11,79,weir,yes,2
 Suderpolder,3,0,0,shipping_lock,no,1
