@@ -133,6 +133,41 @@ ggplot(plot_data, aes(x=daynumber, y=n, fill = animal_project_code)) +
   scale_x_continuous(breaks = seq(0, 365, by = 30))
 
 
+# Sex analysis 
+# Calculate summary
+period_summary_frome <- period %>%
+  filter(animal_project_code == "Frome") %>%
+  group_by(animal_project_code, sex, daynumber) %>%
+  #group_by(daynumber) %>%
+  count()
+
+plot_data_frome <- data.frame (daynumber  = 1:365)
+plot_data_frome$daynumber <- factor(plot_data_frome$daynumber)
+plot_data_frome <- left_join(plot_data_frome, period_summary_frome, by = "daynumber")
+plot_data_frome <- replace(plot_data_frome, is.na(plot_data_frome), 0)  # Replace NAs with 0s
+plot_data_frome$daynumber <- as.numeric(plot_data_frome$daynumber)
+plot_data_frome$sex <- factor(plot_data_frome$sex)
+
+ggplot(plot_data_frome, aes(x=daynumber, y=n, fill = sex)) + 
+  geom_bar(stat="identity", width = 5) +
+  #scale_fill_brewer(palette="Dark2") +
+  scale_fill_manual(values=c("darkblue", 
+                             "darkgreen"),
+                    limits = c("female", "male")) +
+  ylab("Number of eels") + 
+  xlab("Day of the year") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) +
+  scale_x_continuous(breaks = seq(0, 365, by = 30))
+
+
 
 # 5. Size analysis  ####
 
@@ -255,6 +290,42 @@ ggplot(plot_data, aes(x=daynumber, y=n, fill = animal_project_code)) +
     axis.title.x = element_text(size = 22),
     axis.text.y = element_text(size = 22, colour = "black"),
     axis.title.y = element_text(size = 22)) +
+  scale_x_continuous(breaks = seq(0, 365, by = 30))
+
+
+
+# Sex analysis 
+# Calculate summary
+end_period_summary_frome <- end_period %>%
+  filter(animal_project_code == "Frome") %>%
+  group_by(animal_project_code, sex, daynumber) %>%
+  #group_by(daynumber) %>%
+  count()
+
+plot_data_frome <- data.frame(daynumber  = 1:365)
+plot_data_frome$daynumber <- factor(plot_data_frome$daynumber)
+plot_data_frome <- left_join(plot_data_frome, end_period_summary_frome, by = "daynumber")
+plot_data_frome <- replace(plot_data_frome, is.na(plot_data_frome), 0)  # Replace NAs with 0s
+plot_data_frome$daynumber <- as.numeric(plot_data_frome$daynumber)
+plot_data_frome$sex <- factor(plot_data_frome$sex)
+
+ggplot(plot_data_frome, aes(x=daynumber, y=n, fill = sex)) + 
+  geom_bar(stat="identity", width = 5) +
+  #scale_fill_brewer(palette="Dark2") +
+  scale_fill_manual(values=c("darkblue", 
+                             "darkgreen"),
+                    limits = c("female", "male")) +
+  ylab("Number of eels") + 
+  xlab("Day of the year") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) +
   scale_x_continuous(breaks = seq(0, 365, by = 30))
 
 
