@@ -8,6 +8,7 @@ library(tidyverse)
 # 1. Load data ####
 escape <- read_csv("./data/external/escapement_success.csv")
 
+escape$water_type <- factor(escape$water_type)
 escape$barrier_type <- factor(escape$barrier_type)
 escape$fishing <- factor(escape$fishing)
 
