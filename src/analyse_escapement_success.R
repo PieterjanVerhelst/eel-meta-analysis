@@ -11,8 +11,10 @@ escape <- read_csv("./data/external/escapement_success.csv")
 escape$water_type <- factor(escape$water_type)
 escape$barrier_type <- factor(escape$barrier_type, ordered = TRUE, 
                               levels = c("none", "weir", "shipping_lock", "hydropower", "pump"))
+escape$barrier_type_when_multiple <- factor(escape$barrier_type_when_multiple, ordered = TRUE, 
+                              levels = c("none", "weir", "shipping_lock", "hydropower", "pump_weir", "pump_shipping_lock"))
 escape$fishing <- factor(escape$fishing)
-escape$barrier_impact_score <- as.numeric(escape$barrier_score) * as.numeric(escape$barrier_number)
+#escape$barrier_impact_score <- as.numeric(escape$barrier_score) * as.numeric(escape$barrier_number)
 
 aggregate(escape$successful_proportion, list(escape$fishing, escape$barrier_type), mean)
 
@@ -55,12 +57,13 @@ ggplot(escape, aes(x=barrier_type, y=successful_proportion, fill = fishing)) +
 
 # Plot in function of barrier impact score and fishing
 ggplot(escape, aes(x=barrier_impact_score, y=successful_proportion)) + 
-  geom_point(aes(shape = factor(fishing), colour = factor(barrier_type)), size = 4) +
+  geom_point(aes(shape = factor(fishing), colour = factor(barrier_type_when_multiple)), size = 4) +
   scale_color_manual(values = c("none" = "blue",
                                 "weir" = "lightblue",
                                 "shipping_lock" = "orange",
                                 "hydropower" = "purple",
-                                "pump" = "red")) +
+                                "pump_weir" = "red",
+                                "pump_shipping_lock" = "darkred")) +
   ylab("Successful proportion") + 
   xlab("WRS impact score") +
   #stat_summary(fun = "mean", geom = "point", #shape = 8,

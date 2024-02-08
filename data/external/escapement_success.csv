@@ -1,23 +1,23 @@
-water_body,migrants,successful_migrants,successful_proportion,water_type,barrier_type_when_multiple,barrier_type,barrier_score,fishing,barrier_number
-Scheldt,86,76,88,estuary,none,none,0,no,0
-Leopold canal,54,34,63,polder,pump,pump,4,no,2
-Leopold canal,2,2,100,polder,weir,weir,1,no,1
-Albert canal,132,25,19,canal,shipping_lock,shipping_lock,2,no,8
-Grote Nete,34,33,97,river,none,none,0,no,0
-Gudena,59,20,34,river,none,none,0,yes,0
-Grand Lieu Lake,12,10,83,lake,weir,weir,1,yes,3
-Loire,50,50,100,estuary,none,none,0,yes,0
-Warnow,107,87,81,river,weir,weir,1,yes,1
-Nemunas,22,12,55,river,none,none,0,yes,0
-Nemunas,11,10,91,river,hydropower,hydropower,3,yes,1
-Alta,23,23,100,fjord,none,none,0,no,0
-Mondego,20,18,90,river,weir,weir,1,no,6
-Noordzeekanaal,100,69,69,polder,shipping_lock,shipping_lock,2,no,2
-Noordzeekanaal,42,21,50,polder,shipping_lock_pump,pump,4,no,2
-Meuse,324,186,57,river,hydropower,hydropower,3,yes,7
-Meuse,260,97,37,river,hydropower,hydropower,3,no,7
-Markiezaatsmeer,14,11,79,canal,weir,weir,1,yes,2
-Suderpolder,3,0,0,polder,shipping_lock,shipping_lock,2,no,1
-Stour,95,92,97,river,weir,weir,1,yes,5
-Frome,47,46,98,river,weir,weir,1,no,2
-Nene,19,15,79,river,weir,weir,1,yes,9
+water_body,migrants,successful_migrants,successful_proportion,water_type,barrier_type_when_multiple,barrier_type,barrier_score,fishing,barrier_number,barrier_impact_score
+Scheldt,86,76,88,estuary,none,none,0,no,0,0
+Leopold canal,54,34,63,polder,pump_weir,pump,4,no,2,5
+Leopold canal,2,2,100,polder,weir,weir,1,no,1,1
+Albert canal,132,25,19,canal,shipping_lock,shipping_lock,2,no,8,16
+Grote Nete,34,33,97,river,none,none,0,no,0,0
+Gudena,59,20,34,river,none,none,0,yes,0,0
+Grand Lieu Lake,12,10,83,lake,weir,weir,1,yes,3,3
+Loire,50,50,100,estuary,none,none,0,yes,0,0
+Warnow,107,87,81,river,weir,weir,1,yes,1,1
+Nemunas,22,12,55,river,none,none,0,yes,0,0
+Nemunas,11,10,91,river,hydropower,hydropower,3,yes,1,3
+Alta,23,23,100,fjord,none,none,0,no,0,0
+Mondego,20,18,90,river,weir,weir,1,no,6,6
+Noordzeekanaal,100,69,69,polder,shipping_lock,shipping_lock,2,no,2,4
+Noordzeekanaal,42,21,50,polder,pump_shipping_lock,pump,4,no,2,6
+Meuse,324,186,57,river,hydropower,hydropower,3,yes,7,21
+Meuse,260,97,37,river,hydropower,hydropower,3,no,7,21
+Markiezaatsmeer,14,11,79,canal,weir,weir,1,yes,2,2
+Suderpolder,3,0,0,polder,shipping_lock,shipping_lock,2,no,1,2
+Stour,95,92,97,river,weir,weir,1,yes,5,5
+Frome,47,46,98,river,weir,weir,1,no,2,2
+Nene,19,15,79,river,weir,weir,1,yes,9,9
