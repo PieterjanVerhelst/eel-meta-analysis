@@ -95,7 +95,7 @@ end_period_summary <- end_period %>%
 
 # Create dataset for barplot
 plot_data <- data.frame(daynumber  = 1:365)
-plot_data$daynumber_adj <- plot_data$daynumber - 185  # Adjust dataframe to plot first day in summer
+plot_data$daynumber_adj <- plot_data$daynumber - 151  # Adjust dataframe to plot first day in summer
 for (i in 1:dim(plot_data)[1]){
   if (plot_data$daynumber_adj[i] <= (0)){
     plot_data$daynumber_adj[i] = plot_data$daynumber_adj[i] +365
@@ -202,6 +202,7 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = facto
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16)) +
+  scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
   coord_flip() 
 
 
