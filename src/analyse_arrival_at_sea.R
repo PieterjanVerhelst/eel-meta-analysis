@@ -95,6 +95,14 @@ end_period_summary <- end_period %>%
 
 # Create dataset for barplot
 plot_data <- data.frame(daynumber  = 1:365)
+plot_data$daynumber_adj <- plot_data$daynumber - 185  # Adjust dataframe to plot first day in summer
+for (i in 1:dim(plot_data)[1]){
+  if (plot_data$daynumber_adj[i] <= (0)){
+    plot_data$daynumber_adj[i] = plot_data$daynumber_adj[i] +365
+  } else{
+    plot_data$daynumber_adj[i] = plot_data$daynumber_adj[i]
+  }}
+
 plot_data$daynumber <- factor(plot_data$daynumber)
 plot_data <- left_join(plot_data, end_period_summary, by = "daynumber")
 plot_data <- replace(plot_data, is.na(plot_data), 0)  # Replace NAs with 0s
@@ -167,7 +175,7 @@ plot_data_no_na$animal_project_code <- factor(plot_data_no_na$animal_project_cod
                                                          "Nemunas",
                                                          "Alta"))
 
-ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber, fill = factor(wrs_impact_score))) +
+ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = factor(wrs_impact_score))) +
   geom_boxplot() +
   scale_fill_manual(values=c("blue",
                              "#33FFFF", 
@@ -194,7 +202,8 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber, fill = factor(wr
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16)) +
-  coord_flip()
+  coord_flip() 
+
 
 
 # Sex analysis 
