@@ -176,6 +176,7 @@ plot_data_no_na$animal_project_code <- factor(plot_data_no_na$animal_project_cod
                                                          "Alta"))
 
 ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = factor(wrs_impact_score))) +
+  #geom_boxplot() +
   geom_violin(width = 2,position=position_dodge(1)) +
   scale_fill_manual(values=c("blue",
                              "#33FFFF", 
