@@ -48,7 +48,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ `station_order.csv`: file containing the stations upstream the release location. This file is needed in `calculate_speed.R`
 	+ `habitats.csv`: file with the classification of the habitats linked to the detections stations, i.e. freshwater, tidal freshwater, tidal brackish, marine barrier and marine.
 	+ `migrationbarriers.csv`: qualification of barrier impact per project/river. The impact was scored with 0 (no impact), 1 (minimal impact) and 2 (severe impact). This scoring was based on the type of barriers on the migration route of the eels: weirs (1), sluice gates (1), shipping locks (2), hydropower (2) and pumps (2).
-	+ `eels_wrs.csv`: the number of water regulating structures (wrs) eels need to pass to reach the sea and the water regulating impact score of the system.
+	+ `eels_wrs.csv`: the number of water regulating structures (wrs) eels need to pass to reach the sea and the water regulating impact score of each water body.
 	+ `project_geographical_location.csv`: latitude of the different projects
 
 ### Scripts

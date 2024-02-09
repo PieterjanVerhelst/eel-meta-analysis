@@ -12,7 +12,7 @@ escape$water_type <- factor(escape$water_type)
 escape$barrier_type <- factor(escape$barrier_type, ordered = TRUE, 
                               levels = c("none", "weir_sluice", "shipping_lock", "hydropower", "pump"))
 escape$barrier_type_when_multiple <- factor(escape$barrier_type_when_multiple, ordered = TRUE, 
-                              levels = c("none", "weir_sluice", "shipping_lock", "hydropower", "pump_sluice", "pump_shipping_lock"))
+                              levels = c("none", "weir_sluice", "shipping_lock", "weir_shipping_lock", "hydropower", "pump_sluice", "pump_shipping_lock"))
 escape$fishing <- factor(escape$fishing)
 #escape$barrier_impact_score <- as.numeric(escape$barrier_score) * as.numeric(escape$barrier_number)
 
@@ -60,7 +60,8 @@ ggplot(escape, aes(x=barrier_impact_score, y=successful_proportion)) +
   geom_point(aes(shape = factor(fishing), colour = factor(barrier_type_when_multiple)), size = 4) +
   scale_color_manual(values = c("none" = "blue",
                                 "weir_sluice" = "lightblue",
-                                "shipping_lock" = "orange",
+                                "shipping_lock" = "yellow2",
+                                "weir_shipping_lock" = "orange",
                                 "hydropower" = "purple",
                                 "pump_sluice" = "red",
                                 "pump_shipping_lock" = "darkred")) +
