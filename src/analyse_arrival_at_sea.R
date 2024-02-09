@@ -1,4 +1,4 @@
-# Analyse period of migration by relating the first day as migration and last day as (successful) migration to size and geographical location
+# Analyse the arrival time at sea of successful migrants in relation to eel size and geographical location. This reflects the silver eel migratino period.
 # By Pieterjan Verhelst (INBO)
 # pieterjan.verhelst@inbo.be
 
@@ -66,164 +66,9 @@ data <- rename(data, animal_project_code = animal_project_code.x)
 data$animal_project_code.y <- NULL
 
 
-# FIRST DAY OF MIGRATION ####
-
-# 4. Extract first record per migration == TRUE (= period of migration) ####
-period <- data%>%
-  group_by(acoustic_tag_id) %>%
-  arrange(arrival) %>%
-  filter(row_number()==1)
-
-# Identify day number of the year based on departure date (= when an eel migrated away from the station)
-period$daynumber <- yday(period$departure)
-period$daynumber <- factor(period$daynumber)
-
-# Calculate summary
-period_summary <- period %>%
-  group_by(animal_project_code, daynumber) %>%
-  #group_by(daynumber) %>%
-   count()
-
-# Create dataset for barplot
-plot_data <- data.frame (daynumber  = 1:365)
-plot_data$daynumber <- factor(plot_data$daynumber)
-plot_data <- left_join(plot_data, period_summary, by = "daynumber")
-plot_data <- replace(plot_data, is.na(plot_data), 0)  # Replace NAs with 0s
-plot_data$daynumber <- as.numeric(plot_data$daynumber)
-
-plot_data_project <- filter(plot_data, animal_project_code == "Meuse")
-
-# Create barplot with number of eels per day number
-waterbodies <- c("Mondego", "Grand Lieu Lake", "Loire", "Frome", "Leopold Canal", "Scheldt", "Markiezaatsmeer", "Grote Nete", "Albert Canal", "Meuse", "Stour", "Noordzeekanaal", "Nene", "Suderpolder", "Gudena", "Warnow", "Nemunas", "Alta") # This removes 'NA' from legend
-
-ggplot(plot_data, aes(x=daynumber, y=n, fill = animal_project_code)) + 
-  geom_bar(stat="identity", width = 1) +
-  #scale_fill_brewer(palette="Dark2") +
-  scale_fill_manual(values=c("#9933FF", 
-                             "#33FFFF", 
-                             "darkred", 
-                             "darkblue",
-                             "darkgreen",
-                             "orange",
-                             "yellow",
-                             "#70ef2d",
-                             "#652A0E",
-                             "grey57",
-                             "pink",
-                             "deeppink",
-                             "#276DC2",
-                             "honeydew3",
-                             "black",
-                             "red",
-                             "magenta",
-                             "lightcyan"
-                             ),
-                    limits = waterbodies) +
-  ylab("Number of eels") + 
-  xlab("Day of the year") +
-  theme( 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(), 
-    axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle=360),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22)) +
-  scale_x_continuous(breaks = seq(0, 365, by = 30))
-
-
-# Sex analysis 
-# Calculate summary
-period_summary_frome <- period %>%
-  filter(animal_project_code == "Frome") %>%
-  group_by(animal_project_code, sex, daynumber) %>%
-  #group_by(daynumber) %>%
-  count()
-
-plot_data_frome <- data.frame (daynumber  = 1:365)
-plot_data_frome$daynumber <- factor(plot_data_frome$daynumber)
-plot_data_frome <- left_join(plot_data_frome, period_summary_frome, by = "daynumber")
-plot_data_frome <- replace(plot_data_frome, is.na(plot_data_frome), 0)  # Replace NAs with 0s
-plot_data_frome$daynumber <- as.numeric(plot_data_frome$daynumber)
-plot_data_frome$sex <- factor(plot_data_frome$sex)
-
-ggplot(plot_data_frome, aes(x=daynumber, y=n, fill = sex)) + 
-  geom_bar(stat="identity", width = 5) +
-  #scale_fill_brewer(palette="Dark2") +
-  scale_fill_manual(values=c("darkblue", 
-                             "darkgreen"),
-                    limits = c("female", "male")) +
-  ylab("Number of eels") + 
-  xlab("Day of the year") +
-  theme( 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(), 
-    axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle=360),
-    axis.title.x = element_text(size = 16),
-    axis.text.y = element_text(size = 16, colour = "black"),
-    axis.title.y = element_text(size = 16)) +
-  scale_x_continuous(breaks = seq(0, 365, by = 30))
-
-
-
-# 5. Size analysis  ####
-
-# Plot
-period$daynumber <- as.numeric(period$daynumber)
-
-ggplot(period, aes(x= daynumber, y=length1)) + 
-  geom_point() +
-  facet_wrap(~animal_project_code, scales = "free") +
-  ylab("Total length (mm)") + 
-  xlab("Day of the year") +
-  #stat_summary(fun = "mean", geom = "point", #shape = 8,
-  #             size = 4, color = "blue") +
-  theme( 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(), 
-    axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 12, colour = "black", angle=360),
-    axis.title.x = element_text(size = 12),
-    axis.text.y = element_text(size = 12, colour = "black"),
-    axis.title.y = element_text(size = 12)) +
-  scale_x_continuous(breaks = seq(0, 365, by = 30)) +
-  geom_smooth(method='lm')
-
-
-
-
-# 6. Geographical location analysis ####
-
-# Plot
-period$daynumber <- as.numeric(period$daynumber)
-
-ggplot(period, aes(x= release_latitude , y=daynumber)) + 
-  geom_point() +
-  ylab("Day of the year") + 
-  xlab("Release latitude") +
-  #stat_summary(fun = "mean", geom = "point", #shape = 8,
-  #             size = 4, color = "blue") +
-  theme( 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(), 
-    axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 12, colour = "black", angle=360),
-    axis.title.x = element_text(size = 12),
-    axis.text.y = element_text(size = 12, colour = "black"),
-    axis.title.y = element_text(size = 12)) +
-  geom_smooth(method='lm')
-
-
-
-
 # FINAL RECORD OF SUCCESSFUL MIGRATION ####
 
-# 7. Load file with final detections of successful migrants ####
+# 4. Load file with final detections of successful migrants ####
 end_period <- read_csv("./data/interim/successful_migrants_final_detection.csv")
 end_period <- end_period %>%
   mutate_at(c('acoustic_tag_id', 'animal_project_code', 'station_name'), as.factor)
@@ -292,6 +137,47 @@ ggplot(plot_data, aes(x=daynumber, y=n, fill = animal_project_code)) +
     axis.title.y = element_text(size = 22)) +
   scale_x_continuous(breaks = seq(0, 365, by = 30))
 
+
+# Create horizontal boxplot
+
+plot_data_no_na <- na.omit(plot_data)
+
+plot_data_no_na$animal_project_code <- factor(plot_data_no_na$animal_project_code, ordered = TRUE, 
+                                              levels = c("Mondego", 
+                                                         "Grand Lieu Lake",
+                                                         "Loire", 
+                                                         "Frome", 
+                                                         "Stour",
+                                                         "Nene",
+                                                         "Scheldt",
+                                                         "Leopold Canal",
+                                                         "Grote Nete",
+                                                         "Albert Canal",
+                                                         "Markiezaatsmeer",
+                                                         "Meuse",
+                                                         "Noordzeekanaal",
+                                                         "Suderpolder",
+                                                         "Warnow",
+                                                         "Gudena",
+                                                         "Nemunas",
+                                                         "Alta"))
+
+ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber)) +
+  geom_boxplot() +
+  ylab("Day of the year") + 
+  xlab("Water body") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 2, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) +
+  coord_flip()
 
 
 # Sex analysis 
