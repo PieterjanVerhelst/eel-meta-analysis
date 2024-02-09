@@ -192,7 +192,7 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = facto
   ylab("Day of the year") + 
   xlab("Water body") +
   #stat_summary(fun = "mean", geom = "point", #shape = 8,
-  #             size = 2, color = "blue") +
+  #             size = 2, color = "black") +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
