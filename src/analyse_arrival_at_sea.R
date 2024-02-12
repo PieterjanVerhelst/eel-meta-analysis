@@ -151,7 +151,7 @@ ggplot(plot_data, aes(x=daynumber, y=n, fill = animal_project_code)) +
   scale_x_continuous(breaks = seq(0, 365, by = 30))
 
 
-# Create horizontal boxplot
+# Create horizontal violin plot or boxplot
 
 plot_data_no_na <- na.omit(plot_data)
 
