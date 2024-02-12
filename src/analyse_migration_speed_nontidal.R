@@ -113,8 +113,8 @@ ggplot(migration_speed_nontidal, aes(x=length1, y=speed_ms)) +
   facet_wrap(~animal_project_code) +
   ylab("Migration speed (m/s)") + 
   xlab("Total length (mm)") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 2, color = "blue") +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
@@ -211,9 +211,9 @@ ggplot(migration_speed_nontidal, aes(x=barrier_impact, y=speed_ms)) +
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=360),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
 
 
 # Colour boxplots in relation to barrier impact
@@ -230,9 +230,9 @@ ggplot(migration_speed_nontidal, aes(x=animal_project_code, y=speed_ms, fill = b
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
 
 
 # Colour boxplots in relation to barrier type
@@ -249,9 +249,9 @@ ggplot(migration_speed_nontidal, aes(x=animal_project_code, y=speed_ms, fill = b
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
 
 
 ggplot(migration_speed_nontidal, aes(x=barrier_type, y=speed_ms)) + 
@@ -267,9 +267,9 @@ geom_boxplot() +
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
 
 
 # Conduct ANOVA or non-parametric alternative
@@ -310,6 +310,97 @@ kruskal.test(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$barrie
 #posthoc.kruskal.dunn.test(x=migration_speed_nontidal$animal_project_code, g=migration_speed_nontidal$speed_ms, p.adjust.method="bonferroni")
 FSA::dunnTest(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$barrier_type, data=migration_speed_nontidal, method="bonferroni")
 
+
+# Migration barrier analysis by means of the WRS score
+# Add water regulating structure impact score to the dataset
+wrs_score <- read_csv("./data/external/eels_wrs.csv")
+wrs_score <- select(wrs_score, animal_project_code, acoustic_tag_id, wrs_impact_score)
+wrs_score$animal_project_code <- recode_factor(wrs_score$animal_project_code, # Rename animal_project_code to river or estuary names 
+                                          'PTN-Silver-eel-Mondego' = "Mondego",
+                                          'ESGL' = "Grand Lieu Lake",
+                                          '2011_Loire' = "Loire",
+                                          '2014_Frome' = "Frome",
+                                          '2012_leopoldkanaal' = "Leopold Canal",
+                                          '2015_phd_verhelst_eel' = "Scheldt",
+                                          'DAK_markiezaatsmeer' = "Markiezaatsmeer",
+                                          '2019_Grotenete' = "Grote Nete",
+                                          '2013_albertkanaal' = "Albert Canal",
+                                          'nedap_meuse' = "Meuse",
+                                          '2013_Stour' = "Stour",
+                                          'Noordzeekanaal' = "Noordzeekanaal",
+                                          '2014_Nene' = "Nene",
+                                          'DAK_suderpolder' = "Suderpolder",
+                                          '2004_Gudena' = "Gudena",
+                                          '2011_Warnow' = "Warnow",
+                                          'SEMP' = "Nemunas",
+                                          'EMMN' = "Alta")
+migration_speed_nontidal <- left_join(migration_speed_nontidal, wrs_score, by = c("animal_project_code","acoustic_tag_id"))
+migration_speed_nontidal$animal_project_code <- factor(migration_speed_nontidal$animal_project_code, ordered = TRUE, 
+                                                    levels = c("Mondego", 
+                                                               "Grand Lieu Lake",
+                                                               "Frome", 
+                                                               "Stour",
+                                                               "Nene",
+                                                               "Leopold Canal",
+                                                               "Grote Nete",
+                                                               "Albert Canal",
+                                                               "Markiezaatsmeer",
+                                                               "Meuse",
+                                                               "Noordzeekanaal",
+                                                               "Suderpolder",
+                                                               "Warnow",
+                                                               "Gudena",
+                                                               "Nemunas"))
+
+# Boxplot per project coloured according to wrs impact score
+ggplot(migration_speed_nontidal, aes(x=animal_project_code, y=speed_ms, fill = factor(wrs_impact_score))) +
+  geom_boxplot() +
+  #geom_violin(width = 2,position=position_dodge(1)) +
+  scale_fill_manual(values=c("blue",
+                             "#33FFFF", 
+                             "lightblue",
+                             "orange",
+                             "yellow",
+                             "#70ef2d",
+                             "darkgreen",
+                             "pink",
+                             "deeppink",
+                             "#9933FF",
+                             "darkred",
+                             "red")) +
+  ylab("Migration speed (m/s)") + 
+  xlab("Water body") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 2, color = "black",
+  #             position = position_dodge(width = 0.85)) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) 
+
+
+# Boxplot per WRS impact score
+ggplot(migration_speed_nontidal, aes(x=factor(wrs_impact_score), y=speed_ms)) +
+  geom_boxplot() +
+  ylab("Migration speed (m/s)") + 
+  xlab("WRS impact score") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 2, color = "black",
+  #             position = position_dodge(width = 0.85)) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) 
 
 
 
