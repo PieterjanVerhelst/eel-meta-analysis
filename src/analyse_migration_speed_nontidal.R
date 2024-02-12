@@ -113,17 +113,17 @@ ggplot(migration_speed_nontidal, aes(x=length1, y=speed_ms)) +
   facet_wrap(~animal_project_code) +
   ylab("Migration speed (m/s)") + 
   xlab("Total length (mm)") +
-  #stat_summary(fun = "mean", geom = "point", #shape = 8,
-  #             size = 4, color = "blue") +
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
+               size = 4, color = "blue") +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=360),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22)) +
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) +
   geom_smooth(method='lm')
 
 # Linear regression
@@ -155,17 +155,17 @@ ggplot(sex_project, aes(x=sex, y=speed_ms)) +
   geom_boxplot() +
   ylab("Migration speed (m/s)") + 
   xlab("Sex") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue") +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=360),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
 
 
 # Apply parametric t-test or non-parametric Mann-Whitney-Wilcoxon Test 
