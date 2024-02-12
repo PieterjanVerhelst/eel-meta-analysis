@@ -84,7 +84,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 15. `analyse_escapement_success.R`: Analyse the successful escapement to the sea according to migration barrier types, including fishing, and number
 16. `analyse_arrival_at_sea.R`: Analyse the last day as (successful) migration, which is the arrival at sea, to size and geographical location
 17. `calculate_migration_speed_overall.R`: Calculate the migration speed as the speed between the first and last detection and relate it to geographical position, habitat, size and sex
-18. `calculate_migration_speed_habitats.R`: Calculate the migration speed according to habitat type and analyse difference between tidal vs non-tidal habitats
+18. `calculate_migration_speed_habitats.R`: Calculate the migration speed according to habitat type
 19. `analyse_migration_speed_tidal.R`: Analyse the migration speed in **tidal areas** according to size, sex and geographical location
 20. `analyse_migration_speed_nontidal.R`: Analyse the migration speed in **non-tidal areas** according to size, sex, geographical location, migration barrier number and type
 21. `analyse_migration_speed_tidal_vs_nontidal.R`: Analyse the migration speed between **tidal areas** and **non-tidal areas**
