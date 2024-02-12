@@ -314,7 +314,7 @@ FSA::dunnTest(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$barri
 # Migration barrier analysis by means of the WRS score
 # Add water regulating structure impact score to the dataset
 wrs_score <- read_csv("./data/external/eels_wrs.csv")
-wrs_score <- select(wrs_score, animal_project_code, acoustic_tag_id, wrs_impact_score)
+wrs_score <- select(wrs_score, animal_project_code, acoustic_tag_id, wrs_impact_score, important_wrs_type)
 wrs_score$animal_project_code <- recode_factor(wrs_score$animal_project_code, # Rename animal_project_code to river or estuary names 
                                           'PTN-Silver-eel-Mondego' = "Mondego",
                                           'ESGL' = "Grand Lieu Lake",
@@ -351,6 +351,14 @@ migration_speed_nontidal$animal_project_code <- factor(migration_speed_nontidal$
                                                                "Warnow",
                                                                "Gudena",
                                                                "Nemunas"))
+migration_speed_nontidal$important_wrs_type <- factor(migration_speed_nontidal$important_wrs_type, ordered = TRUE, 
+                                                       levels = c("none",
+                                                                  "weir_sluice",
+                                                                  "shipping_lock",
+                                                                  "weir_shipping_lock",
+                                                                  "hydropower",
+                                                                  "pumping_station_sluice",
+                                                                  "pumping_station_shipping_lock"))
 
 # Boxplot per project coloured according to wrs impact score
 ggplot(migration_speed_nontidal, aes(x=animal_project_code, y=speed_ms, fill = factor(wrs_impact_score))) +
@@ -397,11 +405,35 @@ ggplot(migration_speed_nontidal, aes(x=factor(wrs_impact_score), y=speed_ms)) +
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16)) 
 
+# Boxplot per WRS type
+ggplot(migration_speed_nontidal, aes(x=factor(important_wrs_type), y=speed_ms)) +
+  geom_boxplot() +
+  ylab("Migration speed (m/s)") + 
+  xlab("WRS type") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 2, color = "black",
+  #             position = position_dodge(width = 0.85)) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) +
+    scale_x_discrete(labels=c("none" = "none", 
+                              "weir_sluice" = "weir or sluice",
+                              "shipping_lock" = "shipping lock",
+                              "weir_shipping_lock" = "weir & \n shipping lock",
+                              "hydropower" = "hydropower station",
+                              "pumping_station_sluice" = "pumping station \n & sluice",
+                              "pumping_station_shipping_lock" = "pumping station \n & shipping lock"))
 
 
 
