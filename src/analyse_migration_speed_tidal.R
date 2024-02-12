@@ -171,6 +171,21 @@ shapiro.test(residuals(lm_geo))
 
 
 # Approach to simply use projects as these have a specific geographical location
+migration_speed_tidal$animal_project_code <- factor(migration_speed_tidal$animal_project_code, ordered = TRUE, 
+                                              levels = c("Mondego", 
+                                                         "Grand Lieu Lake",
+                                                         "Loire", 
+                                                         "Frome", 
+                                                         "Stour",
+                                                         "Nene",
+                                                         "Scheldt",
+                                                         "Leopold Canal",
+                                                         "Grote Nete",
+                                                         "Albert Canal",
+                                                         "Markiezaatsmeer",
+                                                         "Meuse",
+                                                         "Alta"))
+
 # Plot
 ggplot(migration_speed_tidal, aes(x=animal_project_code, y=speed_ms)) + 
   geom_boxplot() +
