@@ -48,7 +48,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ `station_order.csv`: file containing the stations upstream the release location. This file is needed in `calculate_speed.R`
 	+ `habitats.csv`: file with the classification of the habitats linked to the detections stations, i.e. freshwater, tidal freshwater, tidal brackish, marine barrier and marine.
 	+ `migrationbarriers.csv`: qualification of barrier impact per project/river. The impact was scored with 0 (no impact), 1 (minimal impact) and 2 (severe impact). This scoring was based on the type of barriers on the migration route of the eels: weirs (1), sluice gates (1), shipping locks (2), hydropower (2) and pumps (2).
-	+ `eels_barrier_number.csv`: the number of barriers eels need to pass to reach the sea.
+	+ `eels_wrs.csv`: the number of water regulating structures (wrs) eels need to pass to reach the sea and the water regulating impact score of each water body.
 	+ `project_geographical_location.csv`: latitude of the different projects
 
 ### Scripts
@@ -82,7 +82,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 14. `identify_escapement_success.R`: Identify migration success as successful escapement to the sea
 		- --> Generate successful_migrants_final_detection.csv interim dataset with final record per eel that successfully escaped to the sea. This will be used in the script `analyse_migration_period.R`.
 15. `analyse_escapement_success.R`: Analyse the successful escapement to the sea according to migration barrier types, including fishing, and number
-16. `analyse_migration_period.R`: Analyse the period of migration by relating the first day as migration and last day as (successul) migration to size and geographical location
+16. `analyse_arrival_at_sea.R`: Analyse the last day as (successful) migration, which is the arrival at sea, to size and geographical location
 17. `calculate_migration_speed_overall.R`: Calculate the migration speed as the speed between the first and last detection and relate it to geographical position, habitat, size and sex
 18. `calculate_migration_speed_habitats.R`: Calculate the migration speed according to habitat type and analyse difference between tidal vs non-tidal habitats
 19. `analyse_migration_speed_tidal.R`: Analyse the migration speed in **tidal areas** according to size, sex and geographical location
