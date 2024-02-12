@@ -106,7 +106,8 @@ for (i in 1:dim(plot_data)[1]){
 plot_data$daynumber <- factor(plot_data$daynumber)
 plot_data <- left_join(plot_data, end_period_summary, by = "daynumber")
 plot_data <- replace(plot_data, is.na(plot_data), 0)  # Replace NAs with 0s
-plot_data$daynumber <- as.numeric(plot_data$daynumber)
+plot_data$fdaynumber <- plot_data$daynumber
+plot_data$ndaynumber <- as.numeric(plot_data$daynumber)
 
 plot_data_project <- filter(plot_data, animal_project_code == "Meuse")
 
@@ -114,7 +115,7 @@ plot_data_project <- filter(plot_data, animal_project_code == "Meuse")
 waterbodies <- c("Mondego", "Grand Lieu Lake", "Loire", "Frome", "Leopold Canal", "Scheldt", "Markiezaatsmeer", "Grote Nete", "Albert Canal", "Meuse", "Stour", "Noordzeekanaal", "Nene", "Gudena", "Warnow", "Nemunas", "Alta") # This removes 'NA' from legend
 # Note that project "Suderpolder" did not have successful migrants and is hence not taken up in this list.
 
-ggplot(plot_data, aes(x=daynumber, y=n, fill = animal_project_code)) + 
+ggplot(plot_data, aes(x=ndaynumber, y=n, fill = animal_project_code)) + 
   geom_bar(stat="identity", width = 1) +
   #scale_fill_brewer(palette="Dark2") +
   scale_fill_manual(values=c("#9933FF", 
@@ -218,6 +219,14 @@ end_period_summary_frome <- end_period %>%
   count()
 
 plot_data_frome <- data.frame(daynumber  = 1:365)
+plot_data_frome$daynumber_adj <- plot_data_frome$daynumber - 151  # Adjust dataframe to plot first day in summer
+for (i in 1:dim(plot_data_frome)[1]){
+  if (plot_data_frome$daynumber_adj[i] <= (0)){
+    plot_data_frome$daynumber_adj[i] = plot_data_frome$daynumber_adj[i] +365
+  } else{
+    plot_data_frome$daynumber_adj[i] = plot_data_frome$daynumber_adj[i]
+  }}
+
 plot_data_frome$daynumber <- factor(plot_data_frome$daynumber)
 plot_data_frome <- left_join(plot_data_frome, end_period_summary_frome, by = "daynumber")
 plot_data_frome <- replace(plot_data_frome, is.na(plot_data_frome), 0)  # Replace NAs with 0s
@@ -244,10 +253,41 @@ ggplot(plot_data_frome, aes(x=daynumber, y=n, fill = sex)) +
   scale_x_continuous(breaks = seq(0, 365, by = 30))
 
 
+# Create horizontal violin plot or boxplot
+
+plot_data_frome_no_na <- na.omit(plot_data_frome)
+
+plot_data_frome_no_na$sex <- factor(plot_data_frome_no_na$sex, ordered = TRUE, 
+                                              levels = c("male", 
+                                                         "female"))
+
+ggplot(plot_data_frome_no_na, aes(x=sex, y=daynumber_adj)) +
+  #geom_boxplot() +
+  geom_violin(width = 1.5,position=position_dodge(0.5)) +
+  ylab("Day of the year") + 
+  xlab("Sex") +
+  stat_summary(fun = "median", geom = "point", #shape = 8,
+               size = 2, color = "black",
+               position = position_dodge(width = 1)) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) +
+  scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May"), limits = c(154, 246)) +
+  coord_flip() 
+
+
+
 
 # 8. Size analysis  ####
 
 # Plot
+end_period$daynumber <- as.character(end_period$daynumber)
 end_period$daynumber <- as.numeric(end_period$daynumber)
 
 ggplot(end_period, aes(x= daynumber, y=length1)) + 
@@ -262,7 +302,7 @@ ggplot(end_period, aes(x= daynumber, y=length1)) +
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 12, colour = "black", angle=360),
+    axis.text.x = element_text(size = 12, colour = "black", angle=90),
     axis.title.x = element_text(size = 12),
     axis.text.y = element_text(size = 12, colour = "black"),
     axis.title.y = element_text(size = 12)) +
