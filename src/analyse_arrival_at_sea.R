@@ -314,9 +314,19 @@ ggplot(end_period, aes(x= daynumber, y=length1)) +
 # 9. Geographical location analysis ####
 
 # Plot
+end_period$daynumber <- as.character(end_period$daynumber)
 end_period$daynumber <- as.numeric(end_period$daynumber)
 
-ggplot(end_period, aes(x= release_latitude , y=daynumber)) + 
+end_period$daynumber_adj <- end_period$daynumber - 151  # Adjust dataframe to plot first day in summer
+for (i in 1:dim(end_period)[1]){
+  if (end_period$daynumber_adj[i] <= (0)){
+    end_period$daynumber_adj[i] = end_period$daynumber_adj[i] +365
+  } else{
+    end_period$daynumber_adj[i] = end_period$daynumber_adj[i]
+  }}
+
+
+ggplot(end_period, aes(x= release_latitude , y=daynumber_adj)) + 
   geom_point() +
   ylab("Day of the year") + 
   xlab("Release latitude") +
@@ -327,11 +337,13 @@ ggplot(end_period, aes(x= release_latitude , y=daynumber)) +
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 12, colour = "black", angle=360),
+    axis.text.x = element_text(size = 12, colour = "black", angle=90),
     axis.title.x = element_text(size = 12),
     axis.text.y = element_text(size = 12, colour = "black"),
     axis.title.y = element_text(size = 12)) +
-  geom_smooth(method='lm')
+  scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
+  geom_smooth(method='lm') +
+  coord_flip() 
 
 
 # SUCCESSFUL MIGRATION PERIOD DURATION: DURATION PERIOD BETWEEN FIRST DAY OF MIGRATION AND FINAL DAY WHEN ESCAPED TO THE SEA ####
