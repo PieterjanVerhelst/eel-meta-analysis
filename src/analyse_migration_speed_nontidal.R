@@ -10,12 +10,6 @@ source("src/calculate_migration_speed_habitats.R")
 # Select freshwater = non-tidal areas
 migration_speed_nontidal <- filter(migration_speed, habitat_type3 == "freshwater")
 
-# Merge migration barrier qualification to the dataset
-migrationbarriers <- read_csv("./data/external/migrationbarriers.csv")
-migrationbarriers <- migrationbarriers %>%
-  mutate_at(c('animal_project_code', 'barrier_impact', 'weir', 'sluice_gate', 'shipping_lock', 'hydropower', 'pump', 'barrier_type'), as.factor) %>%
-  select(-'barrier_type')
-migration_speed_nontidal <- left_join(migration_speed_nontidal, migrationbarriers, by = "animal_project_code")
 
 # Part of semp-eels had free migration route and another part went through hydropower
 semp_data <- read.csv('./data/interim/migration/migration_semp.csv')
