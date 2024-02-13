@@ -15,10 +15,12 @@ escape$barrier_type2 <- factor(escape$barrier_type2, ordered = TRUE,
                               levels = c("none", "weir", "shipping_lock", "hydropower", "pump"))
 escape$barrier_type_when_multiple <- factor(escape$barrier_type_when_multiple, ordered = TRUE, 
                               levels = c("none", "weir_sluice", "shipping_lock", "weir_shipping_lock", "hydropower", "pump_sluice", "pump_shipping_lock"))
+escape$water_body_class <- factor(escape$water_body_class, ordered = TRUE, 
+                                            levels = c("A", "B", "C", "D", "E"))
 escape$fishing <- factor(escape$fishing)
 #escape$barrier_impact_score <- as.numeric(escape$barrier_score) * as.numeric(escape$barrier_number)
 
-aggregate(escape$successful_proportion, list(escape$fishing, escape$barrier_type2), mean)
+aggregate(escape$successful_proportion, list(escape$fishing, escape$water_body_class), mean)
 
 # 2. Escapement success and barrier type analysis ####
 # Plot in function of barrier types
@@ -57,28 +59,25 @@ ggplot(escape, aes(x=barrier_type, y=successful_proportion, fill = fishing)) +
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16))
 
-# Plot in function of barrier score and fishing
-ggplot(escape, aes(x=barrier_type2, y=successful_proportion, fill = fishing)) + 
+# Plot in function of water body class and fishing
+ggplot(escape, aes(x=water_body_class, y=successful_proportion, fill = fishing)) + 
   geom_boxplot() +
-  scale_fill_brewer(palette="Dark2") +
+  #scale_fill_brewer(palette="Dark2") +
+  scale_fill_manual(values = c("no" = "blue",
+                                "yes" = "red")) +
   ylab("Successful proportion") + 
-  xlab("WRS type") +
+  xlab("Water body class") +
   stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue", show.legend = FALSE) +
+               size = 2, color = "black", show.legend = FALSE) +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle= 90),
+    axis.text.x = element_text(size = 16, colour = "black", angle= 360),
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
-    axis.title.y = element_text(size = 16)) +
-  scale_x_discrete(labels=c("none" = "none", 
-                            "weir" = "weir or \n sluice",
-                            "shipping_lock" = "shipping \n lock",
-                            "hydropower" = "hydropower \n station",
-                            "pump" = "pumping \n station"))
+    axis.title.y = element_text(size = 16)) 
 
 
 # Plot in function of barrier impact score and fishing
