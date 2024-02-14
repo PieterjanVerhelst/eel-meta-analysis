@@ -63,8 +63,8 @@ ggplot(escape, aes(x=barrier_type, y=successful_proportion, fill = fishing)) +
 ggplot(escape, aes(x=water_body_class, y=successful_proportion, fill = fishing)) + 
   geom_boxplot() +
   #scale_fill_brewer(palette="Dark2") +
-  scale_fill_manual(values = c("no" = "blue",
-                                "yes" = "red")) +
+  scale_fill_manual(values = c("no" = "lightgrey",
+                                "yes" = "gray35")) +
   ylab("Successful proportion") + 
   xlab("Water body class") +
   stat_summary(fun = "mean", geom = "point", #shape = 8,
