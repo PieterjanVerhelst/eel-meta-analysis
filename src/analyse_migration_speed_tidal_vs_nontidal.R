@@ -18,11 +18,13 @@ migration_speed_tidal_nontidal <- filter(migration_speed, animal_project_code ==
                                            animal_project_code == "Albert Canal" |
                                            animal_project_code == "Meuse" |
                                            animal_project_code == "Stour" |
-                                           animal_project_code == "Nene" |
-                                           animal_project_code == "Gudena" |
-                                           animal_project_code == "Warnow" |
-                                           animal_project_code == "Nemunas")
+                                           animal_project_code == "Nene" )
 
+# Recode habitat type 'freshwater' to 'nontidal'
+migration_speed_tidal_nontidal$habitat_type3 <- recode_factor(migration_speed_tidal_nontidal$habitat_type3, 
+                                          'freshwater' = "nontidal")
+
+# Calculate summaries
 aggregate(migration_speed_tidal_nontidal$speed_ms, list(migration_speed_tidal_nontidal$habitat_type3, migration_speed_tidal_nontidal$animal_project_code), mean)
 
 group_by(migration_speed_tidal_nontidal, habitat_type3) %>%
@@ -37,11 +39,12 @@ group_by(migration_speed_tidal_nontidal, habitat_type3) %>%
 # Plot
 ggplot(migration_speed_tidal_nontidal, aes(x=animal_project_code, y=speed_ms, fill = habitat_type3)) + 
   geom_boxplot() +
-  scale_fill_brewer(palette="Dark2") +
+  scale_fill_manual(values = c("nontidal" = "lightgrey",
+                               "tidal" = "gray35")) +
   ylab("Migration speed (m/s)") + 
   xlab("Water body") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue", show.legend = FALSE) +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue", show.legend = FALSE) +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
