@@ -112,7 +112,7 @@ ggplot(migration_speed_tidal_nontidal, aes(x=water_body_class, y=speed_ms, fill 
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16))
