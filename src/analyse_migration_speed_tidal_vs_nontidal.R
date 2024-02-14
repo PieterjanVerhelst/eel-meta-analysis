@@ -78,7 +78,7 @@ group_by(migration_speed_tidal_nontidal, habitat_type3) %>%
     max = max(speed_ms, na.rm = TRUE)
   )
 
-# Plot
+# Plot according to water body (i.e. animal project code)
 ggplot(migration_speed_tidal_nontidal, aes(x=animal_project_code, y=speed_ms, fill = habitat_type3)) + 
   geom_boxplot() +
   scale_fill_manual(values = c("nontidal" = "lightgrey",
@@ -96,6 +96,27 @@ ggplot(migration_speed_tidal_nontidal, aes(x=animal_project_code, y=speed_ms, fi
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16))
+
+
+# Plot according to water body class
+ggplot(migration_speed_tidal_nontidal, aes(x=water_body_class, y=speed_ms, fill = habitat_type3)) + 
+  geom_boxplot() +
+  scale_fill_manual(values = c("nontidal" = "lightgrey",
+                               "tidal" = "gray35")) +
+  ylab("Migration speed (m/s)") + 
+  xlab("Water body class") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue", show.legend = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
+
 
 
 # Paired samples t-test
