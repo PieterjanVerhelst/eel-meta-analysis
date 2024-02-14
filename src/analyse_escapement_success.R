@@ -67,8 +67,8 @@ ggplot(escape, aes(x=water_body_class, y=successful_proportion, fill = fishing))
                                 "yes" = "gray35")) +
   ylab("Successful proportion") + 
   xlab("Water body class") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 2, color = "black", show.legend = FALSE) +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 2, color = "black", show.legend = FALSE) +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
