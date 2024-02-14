@@ -60,9 +60,9 @@ ggplot(migration_speed_tidal, aes(x=length1, y=speed_ms)) +
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=360),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22)) +
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) +
   geom_smooth(method='lm')
 
 # Linear regression
@@ -94,17 +94,17 @@ ggplot(sex_project, aes(x=sex, y=speed_ms)) +
   geom_boxplot() +
   ylab("Migration speed (m/s)") + 
   xlab("Sex") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue") +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=360),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
 
 
 # Apply parametric t-test or non-parametric Mann-Whitney-Wilcoxon Test 
@@ -154,9 +154,9 @@ ggplot(migration_speed_tidal, aes(x= release_latitude, y=speed_ms)) +
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=360),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22)) +
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) +
   geom_smooth(method='lm')
 
 # Linear regression
@@ -171,6 +171,21 @@ shapiro.test(residuals(lm_geo))
 
 
 # Approach to simply use projects as these have a specific geographical location
+migration_speed_tidal$animal_project_code <- factor(migration_speed_tidal$animal_project_code, ordered = TRUE, 
+                                              levels = c("Mondego", 
+                                                         "Grand Lieu Lake",
+                                                         "Loire", 
+                                                         "Frome", 
+                                                         "Stour",
+                                                         "Nene",
+                                                         "Scheldt",
+                                                         "Leopold Canal",
+                                                         "Grote Nete",
+                                                         "Albert Canal",
+                                                         "Markiezaatsmeer",
+                                                         "Meuse",
+                                                         "Alta"))
+
 # Plot
 ggplot(migration_speed_tidal, aes(x=animal_project_code, y=speed_ms)) + 
   geom_boxplot() +

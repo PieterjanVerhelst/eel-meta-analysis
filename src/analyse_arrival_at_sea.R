@@ -78,10 +78,10 @@ end_period <- left_join(end_period, eel, by = "acoustic_tag_id")
 end_period <- rename(end_period, animal_project_code = animal_project_code.x)
 end_period$animal_project_code.y <- NULL
 
-# Add water regulating structure impact score to the dataset
-wrs_score <- read_csv("./data/external/eels_wrs.csv")
-wrs_score <- select(wrs_score, acoustic_tag_id, wrs_impact_score)
-end_period <- left_join(end_period, wrs_score, by = "acoustic_tag_id")
+# Add water body class to the dataset
+wrs <- read_csv("./data/external/eels_wrs.csv")
+wrs <- select(wrs, acoustic_tag_id, wrs_impact_score, water_body_class)
+end_period <- left_join(end_period, wrs, by = "acoustic_tag_id")
 
 # Identify day number of the year based on departure date (= when an eel migrated away from the station)
 end_period$daynumber <- yday(end_period$departure)
@@ -89,7 +89,8 @@ end_period$daynumber <- factor(end_period$daynumber)
 
 # Calculate summary
 end_period_summary <- end_period %>%
-  group_by(animal_project_code, wrs_impact_score, daynumber) %>%
+  group_by(animal_project_code, #wrs_impact_score, 
+           water_body_class, daynumber) %>%
   #group_by(daynumber) %>%
   count()
 
@@ -176,6 +177,8 @@ plot_data_no_na$animal_project_code <- factor(plot_data_no_na$animal_project_cod
                                                          "Nemunas",
                                                          "Alta"))
 
+# Plot for wrs impact score
+# ! Activate/add wrs impact score to data
 ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = factor(wrs_impact_score))) +
   #geom_boxplot() +
   geom_violin(width = 2,position=position_dodge(1)) +
@@ -190,6 +193,40 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = facto
                              "deeppink",
                              "#9933FF",
                              "darkred",
+                             "red")) +
+  ylab("Day of the year") + 
+  xlab("Water body") +
+  stat_summary(fun = "median", geom = "point", #shape = 8,
+               size = 2, color = "black",
+               position = position_dodge(width = 0.85)) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=90),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16)) +
+  scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
+  coord_flip() 
+
+
+# Plot for water body class
+plot_data_no_na$water_body_class <- factor(plot_data_no_na$water_body_class, ordered = TRUE, 
+                                              levels = c("A", 
+                                                         "B",
+                                                         "C", 
+                                                         "D", 
+                                                         "E"))
+
+ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water_body_class)) +
+  #geom_boxplot() +
+  geom_violin(width = 1.4,position=position_dodge(1)) +
+  scale_fill_manual(values=c("blue",
+                             "#33FFFF",
+                             "yellow",
+                             "orange",
                              "red")) +
   ylab("Day of the year") + 
   xlab("Water body") +

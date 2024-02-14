@@ -6,7 +6,7 @@
 
 source("src/calculate_migration_speed_habitats.R")
 
-# Analyse difference in migration speed between tidal and non-tidal habitats ####
+# 1. Analyse difference in migration speed between tidal and non-tidal habitats ####
 
 # Filter for projects with both tidal and non-tidal data
 migration_speed_tidal_nontidal <- filter(migration_speed, animal_project_code == "Mondego" |
@@ -18,11 +18,55 @@ migration_speed_tidal_nontidal <- filter(migration_speed, animal_project_code ==
                                            animal_project_code == "Albert Canal" |
                                            animal_project_code == "Meuse" |
                                            animal_project_code == "Stour" |
-                                           animal_project_code == "Nene" |
-                                           animal_project_code == "Gudena" |
-                                           animal_project_code == "Warnow" |
-                                           animal_project_code == "Nemunas")
+                                           animal_project_code == "Nene" )
 
+# Recode habitat type 'freshwater' to 'nontidal'
+migration_speed_tidal_nontidal$habitat_type3 <- recode_factor(migration_speed_tidal_nontidal$habitat_type3, 
+                                          'freshwater' = "nontidal")
+
+# 2. Add water regulating structure info to the dataset ####
+wrs <- read_csv("./data/external/eels_wrs.csv")
+wrs <- select(wrs, animal_project_code, acoustic_tag_id, wrs_impact_score, wrs_types, water_body_class)
+wrs$animal_project_code <- recode_factor(wrs$animal_project_code, # Rename animal_project_code to river or estuary names 
+                                         'PTN-Silver-eel-Mondego' = "Mondego",
+                                         'ESGL' = "Grand Lieu Lake",
+                                         '2011_Loire' = "Loire",
+                                         '2014_Frome' = "Frome",
+                                         '2012_leopoldkanaal' = "Leopold Canal",
+                                         '2015_phd_verhelst_eel' = "Scheldt",
+                                         'DAK_markiezaatsmeer' = "Markiezaatsmeer",
+                                         '2019_Grotenete' = "Grote Nete",
+                                         '2013_albertkanaal' = "Albert Canal",
+                                         'nedap_meuse' = "Meuse",
+                                         '2013_Stour' = "Stour",
+                                         'Noordzeekanaal' = "Noordzeekanaal",
+                                         '2014_Nene' = "Nene",
+                                         'DAK_suderpolder' = "Suderpolder",
+                                         '2004_Gudena' = "Gudena",
+                                         '2011_Warnow' = "Warnow",
+                                         'SEMP' = "Nemunas",
+                                         'EMMN' = "Alta")
+migration_speed_tidal_nontidal <- left_join(migration_speed_tidal_nontidal, wrs, by = c("animal_project_code","acoustic_tag_id"))
+migration_speed_tidal_nontidal$animal_project_code <- factor(migration_speed_tidal_nontidal$animal_project_code, ordered = TRUE, 
+                                                       levels = c("Mondego", 
+                                                                  "Grand Lieu Lake",
+                                                                  "Frome", 
+                                                                  "Stour",
+                                                                  "Nene",
+                                                                  "Leopold Canal",
+                                                                  "Grote Nete",
+                                                                  "Albert Canal",
+                                                                  "Markiezaatsmeer",
+                                                                  "Meuse"))
+migration_speed_tidal_nontidal$water_body_class <- factor(migration_speed_tidal_nontidal$water_body_class, ordered = TRUE, 
+                                                    levels = c("A",
+                                                               "B",
+                                                               "C",
+                                                               "D",
+                                                               "E"))
+
+
+# Calculate summaries
 aggregate(migration_speed_tidal_nontidal$speed_ms, list(migration_speed_tidal_nontidal$habitat_type3, migration_speed_tidal_nontidal$animal_project_code), mean)
 
 group_by(migration_speed_tidal_nontidal, habitat_type3) %>%
@@ -34,23 +78,45 @@ group_by(migration_speed_tidal_nontidal, habitat_type3) %>%
     max = max(speed_ms, na.rm = TRUE)
   )
 
-# Plot
+# Plot according to water body (i.e. animal project code)
 ggplot(migration_speed_tidal_nontidal, aes(x=animal_project_code, y=speed_ms, fill = habitat_type3)) + 
   geom_boxplot() +
-  scale_fill_brewer(palette="Dark2") +
+  scale_fill_manual(values = c("nontidal" = "lightgrey",
+                               "tidal" = "gray35")) +
   ylab("Migration speed (m/s)") + 
   xlab("Water body") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue", show.legend = FALSE) +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue", show.legend = FALSE) +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
+
+
+# Plot according to water body class
+ggplot(migration_speed_tidal_nontidal, aes(x=water_body_class, y=speed_ms, fill = habitat_type3)) + 
+  geom_boxplot() +
+  scale_fill_manual(values = c("nontidal" = "lightgrey",
+                               "tidal" = "gray35")) +
+  ylab("Migration speed (m/s)") + 
+  xlab("Water body class") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue", show.legend = FALSE) +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 16, colour = "black", angle=360),
+    axis.title.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16, colour = "black"),
+    axis.title.y = element_text(size = 16))
+
 
 
 # Paired samples t-test

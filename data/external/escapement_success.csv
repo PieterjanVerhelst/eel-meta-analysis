@@ -1,28 +1,28 @@
-water_body,migrants,successful_migrants,successful_proportion,water_type,barrier_type_when_multiple,barrier_type,barrier_score,fishing,barrier_number,barrier_impact_score
-Scheldt,86,76,88,estuary,none,none,0,no,0,0
-Leopold canal,54,34,63,polder,pump_sluice,pump_sluice,4,no,2,5
-Leopold canal,2,2,100,polder,weir_sluice,weir_sluice,1,no,1,1
-Albert canal,4,0,0,canal,shipping_lock,shipping_lock,2,no,5,10
-Albert canal,5,4,80,canal,shipping_lock,shipping_lock,2,no,6,12
-Albert canal,123,21,17,canal,shipping_lock,shipping_lock,2,no,7,14
-Grote Nete,34,33,97,river,none,none,0,no,0,0
-Gudena,59,20,34,river,none,none,0,yes,0,0
-Grand Lieu Lake,12,10,83,lake,weir_sluice,weir_sluice,1,yes,3,3
-Loire,50,50,100,estuary,none,none,0,yes,0,0
-Warnow,107,87,81,river,weir_sluice,weir_sluice,1,yes,1,1
-Nemunas,22,12,55,river,none,none,0,yes,0,0
-Nemunas,11,10,91,river,hydropower,hydropower,3,yes,1,3
-Alta,23,23,100,fjord,none,none,0,no,0,0
-Mondego,20,18,90,river,weir_sluice,weir_sluice,1,no,6,6
-Noordzeekanaal,78,56,72,polder,shipping_lock,shipping_lock,2,no,1,2
-Noordzeekanaal,3,1,33,polder,weir_shipping_lock,shipping_lock,2,no,2,3
-Noordzeekanaal,21,14,67,polder,shipping_lock,shipping_lock,2,no,2,4
-Noordzeekanaal,40,19,48,polder,pump_shipping_lock,pump,4,no,2,6
-Meuse,324,186,57,river,hydropower,hydropower,3,yes,7,21
-Meuse,260,97,37,river,hydropower,hydropower,3,no,7,21
-Markiezaatsmeer,14,11,79,canal,weir_sluice,weir_sluice,1,yes,2,2
-Suderpolder,3,0,0,polder,shipping_lock,shipping_lock,2,no,1,2
-Stour,82,79,96,river,weir_sluice,weir_sluice,1,yes,5,5
-Stour,13,13,100,river,weir_sluice,weir_sluice,1,yes,3,3
-Frome,47,46,98,river,weir_sluice,weir_sluice,1,no,2,2
-Nene,19,15,79,river,weir_sluice,weir_sluice,1,yes,9,9
+water_body,migrants,successful_migrants,successful_proportion,water_type,barrier_type_when_multiple,barrier_type,barrier_type2,water_body_class,fishing,barrier_number,barrier_impact_score
+Scheldt,86,76,88,estuary,none,none,none,A,no,0,0
+Leopold canal,54,34,63,polder,pump_sluice,pump_sluice,pump,E,no,2,5
+Leopold canal,2,2,100,polder,weir_sluice,weir_sluice,weir,B,no,1,1
+Albert canal,4,0,0,canal,shipping_lock,shipping_lock,shipping_lock,D,no,5,10
+Albert canal,5,4,80,canal,shipping_lock,shipping_lock,shipping_lock,D,no,6,12
+Albert canal,123,21,17,canal,shipping_lock,shipping_lock,shipping_lock,D,no,7,14
+Grote Nete,34,33,97,river,none,none,none,A,no,0,0
+Gudena,59,20,34,river,none,none,none,A,yes,0,0
+Grand Lieu Lake,12,10,83,lake,weir_sluice,weir_sluice,weir,B,yes,3,3
+Loire,50,50,100,estuary,none,none,none,A,yes,0,0
+Warnow,107,87,81,river,weir_sluice,weir_sluice,weir,B,yes,1,1
+Nemunas,22,12,55,river,none,none,none,A,yes,0,0
+Nemunas,11,10,91,river,hydropower,hydropower,hydropower,C,yes,1,3
+Alta,23,23,100,fjord,none,none,none,A,no,0,0
+Mondego,20,18,90,river,weir_sluice,weir_sluice,weir,B,no,6,6
+Noordzeekanaal,78,56,72,polder,shipping_lock,shipping_lock,shipping_lock,D,no,1,2
+Noordzeekanaal,3,1,33,polder,weir_shipping_lock,shipping_lock,shipping_lock,D,no,2,3
+Noordzeekanaal,21,14,67,polder,shipping_lock,shipping_lock,shipping_lock,D,no,2,4
+Noordzeekanaal,40,19,48,polder,pump_shipping_lock,pump,pump,E,no,2,6
+Meuse,324,186,57,river,hydropower,hydropower,hydropower,C,yes,7,21
+Meuse,260,97,37,river,hydropower,hydropower,hydropower,C,no,7,21
+Markiezaatsmeer,14,11,79,canal,weir_sluice,weir_sluice,weir,B,yes,2,2
+Suderpolder,3,0,0,polder,shipping_lock,shipping_lock,shipping_lock,D,no,1,2
+Stour,82,79,96,river,weir_sluice,weir_sluice,weir,B,yes,5,5
+Stour,13,13,100,river,weir_sluice,weir_sluice,weir,B,yes,3,3
+Frome,47,46,98,river,weir_sluice,weir_sluice,weir,B,no,2,2
+Nene,19,15,79,river,weir_sluice,weir_sluice,weir,B,yes,9,9
