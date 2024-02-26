@@ -336,11 +336,11 @@ for (i in 1:dim(end_period)[1]){
   }}
 
 # Facet plot
-ggplot(end_period, aes(x= daynumber_adj, y=length1)) + 
+ggplot(end_period, aes(x= length1, y=daynumber_adj)) + 
   geom_point() +
   facet_wrap(~animal_project_code, scales = "free") +
-  ylab("Total length (mm)") + 
-  xlab("Day of the year") +
+  ylab("Day of the year") + 
+  xlab("Total length (mm)") +
   #stat_summary(fun = "mean", geom = "point", #shape = 8,
   #             size = 4, color = "blue") +
   theme( 
@@ -348,12 +348,12 @@ ggplot(end_period, aes(x= daynumber_adj, y=length1)) +
     panel.grid.minor = element_blank(),
     panel.background = element_blank(), 
     axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 12, colour = "black", angle=90),
+    axis.text.x = element_text(size = 12, colour = "black", angle=360),
     axis.title.x = element_text(size = 12),
     axis.text.y = element_text(size = 12, colour = "black"),
     axis.title.y = element_text(size = 12)) +
   #scale_x_continuous(breaks = seq(0, 365, by = 30)) +
-  scale_x_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
+  scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
   geom_smooth(method='lm')
 
 
