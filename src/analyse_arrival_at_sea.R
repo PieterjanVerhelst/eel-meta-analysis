@@ -110,7 +110,7 @@ plot_data <- replace(plot_data, is.na(plot_data), 0)  # Replace NAs with 0s
 plot_data$fdaynumber <- plot_data$daynumber
 plot_data$ndaynumber <- as.numeric(plot_data$daynumber)
 
-plot_data_project <- filter(plot_data, animal_project_code == "Meuse")
+#plot_data_project <- filter(plot_data, animal_project_code == "Meuse")
 
 # Create barplot with number of eels per day number
 waterbodies <- c("Mondego", "Grand Lieu Lake", "Loire", "Frome", "Leopold Canal", "Scheldt", "Markiezaatsmeer", "Grote Nete", "Albert Canal", "Meuse", "Stour", "Noordzeekanaal", "Nene", "Gudena", "Warnow", "Nemunas", "Alta") # This removes 'NA' from legend
