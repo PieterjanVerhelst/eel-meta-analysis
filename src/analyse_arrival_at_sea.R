@@ -335,6 +335,7 @@ for (i in 1:dim(end_period)[1]){
     end_period$daynumber_adj[i] = end_period$daynumber_adj[i]
   }}
 
+# Facet plot
 ggplot(end_period, aes(x= daynumber_adj, y=length1)) + 
   geom_point() +
   facet_wrap(~animal_project_code, scales = "free") +
@@ -354,6 +355,47 @@ ggplot(end_period, aes(x= daynumber_adj, y=length1)) +
   #scale_x_continuous(breaks = seq(0, 365, by = 30)) +
   scale_x_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
   geom_smooth(method='lm')
+
+
+# Coloured plot
+ggplot(end_period, aes(x= length1, y=daynumber_adj, 
+                       color=animal_project_code
+                       )) + 
+  geom_point() +
+  scale_color_manual(values = c("Albert Canal" = "blue",
+                                "Alta" = "lightblue",
+                                "Frome" = "yellow2",
+                                "Grand Lieu Lake" = "orange",
+                                "Grote Nete" = "purple",
+                                "Gudena" = "darkgreen",
+                                "Leopold Canal" = "darkred",
+                                "Loire" = "pink",
+                                "Markiezaatsmeer" = "lightgreen",
+                                "Meuse" = "red",
+                                "Mondego" = "violet",
+                                "Nemunas" = "green",
+                                "Nene" = "darkgrey",
+                                "Noordzeekanaal" = "magenta",
+                                "Scheldt" = "beige",
+                                "Stour" = "navy",
+                                "Warnow" = "cyan")) +
+  ylab("Day of the year") + 
+  xlab("Total length (mm)") +
+  #stat_summary(fun = "mean", geom = "point", #shape = 8,
+  #             size = 4, color = "blue") +
+  theme( 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(size = 12, colour = "black", angle=360),
+    axis.title.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12, colour = "black"),
+    axis.title.y = element_text(size = 12)) +
+  #scale_x_continuous(breaks = seq(0, 365, by = 30)) +
+  scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
+  geom_smooth(method='lm', se = F) +
+  geom_smooth(method='lm', se = F, aes(group = 1), colour = "black", size = 1.5)
 
 
 
