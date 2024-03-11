@@ -78,7 +78,8 @@ ggplot(escape, aes(x=water_body_class, y=successful_proportion, fill = fishing))
     axis.text.x = element_text(size = 16, colour = "black", angle= 360),
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
-    axis.title.y = element_text(size = 16)) 
+    axis.title.y = element_text(size = 16),
+    legend.position = "none")
 
 
 # Plot in function of barrier impact score and fishing
