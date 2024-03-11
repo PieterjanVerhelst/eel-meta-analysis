@@ -138,6 +138,7 @@ summary(glm2)
 # Apply multiple comparisons on the model
 posthoc <- glht(glm2, linfct = mcp(wbc_fishing = "Tukey"))
 summary(posthoc)
+par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
 plot(posthoc)
 
 
