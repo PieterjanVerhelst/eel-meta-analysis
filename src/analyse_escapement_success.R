@@ -3,6 +3,7 @@
 # pieterjan.verhelst@inbo.be
 
 library(tidyverse)
+library(multcomp) 
 
 
 # 1. Load data ####
@@ -134,8 +135,10 @@ summary(glm1)
 glm2 <- glm(formula = cbind(successful_migrants, unsuccessful_migrants) ~ wbc_fishing, data = escape, family = binomial())
 summary(glm2)
 
-
-
+# Apply multiple comparisons on the model
+posthoc <- glht(glm2, linfct = mcp(wbc_fishing = "Tukey"))
+summary(posthoc)
+plot(posthoc)
 
 
 
