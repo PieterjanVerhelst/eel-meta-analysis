@@ -22,7 +22,7 @@ escape$fishing <- factor(escape$fishing)
 
 aggregate(escape$successful_proportion, list(escape$fishing, escape$water_body_class), mean)
 
-# 2. Escapement success and barrier type analysis ####
+# 2. Plot escapement success in relation to barrier impacts and fishing ####
 # Plot in function of barrier types
 ggplot(escape, aes(x=barrier_type, y=successful_proportion)) + 
   geom_boxplot() +
@@ -106,43 +106,45 @@ ggplot(escape, aes(x=barrier_impact_score, y=successful_proportion)) +
 
 
 
+# 3. Statistical analysis: binomial regression ####
 
-# Conduct ANOVA or non-parametric alternative
+# Remove redundant columns to create better overview
+escape$barrier_type_when_multiple <- NULL
+escape$barrier_type <- NULL
+escape$barrier_type2 <- NULL
+escape$barrier_number <- NULL
+escape$barrier_impact_score <- NULL
 
-# Check normality
-qqnorm(escape$successful_proportion)
-qqline(escape$successful_proportion)
+# Create new variable as water body class and fishing combined
+escape$wbc_fishing <-  paste(escape$water_body_class, escape$fishing, sep = "_")
+escape$wbc_fishing <- factor(escape$wbc_fishing)
 
-shapiro.test(escape$successful_proportion)
+# Calculate unsuccessful migrants
+escape$unsuccessful_migrants <- escape$migrants - escape$successful_migrants
 
-# Check homogeneity of variances
-# Levene’s test
-# Levene’s test is used to assess whether the variances of two or more populations are equal.
-# https://www.datanovia.com/en/lessons/homogeneity-of-variance-test-in-r/
-# When p > 0.05, there is no significant difference between the two variances.
-car::leveneTest(successful_proportion ~ barrier_type, data = escape)
+# Remove ordered class from factor
+scape$water_body_class <- factor(escape$water_body_class, ordered = FALSE)
 
-# Conduct one-way ANOVA 
-aov <- aov(escape$successful_proportion ~ escape$barrier_type)
-summary(aov)
+# Apply binomial regression
+# GLM1: fishing as separate fixed variable
+glm1 <- glm(formula = cbind(successful_migrants, unsuccessful_migrants) ~ water_body_class + fishing, data = escape, family = binomial())
+summary(glm1)
 
-anova <- oneway.test(escape$successful_proportion ~ escape$barrier_type, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
-anova
+# GLM2: water body class and fishing combined as one fixed variable
+glm2 <- glm(formula = cbind(successful_migrants, unsuccessful_migrants) ~ wbc_fishing, data = escape, family = binomial())
+summary(glm2)
 
-# Check assumptions
-par(mfrow=c(2,2))
-plot(aov)
-dev.off
 
-# Post-hoc test for equal variances
-TukeyHSD(aov)
 
-# Post-hoc test for unequal variances
-posthocTGH(migration_speed_nontidal$speed_ms, migration_speed_nontidal$animal_project_code, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
 
-# Kruskal-Wallis test when data is not normally distributed
-kruskal.test(escape$successful_proportion ~ escape$barrier_type)
-#posthoc.kruskal.dunn.test(x=migration_speed_nontidal$animal_project_code, g=migration_speed_nontidal$speed_ms, p.adjust.method="bonferroni")
-FSA::dunnTest(escape$successful_proportion ~ escape$barrier_type, data=escape, method="bonferroni")
+
+
+
+
+
+
+
+
+
 
 
