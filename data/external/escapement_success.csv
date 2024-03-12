@@ -20,7 +20,7 @@ Noordzeekanaal,21,14,67,polder,shipping_lock,shipping_lock,shipping_lock,D,no,2,
 Noordzeekanaal,40,19,48,polder,pump_shipping_lock,pump,pump,E,no,2,6
 Meuse,324,186,57,river,hydropower,hydropower,hydropower,C,yes,7,21
 Meuse,260,97,37,river,hydropower,hydropower,hydropower,C,no,7,21
-Markiezaatsmeer,14,11,79,canal,weir_sluice,weir_sluice,weir,B,yes,2,2
+Markiezaatsmeer,14,11,79,canal,weir_sluice,weir_sluice,weir,B,no,2,2
 Suderpolder,3,0,0,polder,shipping_lock,shipping_lock,shipping_lock,D,no,1,2
 Stour,82,79,96,river,weir_sluice,weir_sluice,weir,B,yes,5,5
 Stour,13,13,100,river,weir_sluice,weir_sluice,weir,B,yes,3,3
