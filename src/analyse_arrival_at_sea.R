@@ -453,7 +453,7 @@ lmm1 <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
             data = end_period,
             na.action = na.omit)  # For two eels the total length is missing.
 summary(lmm1)
-
+anova(lmm1)
 
 # Check model
 plot(lmm1)
