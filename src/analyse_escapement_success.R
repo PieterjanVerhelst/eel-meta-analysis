@@ -125,7 +125,7 @@ escape$wbc_fishing <- factor(escape$wbc_fishing)
 escape$unsuccessful_migrants <- escape$migrants - escape$successful_migrants
 
 # Remove ordered class from factor
-scape$water_body_class <- factor(escape$water_body_class, ordered = FALSE)
+escape$water_body_class <- factor(escape$water_body_class, ordered = FALSE)
 
 # Apply binomial regression
 # GLM1: fishing as separate fixed variable

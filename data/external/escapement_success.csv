@@ -12,7 +12,7 @@ Loire,50,50,100,estuary,none,none,none,A,yes,0,0
 Warnow,107,87,81,river,weir_sluice,weir_sluice,weir,B,yes,1,1
 Nemunas,22,12,55,river,none,none,none,A,yes,0,0
 Nemunas,11,10,91,river,hydropower,hydropower,hydropower,C,yes,1,3
-Alta,23,23,100,fjord,none,none,none,A,no,0,0
+Alta,22,22,100,fjord,none,none,none,A,no,0,0
 Mondego,20,18,90,river,weir_sluice,weir_sluice,weir,B,no,6,6
 Noordzeekanaal,78,56,72,polder,shipping_lock,shipping_lock,shipping_lock,D,no,1,2
 Noordzeekanaal,3,1,33,polder,weir_shipping_lock,shipping_lock,shipping_lock,D,no,2,3
@@ -22,7 +22,7 @@ Meuse,324,186,57,river,hydropower,hydropower,hydropower,C,yes,7,21
 Meuse,260,97,37,river,hydropower,hydropower,hydropower,C,no,7,21
 Markiezaatsmeer,14,11,79,canal,weir_sluice,weir_sluice,weir,B,no,2,2
 Suderpolder,3,0,0,polder,shipping_lock,shipping_lock,shipping_lock,D,no,1,2
-Stour,82,79,96,river,weir_sluice,weir_sluice,weir,B,yes,5,5
+Stour,81,78,96,river,weir_sluice,weir_sluice,weir,B,yes,5,5
 Stour,13,13,100,river,weir_sluice,weir_sluice,weir,B,yes,3,3
 Frome,47,46,98,river,weir_sluice,weir_sluice,weir,B,no,2,2
 Nene,19,15,79,river,weir_sluice,weir_sluice,weir,B,yes,9,9
