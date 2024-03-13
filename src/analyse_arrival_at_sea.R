@@ -5,6 +5,10 @@
 
 source("src/process_migration_data.R")
 
+# Load packages ####
+library(nlme)
+library(coefplot2)
+
 
 
 # 1. Load data with habitat info and join to dataset ####
@@ -437,10 +441,22 @@ ggplot(end_period, aes(x= release_latitude , y=daynumber_adj)) +
 
 
 
+# 9. Statistical analysis ####
+# Apply linear mixed effects model
+lmm1 <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
+            random = ~length1 | animal_project_code,
+            data = end_period,
+            na.action = na.omit)  # For two eels the total length is missing.
+summary(lmm1)
 
 
+# Check model
+plot(lmm1)
+par(mfrow=c(2,2))
+qqnorm(resid(lmm1, type = "n"))  # type = "n"   means that the normalised residues are used; these take into account autocorrelation
+hist(resid(lmm1, type = "n"))
+plot(fitted(lmm1),resid(lmm1, type = "n"))
+dev.off()
 
-
-
-
+coefplot2(lmm1)
 
