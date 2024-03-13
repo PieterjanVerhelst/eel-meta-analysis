@@ -238,7 +238,7 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
                              "red")) +
   ylab("Day of the year") + 
   xlab("Water body") +
-  stat_summary(fun = "median", geom = "point", #shape = 8,
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
                size = 2, color = "black",
                position = position_dodge(width = 0.85)) +
   theme( 
@@ -444,6 +444,9 @@ ggplot(end_period, aes(x= release_latitude , y=daynumber_adj)) +
 
 
 # 9. Statistical analysis ####
+# Set factor
+end_period$water_body_class <- factor(end_period$water_body_class)
+
 # Apply linear mixed effects model
 lmm1 <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
             random = ~length1 | animal_project_code,
@@ -461,4 +464,11 @@ plot(fitted(lmm1),resid(lmm1, type = "n"))
 dev.off()
 
 coefplot2(lmm1)
+
+
+# Apply Tukey multiple comparisons on the model
+posthoc <- glht(lmm1, linfct = mcp(water_body_class = "Tukey"))
+summary(posthoc)
+#par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
+plot(posthoc)
 
