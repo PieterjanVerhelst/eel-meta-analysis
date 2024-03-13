@@ -76,6 +76,8 @@ data$animal_project_code.y <- NULL
 end_period <- read_csv("./data/interim/successful_migrants_final_detection.csv")
 end_period <- end_period %>%
   mutate_at(c('acoustic_tag_id', 'animal_project_code', 'station_name'), as.factor)
+end_period$arrival <- dmy_hm(end_period$arrival)
+end_period$departure <- dmy_hm(end_period$departure)
 
 # Join eel metadata to tidal dataset
 end_period <- left_join(end_period, eel, by = "acoustic_tag_id")
