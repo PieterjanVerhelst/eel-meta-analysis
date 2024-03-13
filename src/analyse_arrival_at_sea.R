@@ -454,8 +454,7 @@ end_period$water_body_class <- factor(end_period$water_body_class)
 # Apply linear mixed effects model
 lmm1 <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
             random = ~length1 | animal_project_code,
-            data = end_period,
-            na.action = na.omit)  # For two eels the total length is missing.
+            data = end_period)
 summary(lmm1)
 anova(lmm1)
 
