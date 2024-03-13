@@ -240,7 +240,8 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
   xlab("Water body") +
   stat_summary(fun = "mean", geom = "point", #shape = 8,
                size = 2, color = "black",
-               position = position_dodge(width = 0.85)) +
+               position = position_dodge(width = 0.85),
+               show.legend = FALSE) +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
@@ -251,6 +252,7 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16)) +
   scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
+  guides(fill=guide_legend(title="Water body \nclass")) +
   coord_flip() 
 
 
@@ -444,6 +446,8 @@ ggplot(end_period, aes(x= release_latitude , y=daynumber_adj)) +
 
 
 # 9. Statistical analysis ####
+aggregate(end_period$daynumber_adj, list(end_period$animal_project_code), mean)
+
 # Set factor
 end_period$water_body_class <- factor(end_period$water_body_class)
 
