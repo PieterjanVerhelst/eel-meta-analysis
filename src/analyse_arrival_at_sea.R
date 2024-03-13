@@ -94,6 +94,8 @@ end_period_summary <- end_period %>%
   #group_by(daynumber) %>%
   count()
 
+
+# 5. Plot data ####
 # Create dataset for barplot
 plot_data <- data.frame(daynumber  = 1:365)
 plot_data$daynumber_adj <- plot_data$daynumber - 151  # Adjust dataframe to plot first day in summer
@@ -247,7 +249,7 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
 
 
 
-# Sex analysis 
+# 6. Sex analysis ####
 # Calculate summary
 end_period_summary_frome <- end_period %>%
   filter(animal_project_code == "Frome") %>%
@@ -321,7 +323,7 @@ ggplot(plot_data_frome_no_na, aes(x=sex, y=daynumber_adj)) +
 
 
 
-# 8. Size analysis  ####
+# 7. Size analysis  ####
 
 # Plot
 end_period$daynumber <- as.character(end_period$daynumber)
@@ -399,7 +401,7 @@ ggplot(end_period, aes(x= length1, y=daynumber_adj,
 
 
 
-# 9. Geographical location analysis ####
+# 8. Geographical location analysis ####
 
 # Plot
 end_period$daynumber <- as.character(end_period$daynumber)
@@ -439,52 +441,6 @@ ggplot(end_period, aes(x= release_latitude , y=daynumber_adj)) +
 
 
 
-
-# SUCCESSFUL MIGRATION PERIOD DURATION: DURATION PERIOD BETWEEN FIRST DAY OF MIGRATION AND FINAL DAY WHEN ESCAPED TO THE SEA ####
-
-# 10. Merge first stay with last day ####
-start_period <- period %>%
-  select(acoustic_tag_id, animal_project_code, arrival, departure, length1, weight, sex, release_latitude, release_longitude) %>%
-  rename(start_arrival = arrival,
-         start_departure = departure)
-
-end_period2 <- end_period %>%
-  select(acoustic_tag_id, arrival, departure) %>%
-  rename(end_arrival = arrival,
-         end_departure = departure)
-
-# Only keep eels in the start_period dataset that successfully reached the sea, so eels in end_period dataset
-start_period <- subset(start_period, acoustic_tag_id %in% end_period2$acoustic_tag_id)
-dim(start_period)
-dim(end_period2)
-
-period_duration <- left_join(start_period, end_period2, by = "acoustic_tag_id")
-dim(period_duration)
-
-
-# 11. Calculate migration period duration ####
-period_duration$migration_period_duration <- difftime(period_duration$end_departure, period_duration$start_departure, units = "days")
-period_duration$migration_period_duration <- as.numeric(period_duration$migration_period_duration)
-
-boxplot(period_duration$migration_period_duration)
-
-
-# Plot
-ggplot(period_duration, aes(x=animal_project_code, y=migration_period_duration)) + 
-  geom_boxplot() +
-  ylab("Migration period duration (days)") + 
-  xlab("Water body") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue", show.legend = FALSE) +
-  theme( 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(), 
-    axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 16),
-    axis.text.y = element_text(size = 16, colour = "black"),
-    axis.title.y = element_text(size = 16))
 
 
 
