@@ -313,7 +313,7 @@ ggplot(plot_data_frome_no_na, aes(x=sex, y=daynumber_adj)) +
   geom_violin(width = 1.5,position=position_dodge(0.5)) +
   ylab("Day of the year") + 
   xlab("Sex") +
-  stat_summary(fun = "median", geom = "point", #shape = 8,
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
                size = 2, color = "black",
                position = position_dodge(width = 1)) +
   theme( 
