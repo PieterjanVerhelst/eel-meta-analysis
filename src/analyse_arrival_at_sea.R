@@ -446,7 +446,27 @@ ggplot(end_period, aes(x= release_latitude , y=daynumber_adj)) +
 
 
 # 9. Statistical analysis ####
+
+# Check if eel size was significantly different between water bodies
+# --> normality
+qqnorm(eel$length1)
+qqline(eel$length1)
+shapiro.test(eel$length1)
+
+# --> Check homogeneity of variances
+# Levene’s test
+# Levene’s test is used to assess whether the variances of two or more populations are equal.
+# https://www.datanovia.com/en/lessons/homogeneity-of-variance-test-in-r/
+# When p > 0.05, there is no significant difference between the two variances.
+car::leveneTest(length1 ~ animal_project_code, data = eel)
+
+# --> assumptions not met, so conduct Kruskal-Wallis test
+kruskal.test(eel$length1 ~ eel$animal_project_code)
+
+
+# Calculate average day of arrival at sea per animal project code
 aggregate(end_period$daynumber_adj, list(end_period$animal_project_code), mean)
+
 
 # Set factor
 end_period$water_body_class <- factor(end_period$water_body_class)
