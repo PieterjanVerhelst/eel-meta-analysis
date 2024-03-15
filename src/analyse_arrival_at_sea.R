@@ -313,7 +313,7 @@ ggplot(plot_data_frome_no_na, aes(x=sex, y=daynumber_adj)) +
   geom_violin(width = 1.5,position=position_dodge(0.5)) +
   ylab("Day of the year") + 
   xlab("Sex") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
+  stat_summary(fun = "median", geom = "point", #shape = 8,
                size = 2, color = "black",
                position = position_dodge(width = 1)) +
   theme( 
@@ -327,7 +327,6 @@ ggplot(plot_data_frome_no_na, aes(x=sex, y=daynumber_adj)) +
     axis.title.y = element_text(size = 16)) +
   scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May"), limits = c(154, 246)) +
   coord_flip() 
-
 
 
 
@@ -445,7 +444,7 @@ ggplot(end_period, aes(x= release_latitude , y=daynumber_adj)) +
 
 
 
-# 9. Statistical analysis ####
+# 9. Statistical analysis on whole dataset ####
 
 # Check if eel size was significantly different between water bodies
 # --> normality
@@ -501,4 +500,32 @@ posthoc <- glht(lmm1, linfct = mcp(water_body_class = "Tukey"))
 summary(posthoc)
 #par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
 plot(posthoc)
+
+
+# 10. Statistical analysis on effect of sex for River Frome ####
+
+# Check if eel size significantly differs via non-parametric Mann-Whitney U test (= Wilcoxon test)
+eel_frome <- filter(eel, animal_project_code == "2014_Frome")
+eel_frome$sex <- factor(eel_frome$sex)
+plot(length1 ~ sex, data = eel_frome)
+
+qqnorm(eel_frome$length1)
+qqline(eel_frome$length1)
+shapiro.test(eel_frome$length1)
+car::leveneTest(length1 ~ sex, data = eel_frome)
+
+kruskal.test(eel_frome$length1 ~ eel_frome$sex)
+
+# Analyse if arrival time at sea differs
+aggregate(end_period_frome$daynumber, list(end_period_frome$sex), median)
+end_period_frome <- filter(end_period, animal_project_code == "Frome")
+end_period_frome$sex <- factor(end_period_frome$sex)
+qqnorm(end_period_frome$daynumber_adj)
+qqline(end_period_frome$daynumber_adj)
+shapiro.test(end_period_frome$daynumber_adj)
+car::leveneTest(daynumber_adj ~ sex, data = end_period_frome)
+#t.test(daynumber_adj ~ sex, data = end_period_frome) # Perform (independent) two-sample t-test
+wilcox.test(daynumber_adj ~ sex, data = end_period_frome) # Perform Mann-Whitney-Wilcoxon Test
+
+
 
