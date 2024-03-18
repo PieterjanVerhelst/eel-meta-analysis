@@ -5,6 +5,11 @@
 
 source("src/calculate_migration_speed_habitats.R")
 
+# Load packages ####
+library(nlme)
+library(coefplot2)
+
+
 # 1. Select data in non-tidal areas ####
 
 # Select freshwater = non-tidal areas
