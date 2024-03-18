@@ -9,6 +9,7 @@ source("src/calculate_migration_speed_habitats.R")
 library(nlme)
 library(coefplot2)
 library(multcomp)
+library(rstatix)  # To apply Games-Howell posthoc test with unequal variances
 
 
 # 1. Select data in non-tidal areas ####
@@ -255,10 +256,10 @@ shapiro.test(migration_speed_nontidal$speed_ms)
 car::leveneTest(speed_ms ~ water_body_class, data = migration_speed_nontidal)
 
 # Conduct one-way ANOVA 
-aov <- aov(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$water_body_class)
+aov <- aov(log(migration_speed_nontidal$speed_ms) ~ migration_speed_nontidal$water_body_class)
 summary(aov)
 
-anova <- oneway.test(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$water_body_class, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
+anova <- oneway.test(log(migration_speed_nontidal$speed_ms) ~ migration_speed_nontidal$water_body_class, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
 
 anova
 
@@ -271,7 +272,12 @@ dev.off
 TukeyHSD(aov)
 
 # Post-hoc test for unequal variances
-posthocTGH(migration_speed_nontidal$speed_ms, migration_speed_nontidal$water_body_class, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
+migration_speed_nontidal2 <- ungroup(migration_speed_nontidal)
+migration_speed_nontidal2$speed_ms_log <- log(migration_speed_nontidal2$speed_ms)
+games_howell_test(migration_speed_nontidal2, 
+                  speed_ms_log ~ water_body_class,
+                  conf.level = 0.95, detailed = FALSE)
+#posthocTGH(log(migration_speed_nontidal$speed_ms), migration_speed_nontidal$water_body_class, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
 
 # Kruskal-Wallis test when data is not normally distributed
 kruskal.test(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$water_body_class)
@@ -386,7 +392,7 @@ FSA::dunnTest(geo$speed_ms ~ geo$animal_project_code, data=geo, method="bonferro
 # 7. Statistical analysis on whole dataset ####
 
 # Calculate average day of arrival at sea per animal project code
-aggregate(migration_speed_nontidal$speed_ms, list(migration_speed_nontidal$animal_project_code), mean)
+aggregate(migration_speed_nontidal$speed_ms, list(migration_speed_nontidal$water_body_class), mean)
 
 # Set factor
 migration_speed_nontidal$water_body_class <- factor(migration_speed_nontidal$water_body_class, ordered = FALSE )
@@ -423,4 +429,28 @@ posthoc <- glht(lmm1, linfct = mcp(water_body_class = "Tukey"))
 summary(posthoc)
 #par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
 plot(posthoc)
+
+
+# Apply one-way ANOVA because only water body classes are significant and because there is no need for a random effect after backward stepwise selection
+# Conduct one-way ANOVA 
+aov <- aov(log(migration_speed_nontidal$speed_ms) ~ migration_speed_nontidal$water_body_class)
+summary(aov)
+
+anova <- oneway.test(log(migration_speed_nontidal$speed_ms) ~ migration_speed_nontidal$water_body_class, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
+anova
+
+# Check assumptions
+par(mfrow=c(2,2))
+plot(aov)
+dev.off
+
+# Post-hoc test for equal variances
+TukeyHSD(aov)
+
+# Post-hoc test for unequal variances
+migration_speed_nontidal2 <- ungroup(migration_speed_nontidal)
+migration_speed_nontidal2$speed_ms_log <- log(migration_speed_nontidal2$speed_ms)
+games_howell_test(migration_speed_nontidal2, 
+                  speed_ms_log ~ water_body_class,
+                  conf.level = 0.95, detailed = FALSE)
 
