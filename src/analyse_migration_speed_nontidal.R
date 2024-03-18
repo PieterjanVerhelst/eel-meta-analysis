@@ -59,7 +59,7 @@ migration_speed_nontidal$animal_project_code.y <- NULL
 # Plot
 ggplot(migration_speed_nontidal, aes(x=length1, y=speed_ms)) + 
   geom_point() +
-  facet_wrap(~animal_project_code) +
+  facet_wrap(~animal_project_code, scales = "free") +
   ylab("Migration speed (m/s)") + 
   xlab("Total length (mm)") +
   #stat_summary(fun = "mean", geom = "point", #shape = 8,
