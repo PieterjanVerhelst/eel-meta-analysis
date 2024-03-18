@@ -5,6 +5,12 @@
 
 source("src/calculate_migration_speed_habitats.R")
 
+
+# Load packages ####
+library(nlme)
+library(coefplot2)
+
+
 # 1. Select data in tidal areas ####
 migration_speed_tidal <- filter(migration_speed, habitat_type3 == "tidal")
 
@@ -171,5 +177,35 @@ shapiro.test(residuals(lm_geo))
 
 
 
+# 6. Statistical analysis on whole dataset ####
+# Calculate average migration speed
+summary(migration_speed_tidal$speed_ms)
+sd(migration_speed_tidal$speed_ms)
 
+
+# Apply linear mixed effects model
+# Full model
+lmm1 <- lme(log(speed_ms) ~ release_latitude + length1,
+            random = ~length1 | animal_project_code,
+            data = migration_speed_tidal)
+
+summary(lmm1)
+anova(lmm1)
+
+# Check model
+plot(lmm1)
+par(mfrow=c(2,2))
+qqnorm(resid(lmm1, type = "n"))  # type = "n"   means that the normalised residues are used; these take into account autocorrelation
+hist(resid(lmm1, type = "n"))
+plot(fitted(lmm1),resid(lmm1, type = "n"))
+dev.off()
+
+coefplot2(lmm1)
+
+
+# Apply Tukey multiple comparisons on the model
+posthoc <- glht(lmm1, linfct = mcp(water_body_class = "Tukey"))
+summary(posthoc)
+#par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
+plot(posthoc)
 
