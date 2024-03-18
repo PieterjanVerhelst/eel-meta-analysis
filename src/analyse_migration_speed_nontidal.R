@@ -8,6 +8,7 @@ source("src/calculate_migration_speed_habitats.R")
 # Load packages ####
 library(nlme)
 library(coefplot2)
+library(multcomp)
 
 
 # 1. Select data in non-tidal areas ####
@@ -379,4 +380,47 @@ kruskal.test(geo$speed_ms ~ geo$animal_project_code)
 FSA::dunnTest(geo$speed_ms ~ geo$animal_project_code, data=geo, method="bonferroni")
 
 
+
+
+
+# 7. Statistical analysis on whole dataset ####
+
+# Calculate average day of arrival at sea per animal project code
+aggregate(migration_speed_nontidal$speed_ms, list(migration_speed_nontidal$animal_project_code), mean)
+
+# Set factor
+migration_speed_nontidal$water_body_class <- factor(migration_speed_nontidal$water_body_class, ordered = FALSE )
+
+# Apply linear mixed effects model
+# Full model
+lmm1 <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
+            random = ~length1 | animal_project_code,
+            data = migration_speed_nontidal)
+
+# Stepwise backward selection: remove water_body_class
+lmm1 <- lme(log(speed_ms) ~ water_body_class,
+            random = ~length1 | animal_project_code,
+            data = migration_speed_nontidal)
+
+
+
+summary(lmm1)
+anova(lmm1)
+
+# Check model
+plot(lmm1)
+par(mfrow=c(2,2))
+qqnorm(resid(lmm1, type = "n"))  # type = "n"   means that the normalised residues are used; these take into account autocorrelation
+hist(resid(lmm1, type = "n"))
+plot(fitted(lmm1),resid(lmm1, type = "n"))
+dev.off()
+
+coefplot2(lmm1)
+
+
+# Apply Tukey multiple comparisons on the model
+posthoc <- glht(lmm1, linfct = mcp(water_body_class = "Tukey"))
+summary(posthoc)
+#par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
+plot(posthoc)
 
