@@ -6,9 +6,6 @@
 source("src/calculate_migration_speed_habitats.R")
 
 # Load packages ####
-library(nlme)
-library(coefplot2)
-library(multcomp)
 library(rstatix)  # To apply Games-Howell posthoc test with unequal variances
 
 
@@ -390,6 +387,10 @@ FSA::dunnTest(geo$speed_ms ~ geo$animal_project_code, data=geo, method="bonferro
 
 
 # 7. Statistical analysis on whole dataset ####
+# Load packages
+library(nlme)
+library(coefplot2)
+library(multcomp)
 
 # Calculate average day of arrival at sea per animal project code
 aggregate(migration_speed_nontidal$speed_ms, list(migration_speed_nontidal$water_body_class), mean)
@@ -405,7 +406,7 @@ lmm1 <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
 
 # Stepwise backward selection: remove water_body_class
 lmm1 <- lme(log(speed_ms) ~ water_body_class,
-            random = ~length1 | animal_project_code,
+            random = ~1 | animal_project_code,
             data = migration_speed_nontidal)
 
 
