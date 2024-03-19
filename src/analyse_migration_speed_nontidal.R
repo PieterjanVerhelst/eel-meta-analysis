@@ -6,7 +6,7 @@
 source("src/calculate_migration_speed_habitats.R")
 
 # Load packages ####
-library(rstatix)  # To apply Games-Howell posthoc test with unequal variances
+#library(rstatix)  # To apply Games-Howell posthoc test with unequal variances
 
 
 # 1. Select data in non-tidal areas ####
