@@ -218,9 +218,9 @@ ggplot(migration_speed_nontidal, aes(x=animal_project_code, y=speed_ms, fill = f
 
 
 # Boxplot per water body class
-ggplot(migration_speed_nontidal, aes(x=water_body_class, y=speed_ms)) +
+ggplot(migration_speed_nontidal, aes(x=water_body_class, y=log(speed_ms))) +
   geom_boxplot() +
-  ylab("Migration speed (m/s)") + 
+  ylab("Log transformed migration speed (m/s)") + 
   xlab("Water body class") +
   #stat_summary(fun = "mean", geom = "point", #shape = 8,
   #             size = 2, color = "black",
@@ -404,15 +404,18 @@ lmm1 <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
             random = ~length1 | animal_project_code,
             data = migration_speed_nontidal)
 
-# Stepwise backward selection: remove water_body_class
+# Stepwise backward selection
+lmm1 <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
+            random = ~1 | animal_project_code,
+            data = migration_speed_nontidal)
+
 lmm1 <- lme(log(speed_ms) ~ water_body_class,
             random = ~1 | animal_project_code,
             data = migration_speed_nontidal)
 
 
-
 summary(lmm1)
-anova(lmm1)
+
 
 # Check model
 plot(lmm1)
