@@ -190,7 +190,7 @@ lmm1 <- lme(log(speed_ms) ~ release_latitude + length1,
             data = migration_speed_tidal)
 
 summary(lmm1)
-anova(lmm1)
+
 
 # Check model
 plot(lmm1)
