@@ -482,7 +482,9 @@ lmm1 <- lme(daynumber_adj ~ release_latitude + length1,
             data = end_period)
 
 summary(lmm1)
-anova(lmm1)
+
+# Compare models
+anova(lmm, lmm1)
 
 # Check model
 plot(lmm1)
