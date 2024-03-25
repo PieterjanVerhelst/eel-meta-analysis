@@ -62,7 +62,7 @@ ggplot(escape, aes(x=barrier_type, y=successful_proportion, fill = fishing)) +
 
 # Plot in function of water body class and fishing
 ggplot(escape, aes(x=water_body_class, y=successful_proportion, fill = fishing)) + 
-  geom_boxplot() +
+  geom_boxplot(position = position_dodge(preserve = "single")) +
   #scale_fill_brewer(palette="Dark2") +
   scale_fill_manual(values = c("no" = "lightgrey",
                                 "yes" = "gray35")) +
