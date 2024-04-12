@@ -5,6 +5,12 @@
 
 source("src/calculate_migration_speed_habitats.R")
 
+
+# Load packages ####
+library(nlme)
+library(coefplot2)
+
+
 # 1. Select data in tidal areas ####
 migration_speed_tidal <- filter(migration_speed, habitat_type3 == "tidal")
 
@@ -170,79 +176,36 @@ plot(lm_geo$residuals, pch = 16, col = "red")  # residuals should look random
 shapiro.test(residuals(lm_geo))
 
 
-# Approach to simply use projects as these have a specific geographical location
-migration_speed_tidal$animal_project_code <- factor(migration_speed_tidal$animal_project_code, ordered = TRUE, 
-                                              levels = c("Mondego", 
-                                                         "Grand Lieu Lake",
-                                                         "Loire", 
-                                                         "Frome", 
-                                                         "Stour",
-                                                         "Nene",
-                                                         "Scheldt",
-                                                         "Leopold Canal",
-                                                         "Grote Nete",
-                                                         "Albert Canal",
-                                                         "Markiezaatsmeer",
-                                                         "Meuse",
-                                                         "Alta"))
 
-# Plot
-ggplot(migration_speed_tidal, aes(x=animal_project_code, y=speed_ms)) + 
-  geom_boxplot() +
-  #scale_fill_brewer(palette="Dark2") +
-  ylab("Migration speed (m/s)") + 
-  xlab("Animal project code") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue", show.legend = FALSE) +
-  theme( 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(), 
-    axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 22),
-    axis.text.y = element_text(size = 22, colour = "black"),
-    axis.title.y = element_text(size = 22))
+# 6. Statistical analysis on whole dataset ####
+# Calculate average migration speed
+summary(migration_speed_tidal$speed_ms)
+sd(migration_speed_tidal$speed_ms)
 
 
-# Conduct ANOVA or non-parametric alternative
+# Apply linear mixed effects model
+# Full model
+lmm1 <- lme(log(speed_ms) ~ release_latitude + length1,
+            random = ~length1 | animal_project_code,
+            data = migration_speed_tidal)
 
-# Check normality
-qqnorm(migration_speed_tidal$speed_ms)
-qqline(migration_speed_tidal$speed_ms)
+summary(lmm1)
 
-shapiro.test(migration_speed_tidal$speed_ms)
 
-# Check homogeneity of variances
-# Levene’s test
-# Levene’s test is used to assess whether the variances of two or more populations are equal.
-# https://www.datanovia.com/en/lessons/homogeneity-of-variance-test-in-r/
-# When p > 0.05, there is no significant difference between the two variances.
-car::leveneTest(speed_ms ~ animal_project_code, data = migration_speed_tidal)
-
-## Conduct one-way ANOVA ####
-aov <- aov(migration_speed_tidal$speed_ms ~ migration_speed_tidal$animal_project_code)
-summary(aov)
-
-anova <- oneway.test(migration_speed_tidal$speed_ms ~ migration_speed_tidal$animal_project_code, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
-anova
-
-# Check assumptions
+# Check model
+plot(lmm1)
 par(mfrow=c(2,2))
-plot(aov)
-dev.off
+qqnorm(resid(lmm1, type = "n"))  # type = "n"   means that the normalised residues are used; these take into account autocorrelation
+hist(resid(lmm1, type = "n"))
+plot(fitted(lmm1),resid(lmm1, type = "n"))
+dev.off()
 
-# Post-hoc test for equal variances
-TukeyHSD(aov)
-
-# Post-hoc test for unequal variances
-posthocTGH(migration_speed_tidal$speed_ms, migration_speed_tidal$animal_project_code, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
-
-## Kruskal-Wallis test when data is not normally distributed ####
-kruskal.test(migration_speed_tidal$speed_ms ~ migration_speed_tidal$animal_project_code)
-#posthoc.kruskal.dunn.test(x=migration_speed_tidal$animal_project_code, g=migration_speed_tidal$speed_ms, p.adjust.method="bonferroni")
-FSA::dunnTest(migration_speed_tidal$speed_ms ~ migration_speed_tidal$animal_project_code, data=migration_speed_tidal, method="bonferroni")
+coefplot2(lmm1)
 
 
-
+# Apply Tukey multiple comparisons on the model
+posthoc <- glht(lmm1, linfct = mcp(water_body_class = "Tukey"))
+summary(posthoc)
+#par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
+plot(posthoc)
 

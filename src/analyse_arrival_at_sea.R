@@ -5,6 +5,10 @@
 
 source("src/process_migration_data.R")
 
+# Load packages ####
+library(nlme)
+library(coefplot2)
+
 
 
 # 1. Load data with habitat info and join to dataset ####
@@ -72,6 +76,8 @@ data$animal_project_code.y <- NULL
 end_period <- read_csv("./data/interim/successful_migrants_final_detection.csv")
 end_period <- end_period %>%
   mutate_at(c('acoustic_tag_id', 'animal_project_code', 'station_name'), as.factor)
+end_period$arrival <- dmy_hm(end_period$arrival)
+end_period$departure <- dmy_hm(end_period$departure)
 
 # Join eel metadata to tidal dataset
 end_period <- left_join(end_period, eel, by = "acoustic_tag_id")
@@ -94,6 +100,8 @@ end_period_summary <- end_period %>%
   #group_by(daynumber) %>%
   count()
 
+
+# 5. Plot data ####
 # Create dataset for barplot
 plot_data <- data.frame(daynumber  = 1:365)
 plot_data$daynumber_adj <- plot_data$daynumber - 151  # Adjust dataframe to plot first day in summer
@@ -230,9 +238,10 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
                              "red")) +
   ylab("Day of the year") + 
   xlab("Water body") +
-  stat_summary(fun = "median", geom = "point", #shape = 8,
+  stat_summary(fun = "mean", geom = "point", #shape = 8,
                size = 2, color = "black",
-               position = position_dodge(width = 0.85)) +
+               position = position_dodge(width = 0.85),
+               show.legend = FALSE) +
   theme( 
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(),
@@ -243,11 +252,12 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
     axis.text.y = element_text(size = 16, colour = "black"),
     axis.title.y = element_text(size = 16)) +
   scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
+  guides(fill=guide_legend(title="Water body \nclass")) +
   coord_flip() 
 
 
 
-# Sex analysis 
+# 6. Sex analysis ####
 # Calculate summary
 end_period_summary_frome <- end_period %>%
   filter(animal_project_code == "Frome") %>%
@@ -320,8 +330,7 @@ ggplot(plot_data_frome_no_na, aes(x=sex, y=daynumber_adj)) +
 
 
 
-
-# 8. Size analysis  ####
+# 7. Size analysis  ####
 
 # Plot
 end_period$daynumber <- as.character(end_period$daynumber)
@@ -399,7 +408,7 @@ ggplot(end_period, aes(x= length1, y=daynumber_adj,
 
 
 
-# 9. Geographical location analysis ####
+# 8. Geographical location analysis ####
 
 # Plot
 end_period$daynumber <- as.character(end_period$daynumber)
@@ -435,56 +444,90 @@ ggplot(end_period, aes(x= release_latitude , y=daynumber_adj)) +
 
 
 
+# 9. Statistical analysis on whole dataset ####
+
+# Check if eel size was significantly different between water bodies
+# --> normality
+qqnorm(eel$length1)
+qqline(eel$length1)
+shapiro.test(eel$length1)
+
+# --> Check homogeneity of variances
+# Levene’s test
+# Levene’s test is used to assess whether the variances of two or more populations are equal.
+# https://www.datanovia.com/en/lessons/homogeneity-of-variance-test-in-r/
+# When p > 0.05, there is no significant difference between the two variances.
+car::leveneTest(length1 ~ animal_project_code, data = eel)
+
+# --> assumptions not met, so conduct Kruskal-Wallis test
+kruskal.test(eel$length1 ~ eel$animal_project_code)
 
 
+# Calculate average day of arrival at sea per animal project code
+aggregate(end_period$daynumber_adj, list(end_period$animal_project_code), mean)
 
 
+# Set factor
+end_period$water_body_class <- factor(end_period$water_body_class)
 
-# SUCCESSFUL MIGRATION PERIOD DURATION: DURATION PERIOD BETWEEN FIRST DAY OF MIGRATION AND FINAL DAY WHEN ESCAPED TO THE SEA ####
+# Apply linear mixed effects model
+# Full model
+lmm1 <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
+            random = ~length1 | animal_project_code,
+            data = end_period)
 
-# 10. Merge first stay with last day ####
-start_period <- period %>%
-  select(acoustic_tag_id, animal_project_code, arrival, departure, length1, weight, sex, release_latitude, release_longitude) %>%
-  rename(start_arrival = arrival,
-         start_departure = departure)
+# Stepwise backward selection: remove water_body_class
+lmm1 <- lme(daynumber_adj ~ release_latitude + length1,
+            random = ~length1 | animal_project_code,
+            data = end_period)
 
-end_period2 <- end_period %>%
-  select(acoustic_tag_id, arrival, departure) %>%
-  rename(end_arrival = arrival,
-         end_departure = departure)
+summary(lmm1)
 
-# Only keep eels in the start_period dataset that successfully reached the sea, so eels in end_period dataset
-start_period <- subset(start_period, acoustic_tag_id %in% end_period2$acoustic_tag_id)
-dim(start_period)
-dim(end_period2)
+# Compare models
+anova(lmm, lmm1)
 
-period_duration <- left_join(start_period, end_period2, by = "acoustic_tag_id")
-dim(period_duration)
+# Check model
+plot(lmm1)
+par(mfrow=c(2,2))
+qqnorm(resid(lmm1, type = "n"))  # type = "n"   means that the normalised residues are used; these take into account autocorrelation
+hist(resid(lmm1, type = "n"))
+plot(fitted(lmm1),resid(lmm1, type = "n"))
+dev.off()
 
-
-# 11. Calculate migration period duration ####
-period_duration$migration_period_duration <- difftime(period_duration$end_departure, period_duration$start_departure, units = "days")
-period_duration$migration_period_duration <- as.numeric(period_duration$migration_period_duration)
-
-boxplot(period_duration$migration_period_duration)
+coefplot2(lmm1)
 
 
-# Plot
-ggplot(period_duration, aes(x=animal_project_code, y=migration_period_duration)) + 
-  geom_boxplot() +
-  ylab("Migration period duration (days)") + 
-  xlab("Water body") +
-  stat_summary(fun = "mean", geom = "point", #shape = 8,
-               size = 4, color = "blue", show.legend = FALSE) +
-  theme( 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(), 
-    axis.line = element_line(colour = "black"),
-    axis.text.x = element_text(size = 16, colour = "black", angle=90),
-    axis.title.x = element_text(size = 16),
-    axis.text.y = element_text(size = 16, colour = "black"),
-    axis.title.y = element_text(size = 16))
+# Apply Tukey multiple comparisons on the model
+posthoc <- glht(lmm1, linfct = mcp(water_body_class = "Tukey"))
+summary(posthoc)
+#par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
+plot(posthoc)
+
+
+# 10. Statistical analysis on effect of sex for River Frome ####
+
+# Check if eel size significantly differs via non-parametric Mann-Whitney U test (= Wilcoxon test)
+eel_frome <- filter(eel, animal_project_code == "2014_Frome")
+eel_frome$sex <- factor(eel_frome$sex)
+plot(length1 ~ sex, data = eel_frome)
+
+qqnorm(eel_frome$length1)
+qqline(eel_frome$length1)
+shapiro.test(eel_frome$length1)
+car::leveneTest(length1 ~ sex, data = eel_frome)
+
+kruskal.test(eel_frome$length1 ~ eel_frome$sex)
+
+# Analyse if arrival time at sea differs
+aggregate(end_period_frome$daynumber, list(end_period_frome$sex), median)
+end_period_frome <- filter(end_period, animal_project_code == "Frome")
+end_period_frome$sex <- factor(end_period_frome$sex)
+qqnorm(end_period_frome$daynumber_adj)
+qqline(end_period_frome$daynumber_adj)
+shapiro.test(end_period_frome$daynumber_adj)
+car::leveneTest(daynumber_adj ~ sex, data = end_period_frome)
+#t.test(daynumber_adj ~ sex, data = end_period_frome) # Perform (independent) two-sample t-test
+wilcox.test(daynumber_adj ~ sex, data = end_period_frome) # Perform Mann-Whitney-Wilcoxon Test
 
 
 

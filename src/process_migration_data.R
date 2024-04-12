@@ -100,8 +100,12 @@ data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoust
 data <- data[!(data$animal_project_code == "2015_phd_verhelst_eel" & data$acoustic_tag_id == "A69-1602-30335"),]
 
 
+# 6. Remove two eels for which we do not have length information ####
+data <- data[!(data$animal_project_code == "emmn" & data$acoustic_tag_id == "A69-1105-253"),]
+data <- data[!(data$animal_project_code == "2013_stour" & data$acoustic_tag_id == "30"),]
 
-# 6. Count number of eels per project ####
+
+# 7. Count number of eels per project ####
 eels_per_project <- data %>%
   group_by(animal_project_code, acoustic_tag_id) %>%
   select(animal_project_code, acoustic_tag_id) %>%

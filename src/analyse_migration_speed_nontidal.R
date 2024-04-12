@@ -5,6 +5,10 @@
 
 source("src/calculate_migration_speed_habitats.R")
 
+# Load packages ####
+#library(rstatix)  # To apply Games-Howell posthoc test with unequal variances
+
+
 # 1. Select data in non-tidal areas ####
 
 # Select freshwater = non-tidal areas
@@ -54,7 +58,7 @@ migration_speed_nontidal$animal_project_code.y <- NULL
 # Plot
 ggplot(migration_speed_nontidal, aes(x=length1, y=speed_ms)) + 
   geom_point() +
-  facet_wrap(~animal_project_code) +
+  facet_wrap(~animal_project_code, scales = "free") +
   ylab("Migration speed (m/s)") + 
   xlab("Total length (mm)") +
   #stat_summary(fun = "mean", geom = "point", #shape = 8,
@@ -214,9 +218,9 @@ ggplot(migration_speed_nontidal, aes(x=animal_project_code, y=speed_ms, fill = f
 
 
 # Boxplot per water body class
-ggplot(migration_speed_nontidal, aes(x=water_body_class, y=speed_ms)) +
+ggplot(migration_speed_nontidal, aes(x=water_body_class, y=log(speed_ms))) +
   geom_boxplot() +
-  ylab("Migration speed (m/s)") + 
+  ylab("Log transformed migration speed (m/s)") + 
   xlab("Water body class") +
   #stat_summary(fun = "mean", geom = "point", #shape = 8,
   #             size = 2, color = "black",
@@ -249,10 +253,10 @@ shapiro.test(migration_speed_nontidal$speed_ms)
 car::leveneTest(speed_ms ~ water_body_class, data = migration_speed_nontidal)
 
 # Conduct one-way ANOVA 
-aov <- aov(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$water_body_class)
+aov <- aov(log(migration_speed_nontidal$speed_ms) ~ migration_speed_nontidal$water_body_class)
 summary(aov)
 
-anova <- oneway.test(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$water_body_class, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
+anova <- oneway.test(log(migration_speed_nontidal$speed_ms) ~ migration_speed_nontidal$water_body_class, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
 
 anova
 
@@ -265,7 +269,12 @@ dev.off
 TukeyHSD(aov)
 
 # Post-hoc test for unequal variances
-posthocTGH(migration_speed_nontidal$speed_ms, migration_speed_nontidal$water_body_class, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
+migration_speed_nontidal2 <- ungroup(migration_speed_nontidal)
+migration_speed_nontidal2$speed_ms_log <- log(migration_speed_nontidal2$speed_ms)
+games_howell_test(migration_speed_nontidal2, 
+                  speed_ms_log ~ water_body_class,
+                  conf.level = 0.95, detailed = FALSE)
+#posthocTGH(log(migration_speed_nontidal$speed_ms), migration_speed_nontidal$water_body_class, method=c("games-howell"), digits=3)  # post-hoc test for unequal variances
 
 # Kruskal-Wallis test when data is not normally distributed
 kruskal.test(migration_speed_nontidal$speed_ms ~ migration_speed_nontidal$water_body_class)
@@ -374,4 +383,78 @@ kruskal.test(geo$speed_ms ~ geo$animal_project_code)
 FSA::dunnTest(geo$speed_ms ~ geo$animal_project_code, data=geo, method="bonferroni")
 
 
+
+
+
+# 7. Statistical analysis on whole dataset ####
+# Load packages
+library(nlme)
+library(coefplot2)
+library(multcomp)
+
+# Calculate average day of arrival at sea per animal project code
+aggregate(migration_speed_nontidal$speed_ms, list(migration_speed_nontidal$water_body_class), mean)
+
+# Set factor
+migration_speed_nontidal$water_body_class <- factor(migration_speed_nontidal$water_body_class, ordered = FALSE )
+
+# Apply linear mixed effects model
+# Full model
+lmm1 <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
+            random = ~length1 | animal_project_code,
+            data = migration_speed_nontidal)
+
+# Stepwise backward selection
+lmm1 <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
+            random = ~1 | animal_project_code,
+            data = migration_speed_nontidal)
+
+lmm1 <- lme(log(speed_ms) ~ water_body_class,
+            random = ~1 | animal_project_code,
+            data = migration_speed_nontidal)
+
+
+summary(lmm1)
+
+
+# Check model
+plot(lmm1)
+par(mfrow=c(2,2))
+qqnorm(resid(lmm1, type = "n"))  # type = "n"   means that the normalised residues are used; these take into account autocorrelation
+hist(resid(lmm1, type = "n"))
+plot(fitted(lmm1),resid(lmm1, type = "n"))
+dev.off()
+
+coefplot2(lmm1)
+
+
+# Apply Tukey multiple comparisons on the model
+posthoc <- glht(lmm1, linfct = mcp(water_body_class = "Tukey"))
+summary(posthoc)
+#par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
+plot(posthoc)
+
+
+# Apply one-way ANOVA because only water body classes are significant and because there is no need for a random effect after backward stepwise selection
+# Conduct one-way ANOVA 
+aov <- aov(log(migration_speed_nontidal$speed_ms) ~ migration_speed_nontidal$water_body_class)
+summary(aov)
+
+anova <- oneway.test(log(migration_speed_nontidal$speed_ms) ~ migration_speed_nontidal$water_body_class, var.equal=FALSE) # var.equal = FALSE when homogeneity of variances is not fulfilled
+anova
+
+# Check assumptions
+par(mfrow=c(2,2))
+plot(aov)
+dev.off
+
+# Post-hoc test for equal variances
+TukeyHSD(aov)
+
+# Post-hoc test for unequal variances
+migration_speed_nontidal2 <- ungroup(migration_speed_nontidal)
+migration_speed_nontidal2$speed_ms_log <- log(migration_speed_nontidal2$speed_ms)
+games_howell_test(migration_speed_nontidal2, 
+                  speed_ms_log ~ water_body_class,
+                  conf.level = 0.95, detailed = FALSE)
 

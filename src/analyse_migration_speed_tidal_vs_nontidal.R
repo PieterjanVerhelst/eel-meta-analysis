@@ -95,7 +95,8 @@ ggplot(migration_speed_tidal_nontidal, aes(x=animal_project_code, y=speed_ms, fi
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
-    axis.title.y = element_text(size = 16))
+    axis.title.y = element_text(size = 16),
+    legend.position = "none")
 
 
 # Plot according to water body class
@@ -123,7 +124,7 @@ ggplot(migration_speed_tidal_nontidal, aes(x=water_body_class, y=speed_ms, fill 
 
 # Compute the difference
 d <- with(migration_speed_tidal_nontidal, 
-          speed_ms[habitat_type3 == "tidal"] - speed_ms[habitat_type3 == "freshwater"])
+          speed_ms[habitat_type3 == "tidal"] - speed_ms[habitat_type3 == "nontidal"])
 # Shapiro-Wilk normality test for the differences
 shapiro.test(d) # => p-value = 0.6141
 
@@ -134,7 +135,7 @@ waterbody <- "Frome"
 tidal <- filter(migration_speed_tidal_nontidal, habitat_type3 == "tidal",
                 animal_project_code == waterbody)
 
-nontidal <- filter(migration_speed_tidal_nontidal, habitat_type3 == "freshwater",
+nontidal <- filter(migration_speed_tidal_nontidal, habitat_type3 == "nontidal",
                    animal_project_code == waterbody)
 
 nontidal <- subset(nontidal, acoustic_tag_id %in% tidal$acoustic_tag_id)  # Make sure same eels are in both datasets
