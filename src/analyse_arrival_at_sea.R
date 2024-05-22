@@ -472,7 +472,7 @@ end_period$water_body_class <- factor(end_period$water_body_class)
 
 # Apply linear mixed effects model
 # Full model
-lmm1 <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
+lmm <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
             random = ~length1 | animal_project_code,
             data = end_period)
 
