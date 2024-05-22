@@ -400,22 +400,24 @@ migration_speed_nontidal$water_body_class <- factor(migration_speed_nontidal$wat
 
 # Apply linear mixed effects model
 # Full model
-lmm1 <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
+lmm <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
             random = ~length1 | animal_project_code,
             data = migration_speed_nontidal)
 
 # Stepwise backward selection
-lmm1 <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
-            random = ~1 | animal_project_code,
+lmm1 <- lme(log(speed_ms) ~ release_latitude + water_body_class,
+            random = ~length1 | animal_project_code,
             data = migration_speed_nontidal)
 
-lmm1 <- lme(log(speed_ms) ~ water_body_class,
-            random = ~1 | animal_project_code,
+lmm2 <- lme(log(speed_ms) ~ water_body_class,
+            random = ~length1 | animal_project_code,
             data = migration_speed_nontidal)
 
 
 summary(lmm1)
 
+# Compare models
+anova(lmm1, lmm2)
 
 # Check model
 plot(lmm1)
