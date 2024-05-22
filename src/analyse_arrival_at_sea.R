@@ -477,9 +477,10 @@ lmm <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
             data = end_period)
 
 # Stepwise backward selection: remove water_body_class
-lmm1 <- lme(daynumber_adj ~ release_latitude + length1,
+lmm1 <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
             random = ~length1 | animal_project_code,
             data = end_period)
+
 
 summary(lmm1)
 
