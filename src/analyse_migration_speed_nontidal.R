@@ -405,17 +405,18 @@ lmm <- lme(log(speed_ms) ~ release_latitude + length1 + water_body_class,
             data = migration_speed_nontidal)
 
 # Stepwise backward selection
-lmm1 <- lme(log(speed_ms) ~ release_latitude + water_body_class,
+lmm1 <- lme(log(speed_ms) ~ length1 +  water_body_class,
+           random = ~length1 | animal_project_code,
+           data = migration_speed_nontidal)
+
+lmm2 <- lme(log(speed_ms) ~ length1,
             random = ~length1 | animal_project_code,
             data = migration_speed_nontidal)
 
-lmm2 <- lme(log(speed_ms) ~ water_body_class,
-            random = ~length1 | animal_project_code,
-            data = migration_speed_nontidal)
 
-
-# Compare models
-anova(lmm1, lmm2)
+# Compare models based on AIC--> Use ML to compare fixed terms of LMM
+#anova(lmm, lmm1)
+anova(update(lmm, method = "ML"), update(lmm1, method = "ML"))
 
 # Get summary
 summary(lmm1)
