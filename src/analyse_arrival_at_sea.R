@@ -482,10 +482,13 @@ lmm1 <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
             data = end_period)
 
 
-summary(lmm1)
-
 # Compare models
 anova(lmm, lmm1)
+
+
+# Get summary
+summary(lmm1)
+
 
 # Check model
 plot(lmm1)

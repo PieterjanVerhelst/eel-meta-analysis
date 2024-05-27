@@ -414,10 +414,12 @@ lmm2 <- lme(log(speed_ms) ~ water_body_class,
             data = migration_speed_nontidal)
 
 
-summary(lmm1)
-
 # Compare models
 anova(lmm1, lmm2)
+
+# Get summary
+summary(lmm1)
+
 
 # Check model
 plot(lmm1)
