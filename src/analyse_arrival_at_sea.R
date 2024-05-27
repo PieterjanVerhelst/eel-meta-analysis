@@ -477,14 +477,14 @@ lmm <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
             data = end_period)
 
 # Stepwise backward selection: remove water_body_class
-lmm1 <- lme(daynumber_adj ~ release_latitude + length1 + water_body_class,
+lmm1 <- lme(daynumber_adj ~ release_latitude + length1,
             random = ~length1 | animal_project_code,
             data = end_period)
 
 
-# Compare models
-anova(lmm, lmm1)
-
+# Compare models based on AIC--> Use ML to compare fixed terms of LMM
+#anova(lmm, lmm1)
+anova(update(lmm, method = "ML"), update(lmm1, method = "ML"))
 
 # Get summary
 summary(lmm1)
