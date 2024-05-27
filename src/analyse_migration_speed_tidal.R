@@ -185,10 +185,22 @@ sd(migration_speed_tidal$speed_ms)
 
 # Apply linear mixed effects model
 # Full model
-lmm1 <- lme(log(speed_ms) ~ release_latitude + length1,
+lmm <- lme(log(speed_ms) ~ release_latitude + length1,
             random = ~length1 | animal_project_code,
             data = migration_speed_tidal)
 
+
+# Stepwise backward selection: remove water_body_class
+lmm1 <- lme(log(speed_ms) ~ release_latitude ,
+            random = ~length1 | animal_project_code,
+            data = migration_speed_tidal)
+
+
+# Compare models based on AIC--> Use ML to compare fixed terms of LMM
+#anova(lmm, lmm1)
+anova(update(lmm, method = "ML"), update(lmm1, method = "ML"))
+
+# Get summary
 summary(lmm1)
 
 
