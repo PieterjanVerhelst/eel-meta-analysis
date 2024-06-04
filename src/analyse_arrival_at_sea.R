@@ -255,6 +255,11 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
   guides(fill=guide_legend(title="Water body \nclass")) +
   coord_flip() 
 
+# Calculate time period of arrival time at sea
+migration_period <- plot_data_no_na %>%
+  group_by(animal_project_code) %>%
+  summarise(max_min=diff(range(daynumber_adj)))
+summary(migration_period$max_min)
 
 
 # 6. Sex analysis ####
