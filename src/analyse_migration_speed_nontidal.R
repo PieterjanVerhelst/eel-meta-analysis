@@ -396,6 +396,8 @@ library(multcomp)
 
 # Calculate average day of arrival at sea per animal project code
 aggregate(migration_speed_nontidal$speed_ms, list(migration_speed_nontidal$water_body_class), mean)
+subset_water_body_class <- filter(migration_speed_nontidal, water_body_class == "A")
+quantile(subset_water_body_class$speed_ms, probs = seq(0, 1, 0.05), na.rm = FALSE, names = TRUE, type = 7)
 
 # Set factor
 migration_speed_nontidal$water_body_class <- factor(migration_speed_nontidal$water_body_class, ordered = FALSE )
