@@ -17,7 +17,9 @@ migration_speed_nontidal <- filter(migration_speed, habitat_type3 == "freshwater
 # Calculate summaries
 summary(migration_speed_nontidal$speed_ms)
 sd(migration_speed_nontidal$speed_ms)
+quantile(migration_speed_nontidal$speed_ms, probs = seq(0, 1, 0.05), na.rm = FALSE, names = TRUE, type = 7)
 aggregate(migration_speed_nontidal$speed_ms, list(migration_speed_nontidal$animal_project_code), mean)
+
 
 
 # 2. Link size and sex to the dataset  ####

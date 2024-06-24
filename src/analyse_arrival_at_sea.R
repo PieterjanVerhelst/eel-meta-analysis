@@ -260,6 +260,7 @@ migration_period <- plot_data_no_na %>%
   group_by(animal_project_code) %>%
   summarise(max_min=diff(range(daynumber_adj)))
 summary(migration_period$max_min)
+quantile(migration_period$max_min, probs = seq(0, 1, 0.05), na.rm = FALSE, names = TRUE, type = 7)
 
 
 # 6. Sex analysis ####

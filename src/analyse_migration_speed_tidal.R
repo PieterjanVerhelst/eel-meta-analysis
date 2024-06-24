@@ -181,7 +181,7 @@ shapiro.test(residuals(lm_geo))
 # Calculate average migration speed
 summary(migration_speed_tidal$speed_ms)
 sd(migration_speed_tidal$speed_ms)
-
+quantile(migration_speed_tidal$speed_ms, probs = seq(0, 1, 0.05), na.rm = FALSE, names = TRUE, type = 7)
 
 # Apply linear mixed effects model
 # Full model
