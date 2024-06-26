@@ -221,3 +221,15 @@ summary(posthoc)
 #par(mar = c(4, 7, 2, 2))  #par(mar = c(bottom, left, top, right))
 plot(posthoc)
 
+
+# Calculate 95% confidence intervals
+library(merTools)
+newdata <- expand.grid(`length1` = c(30,50,70), `release_latitude` = (c(45,50,55)), `animal_project_code` = "een dummy wl")
+confints <- merTools::predictInterval(lmm1, newdata = newdata, level = 0.95, which = "fixed", fix.intercept.variance = TRUE)
+confints_orig <- exp(confints)
+predicties <- bind_cols(newdata, confints_orig)
+                       
+intervals(lmm1, level = 0.95,
+          which = c("fixed"))
+          
+          
