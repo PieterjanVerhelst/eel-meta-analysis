@@ -216,7 +216,8 @@ ggplot(migration_speed_nontidal, aes(x=animal_project_code, y=speed_ms, fill = f
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
-    axis.title.y = element_text(size = 16)) 
+    axis.title.y = element_text(size = 16)) +
+  guides(fill=guide_legend(title="Water body\nclass"))
 
 
 # Boxplot per water body class
