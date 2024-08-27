@@ -221,6 +221,15 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = facto
 
 
 # Plot for water body class
+
+# Create plot with means to show on plot
+means <- aggregate(plot_data_no_na$daynumber_adj, list(plot_data_no_na$animal_project_code, plot_data_no_na$water_body_class), mean)
+means <- rename(means, mean_daynumber_adj = "x",
+                animal_project_code = "Group.1",
+                water_body_class = "Group.2")
+means$mean_daynumber_adj <- round(means$mean_daynumber_adj, digits = 0)
+
+# Create actual plot
 plot_data_no_na$water_body_class <- factor(plot_data_no_na$water_body_class, ordered = TRUE, 
                                               levels = c("A", 
                                                          "B",
@@ -254,7 +263,7 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
   geom_hline(yintercept = 307, linetype="dashed", color = "grey", linewidth=0.7) +
   geom_hline(yintercept = 337, linetype="dashed", color = "grey", linewidth=0.7) +
   
-  geom_violin(width = 1.4,position=position_dodge(1)) +
+  geom_violin(width = 1.4, position=position_dodge(1)) +
   scale_fill_manual(values=c("blue",
                              "#33FFFF",
                              "yellow",
@@ -266,9 +275,11 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
                size = 2, color = "black",
                position = position_dodge(width = 0.85),
                show.legend = FALSE) +
-  
+  geom_text(data = means, aes(label = mean_daynumber_adj, y = 370), size = 6, position = position_dodge(0.85)) +
   guides(fill=guide_legend(title="Water body \nclass")) +
-  coord_flip() 
+  coord_flip()
+
+
 
 # Calculate time period of arrival time at sea
 migration_period <- plot_data_no_na %>%
