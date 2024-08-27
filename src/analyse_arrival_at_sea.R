@@ -229,7 +229,7 @@ means <- rename(means, mean_daynumber_adj = "x",
                 water_body_class = "Group.2")
 means$mean_daynumber_adj <- round(means$mean_daynumber_adj, digits = 0)
 
-# Create actual plot
+# Order factors
 plot_data_no_na$water_body_class <- factor(plot_data_no_na$water_body_class, ordered = TRUE, 
                                               levels = c("A", 
                                                          "B",
@@ -237,6 +237,7 @@ plot_data_no_na$water_body_class <- factor(plot_data_no_na$water_body_class, ord
                                                          "D", 
                                                          "E"))
 
+# Create actual plot
 ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water_body_class)) +
   #geom_boxplot() +
     theme( 
@@ -247,7 +248,9 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
     axis.text.x = element_text(size = 16, colour = "black", angle=90),
     axis.title.x = element_text(size = 16),
     axis.text.y = element_text(size = 16, colour = "black"),
-    axis.title.y = element_text(size = 16)) +
+    axis.title.y = element_text(size = 16),
+    legend.text = element_text(size = 12), 
+    legend.title = element_text(size = 14)) +
   scale_y_continuous(breaks = c(1,32,63,93,124,154,185,215,246,276,307,337), labels = c("1 June","1 Jul", "1 Aug","1 Sept","1 Oct","1 Nov", "1 Dec", "1 Jan", "1 Feb", "1 Mar", "1 Apr", "1 May")) +
   
   geom_hline(yintercept = 1, linetype="dashed", color = "grey", linewidth=0.7) +
@@ -275,7 +278,7 @@ ggplot(plot_data_no_na, aes(x=animal_project_code, y=daynumber_adj, fill = water
                size = 2, color = "black",
                position = position_dodge(width = 0.85),
                show.legend = FALSE) +
-  geom_text(data = means, aes(label = mean_daynumber_adj, y = 370), size = 6, position = position_dodge(0.85)) +
+  geom_text(data = means, aes(label = mean_daynumber_adj, y = 390), size = 6, position = position_dodge(0.85)) +
   guides(fill=guide_legend(title="Water body \nclass")) +
   coord_flip()
 
