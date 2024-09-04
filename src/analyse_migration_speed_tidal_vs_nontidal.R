@@ -81,8 +81,8 @@ group_by(migration_speed_tidal_nontidal, habitat_type3) %>%
 # Plot according to water body (i.e. animal project code)
 ggplot(migration_speed_tidal_nontidal, aes(x=animal_project_code, y=speed_ms, fill = habitat_type3)) + 
   geom_boxplot() +
-  scale_fill_manual(values = c("nontidal" = "lightgrey",
-                               "tidal" = "gray35")) +
+  scale_fill_manual(values = c("nontidal" = "white",
+                               "tidal" = "lightgrey")) +
   ylab("Migration speed (m/s)") + 
   xlab("Water body") +
   #stat_summary(fun = "mean", geom = "point", #shape = 8,
