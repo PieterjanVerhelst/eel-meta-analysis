@@ -130,7 +130,7 @@ shapiro.test(d) # => p-value = 0.6141
 
 # Create datasets
 
-waterbody <- "Frome"
+waterbody <- "Mondego"
 
 tidal <- filter(migration_speed_tidal_nontidal, habitat_type3 == "tidal",
                 animal_project_code == waterbody)
@@ -151,3 +151,11 @@ res
 res$p.value
 res$estimate
 res$conf.int
+
+
+# Conduct non-parametric paired samples Wilcoxon test
+# http://www.sthda.com/english/wiki/paired-samples-wilcoxon-test-in-r
+wilcox.test(tidal, nontidal, paired = TRUE, alternative = "two.sided")
+
+
+
