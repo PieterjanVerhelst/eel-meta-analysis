@@ -67,7 +67,6 @@ eels <- select(eels, animal_project_code, scientific_name, acoustic_tag_id,
 
 
 # 3. Download deployment positions ####
-# 3. Download deployment positions ####
 network_projects <- c("lifewatch",
                       "2013_Maas",
                       "dijle",
