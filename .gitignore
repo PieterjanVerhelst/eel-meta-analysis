@@ -38,9 +38,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# ignore script with credentials
-src/download_data.R
-
 # ignore additionals folder
 additionals/
 
