@@ -41,8 +41,8 @@ vignettes/*.pdf
 # ignore additionals folder
 additionals/
 
-# ignore folder with raw data (large files)
-data/raw/
+# ignore large raw detection file
+data/raw/raw_detection_data.csv
 
 # ignore large cleaned detection file 
 data/interim/detection_data.csv
