@@ -278,17 +278,6 @@ distinct_stations <- stour %>%
 #write.csv(distinct_stations, "./data/interim/receivernetworks/receivernetwork_2013_Stour.csv", row.names=FALSE)
 
 
-# life4fish ####
-life4fish <- filter(data, animal_project_code == "life4fish")
-distinct_stations <- life4fish %>%
-  distinct(station_name, .keep_all = TRUE) %>%
-  select(animal_project_code, station_name, deploy_latitude, deploy_longitude) %>%
-  rename(latitude = deploy_latitude,
-         longitude = deploy_longitude)
-
-#write.csv(distinct_stations, "./data/interim/receivernetworks/receivernetwork_life4fish.csv", row.names=FALSE)
-
-
 # nedap_meuse ####
 nedap <- filter(data, animal_project_code == "nedap_meuse")
 distinct_stations <- nedap %>%

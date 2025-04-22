@@ -18,7 +18,7 @@ unique(data$animal_project_code)
 #[5] "Noordzeekanaal"         "DAK"                    "EMMN"                   "2004_Gudena"           
 #[9] "2017_Fremur"            "2013_albertkanaal"      "2011_Loire"             "2011_Warnow"           
 #[13] "2014_Frome"             "2014_Nene"              "2019_Grotenete"         "ESGL"                  
-#[17] "life4fish"              "2013_Stour"             "nedap_meuse"
+#[17] "2013_Stour"             "nedap_meuse"
 
 
 # Return number of detections, eels and detections per eel for each project
@@ -438,31 +438,6 @@ emmn_map <- tm_shape(spatial_emmn) +
   tm_facets(by = "acoustic_tag_id",  ncol = 2, nrow = 13, free.scales = TRUE) +
   tmap_options(limits = c(facets.view = 26), max.categories = 19) 
 emmn_map
-
-
-
-
-# life4fish ####
-life4fish <- filter(data, animal_project_code == "life4fish")
-life4fish$day <- as.Date(life4fish$date_time)
-life4fish <- select(life4fish, animal_project_code, date_time, day, acoustic_tag_id, station_name, receiver_id, deploy_longitude, deploy_latitude)
-life4fish$date_time <- NULL
-life4fish <- distinct(life4fish)   # Select unique rows to reduce size of dataset
-unique(life4fish$acoustic_tag_id) # 216 detected eels
-
-# Create sf
-spatial_life4fish <- st_as_sf(life4fish,
-                         coords = c(6:7),
-                         crs = 4326)  # WGS84
-
-# Create and save interactive map
-life4fish_map <- tm_shape(spatial_life4fish) + 
-  tm_dots(col = "day", id = "station_name", palette = "Spectral", size = 1.0) +
-  tm_facets(by = "acoustic_tag_id",  ncol = 2, nrow = 13, free.scales = TRUE) +
-  tmap_options(limits = c(facets.view = 432), max.categories = 19) 
-life4fish_map
-
-
 
 
 # nedap_meuse ####
