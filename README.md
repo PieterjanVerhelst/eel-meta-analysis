@@ -1,4 +1,4 @@
-# eel-meta-analysis
+# Silver eel meta-analysis
 ## About
 This study investigates the silver European eel (i.e. the downstream migrating eel) (*Anguilla anguilla* L.) migration behaviour on a continental scale, i.e. Europe. 
 
@@ -20,7 +20,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 <mark>Data last updated on 23-11-2021</mark>
 
 * `/raw:`
-	+ `raw_detection_data.csv`: dataset containing the raw detection data
+	+ `raw_detection_data.csv`: dataset containing the raw detection data (gitignored; see <https://doi.org/10.5281/zenodo.15260539>)
 	+ `eel_meta_data.csv`: dataset containing the meta-data on the tagged eels
 	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN
 	+ `/stour`:
