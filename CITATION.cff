@@ -1,0 +1,31 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Silver eel meta-analysis
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Pieterjan
+    family-names: Verhelst
+    email: pieterjan.verhelst@inbo.be
+    affiliation: Research Institute for Nature and Forest (INBO)
+    orcid: 'https://orcid.org/0000-0002-2610-6941'
+  - given-names: Damiano
+    family-names: Oldoni
+    email: damiano.oldoni@inbo.be
+    affiliation: Research Institute for Nature and Forest (INBO)
+    orcid: 'https://orcid.org/0000-0003-3445-7562'
+repository-code: 'https://github.com/PieterjanVerhelst/eel-meta-analysis'
+abstract: >-
+  The code to process and analyse the data of the silver eel
+  meta-analysis as published in Fish and Fisheries.
+keywords:
+  - acoustic telemetry
+  - diadromy
+  - European Tracking Network
+  - migration barriers
+  - migratory state identification
+license: MIT
