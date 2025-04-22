@@ -9,7 +9,7 @@ Migration speed and timing of European eel vary according to
 2. size and sex;
 3. the presence and types of migration barriers.
 
-For this meta-analysis, data from 20 projects/locations and 9 countries have been centralized: Belgium (5), Denmark (1), France (3), Germany (1), Lithuania (1), Norway (1), Portugal (1), The Netherlands (4), UK (3)
+For this meta-analysis, data from 19 projects/locations and 9 countries have been centralized: Belgium (4), Denmark (1), France (3), Germany (1), Lithuania (1), Norway (1), Portugal (1), The Netherlands (4), UK (3)
 
 
 
@@ -20,7 +20,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 <mark>Data last updated on 23-11-2021</mark>
 
 * `/raw:`
-	+ `raw_detection_data.csv`: dataset containing the raw detection data (gitignored; see <https://doi.org/10.5281/zenodo.15260539>)
+	+ `raw_detection_data.csv`: dataset containing the raw detection data (gitignored due to its large size; see <https://doi.org/10.5281/zenodo.15260539>)
 	+ `eel_meta_data.csv`: dataset containing the meta-data on the tagged eels
 	+ `deployments.csv`: dataset containing the station names and positions of the receivers from ETN
 	+ `/stour`:
@@ -37,14 +37,14 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 	+ `eel_meta_data.csv`: cleaned dataset containing the eel meta data from ETN and Stour project
 	+ `detection_data.csv`: cleaned dataset containing the detection data from ETN and Stour project
         + `successful_migrants_final_detection.csv`: file with last detections of successful migrants (= eels considered to escape to the sea)
-	+ `/receivernetworks`: folder containing the generated files with the receiver networks per project
+	+ `/receivernetworks`: folder containing the generated files with the receiver networks per project that serve as input to calculate the distances between detection stations following the waterbodies in another GitHub repo (https://github.com/inbo/fish-tracking/tree/master/scripts/receiver_distance_analysis)
 	+ `/residencies`: folder containing the residency datasets, calculated via the `smooth_eel_tracks.R` code
 	+ `/speed`: folder containing the speed datasets, calculated via the `calculate_speed.R` code
 	+ `/migration`: folder containing the datasets with records flagged as migration or not, calculated via the `identify_migration.R` code
 
 * `/external:`
 	+ `release_locations_stations.csv`: file with the release locations and the abbreviated release station names.
-	+ `/distance_matrices`: folder containing the distance matrices with the distances between detection stations per receiver network (matrices are created at https://github.com/inbo/fish-tracking).
+	+ `/distance_matrices`: folder containing the distance matrices with the distances between detection stations per receiver network (matrices are created at https://github.com/inbo/fish-tracking/tree/master/scripts/receiver_distance_analysis).
 	+ `station_order.csv`: file containing the stations upstream the release location. This file is needed in `calculate_speed.R`
 	+ `habitats.csv`: file with the classification of the habitats linked to the detections stations, i.e. freshwater, tidal freshwater, tidal brackish, marine barrier and marine.
         + `eels_wrs.csv`: the number of water regulating structures (wrs) eels need to pass to reach the sea and the water regulating impact score of each water body.
@@ -64,7 +64,7 @@ For this meta-analysis, data from 20 projects/locations and 9 countries have bee
 6. `attach_release.R`: Add eel release positions and date-time to detection dataset
 7. `create_interactive_maps.R`: Create interactive html widget maps per project
 8. `extract_network.R`: Extract receiver networks based on detection data
-	* This serves as input to calculate the distance matrices at https://github.com/inbo/fish-tracking
+	* This serves as input to calculate the distance matrices at https://github.com/inbo/fish-tracking/tree/master/scripts/receiver_distance_analysis
 9. `smooth_eel_tracks.R`: Smooths duplicates and calculates residencies per eel per station. Therefore, it calls the following two functions:
 	+ 9a. `get_nearest_stations.R`: general function to extract the smoothed track for one eel (via its `transmitter ID`)
 	+ 9b. `get_timeline.R`: function to get the stations which are near a given station (where near means that the distance is smaller than a certain given limit, e.g. detection range).
