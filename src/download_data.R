@@ -48,7 +48,6 @@ data <- get_acoustic_detections(my_con, scientific_name = "Anguilla anguilla",
 data <- select(data, animal_project_code, date_time, acoustic_tag_id, station_name, receiver_id, deploy_latitude, deploy_longitude)
 
 
-
 # 2. Download eel meta-data ####
 eels <- get_animals(my_con, scientific_name = "Anguilla anguilla", 
                     animal_project_code = animal_projects)
